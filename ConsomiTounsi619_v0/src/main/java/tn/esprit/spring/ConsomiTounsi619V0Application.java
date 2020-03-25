@@ -9,6 +9,7 @@ public class ConsomiTounsi619V0Application  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ConsomiTounsi619V0Application.class, args);
+		
 	}
 
 }
