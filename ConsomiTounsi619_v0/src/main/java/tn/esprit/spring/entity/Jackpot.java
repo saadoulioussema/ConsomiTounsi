@@ -1,13 +1,10 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Jackpot implements Serializable {
@@ -21,19 +18,16 @@ public class Jackpot implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
 	private int sum;
-	@OneToOne(mappedBy="jackpot")
-	private List <Event> event;
 	
 	public Jackpot() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Jackpot(Long id, int sum, List<Event> event) {
+	public Jackpot(Long id, int sum) {
 		super();
 		this.id = id;
 		this.sum = sum;
-		this.event = event;
 	}
 
 	public Long getId() {
@@ -52,19 +46,10 @@ public class Jackpot implements Serializable {
 		this.sum = sum;
 	}
 
-	public List<Event> getEvent() {
-		return event;
-	}
-
-	public void setEvent(List<Event> event) {
-		this.event = event;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((event == null) ? 0 : event.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + sum;
 		return result;
@@ -79,11 +64,6 @@ public class Jackpot implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Jackpot other = (Jackpot) obj;
-		if (event == null) {
-			if (other.event != null)
-				return false;
-		} else if (!event.equals(other.event))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -96,7 +76,7 @@ public class Jackpot implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Jackpot [id=" + id + ", sum=" + sum + ", event=" + event + "]";
+		return "Jackpot [id=" + id + ", sum=" + sum + "]";
 	}
 
 	

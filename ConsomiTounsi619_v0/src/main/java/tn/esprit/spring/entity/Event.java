@@ -10,10 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 @Entity
 public class Event implements Serializable {
@@ -30,7 +29,6 @@ public class Event implements Serializable {
 	private EventCategory category;
 	private String name;
 	private int placesNbr;
-	@Temporal(TemporalType.DATE)
 	private Date date;
 	private String hour;
 	private String location;
@@ -38,8 +36,9 @@ public class Event implements Serializable {
 	private int ticketPrice;
 	private int eventCost;
 	private boolean status;
-	@OneToOne(mappedBy="event")
-	private List <Jackpot> jackpot;
+	@OneToOne
+	@JoinColumn(name="jackpot_id")
+	private Jackpot jackpot;
 	@OneToMany(mappedBy="event")
 	private List <Publicity> publicity;
 	
@@ -49,8 +48,7 @@ public class Event implements Serializable {
 	}
 
 	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
-			String poster, int ticketPrice, int eventCost, boolean status, List<Jackpot> jackpot,
-			List<Publicity> publicity) {
+			String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot, List<Publicity> publicity) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -155,11 +153,11 @@ public class Event implements Serializable {
 		this.status = status;
 	}
 
-	public List<Jackpot> getJackpot() {
+	public Jackpot getJackpot() {
 		return jackpot;
 	}
 
-	public void setJackpot(List<Jackpot> jackpot) {
+	public void setJackpot(Jackpot jackpot) {
 		this.jackpot = jackpot;
 	}
 
@@ -260,7 +258,8 @@ public class Event implements Serializable {
 				+ ticketPrice + ", eventCost=" + eventCost + ", status=" + status + ", jackpot=" + jackpot
 				+ ", publicity=" + publicity + "]";
 	}
-
 	
+	
+
 	
 }
