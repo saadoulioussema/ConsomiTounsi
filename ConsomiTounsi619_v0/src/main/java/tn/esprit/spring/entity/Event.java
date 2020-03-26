@@ -24,7 +24,7 @@ public class Event implements Serializable {
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
 	@Enumerated(EnumType.STRING)
-	private Category category;
+	private EventCategory category;
 	private String name;
 	private int placesNbr;
 	@Temporal(TemporalType.DATE)
@@ -41,7 +41,7 @@ public class Event implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Event(Long id, Category category, String name, int placesNbr, Date date, String hour, String location,
+	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
 			String poster, int ticketPrice, int eventCost, boolean status) {
 		super();
 		this.id = id;
@@ -65,11 +65,11 @@ public class Event implements Serializable {
 		this.id = id;
 	}
 
-	public Category getCategory() {
+	public EventCategory getCategory() {
 		return category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(EventCategory category) {
 		this.category = category;
 	}
 

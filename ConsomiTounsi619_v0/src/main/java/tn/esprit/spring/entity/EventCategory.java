@@ -1,5 +1,5 @@
 package tn.esprit.spring.entity;
 
-public enum Category {
+public enum EventCategory {
 Music,Theatre,Film
 }
