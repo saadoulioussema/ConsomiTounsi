@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 
@@ -29,9 +30,11 @@ public class User implements Serializable{
 		private List <UserProductViews> UserProductsViews;
 		@OneToMany(mappedBy="user")
 		private List <UserProductCategoryViews> userProductCategoriesViews;
+		@ManyToMany
+		private List <Event> events;
 	  
 		
-		
+
 		public Long getId() {
 			return id;
 		}
@@ -87,8 +90,6 @@ public class User implements Serializable{
 		}
 		
 		
-		
-
 		public String getRole() {
 			return role;
 		}
@@ -97,6 +98,14 @@ public class User implements Serializable{
 			this.role = role;
 		}
 
+		public List<Event> getEvents() {
+			return events;
+		}
+
+		public void setEvents(List<Event> events) {
+			this.events = events;
+		}
+		
 		public User(){}
 
 		
@@ -131,12 +140,30 @@ public class User implements Serializable{
 			this.role = role;
 		}
 
+		
+		public User(Long id, String username, String firstName, String lastName, String email, String role,
+				List<UserProductViews> userProductsViews, List<UserProductCategoryViews> userProductCategoriesViews,
+				List<Event> events) {
+			super();
+			this.id = id;
+			this.username = username;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
+			this.role = role;
+			UserProductsViews = userProductsViews;
+			this.userProductCategoriesViews = userProductCategoriesViews;
+			this.events = events;
+		}
+
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
 					+ ", email=" + email + ", role=" + role + ", UserProductsViews=" + UserProductsViews
-					+ ", userProductCategoriesViews=" + userProductCategoriesViews + "]";
+					+ ", userProductCategoriesViews=" + userProductCategoriesViews + ", events=" + events + "]";
 		}
+
+		
 
 		
 }

@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -41,14 +42,19 @@ public class Event implements Serializable {
 	private Jackpot jackpot;
 	@OneToMany(mappedBy="event")
 	private List <Publicity> publicity;
+	@ManyToMany(mappedBy="events")
+	private List<User> users;
 	
 	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	
+
 	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
-			String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot, List<Publicity> publicity) {
+			String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot, List<Publicity> publicity,
+			List<User> users) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -63,7 +69,10 @@ public class Event implements Serializable {
 		this.status = status;
 		this.jackpot = jackpot;
 		this.publicity = publicity;
+		this.users = users;
 	}
+
+
 
 	public Long getId() {
 		return id;
@@ -169,6 +178,16 @@ public class Event implements Serializable {
 		this.publicity = publicity;
 	}
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -186,8 +205,11 @@ public class Event implements Serializable {
 		result = prime * result + ((publicity == null) ? 0 : publicity.hashCode());
 		result = prime * result + (status ? 1231 : 1237);
 		result = prime * result + ticketPrice;
+		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -248,18 +270,23 @@ public class Event implements Serializable {
 			return false;
 		if (ticketPrice != other.ticketPrice)
 			return false;
+		if (users == null) {
+			if (other.users != null)
+				return false;
+		} else if (!users.equals(other.users))
+			return false;
 		return true;
 	}
+
+
 
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", category=" + category + ", name=" + name + ", placesNbr=" + placesNbr + ", date="
 				+ date + ", hour=" + hour + ", location=" + location + ", poster=" + poster + ", ticketPrice="
 				+ ticketPrice + ", eventCost=" + eventCost + ", status=" + status + ", jackpot=" + jackpot
-				+ ", publicity=" + publicity + "]";
+				+ ", publicity=" + publicity + ", users=" + users + "]";
 	}
 	
-	
-
 	
 }
