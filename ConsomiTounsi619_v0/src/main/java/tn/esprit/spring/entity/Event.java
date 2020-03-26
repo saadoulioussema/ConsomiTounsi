@@ -2,6 +2,7 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,6 +10,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -35,6 +38,10 @@ public class Event implements Serializable {
 	private int ticketPrice;
 	private int eventCost;
 	private boolean status;
+	@OneToOne(mappedBy="event")
+	private List <Jackpot> jackpot;
+	@OneToMany(mappedBy="event")
+	private List <Publicity> publicity;
 	
 	public Event() {
 		super();
@@ -42,7 +49,8 @@ public class Event implements Serializable {
 	}
 
 	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
-			String poster, int ticketPrice, int eventCost, boolean status) {
+			String poster, int ticketPrice, int eventCost, boolean status, List<Jackpot> jackpot,
+			List<Publicity> publicity) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -55,6 +63,8 @@ public class Event implements Serializable {
 		this.ticketPrice = ticketPrice;
 		this.eventCost = eventCost;
 		this.status = status;
+		this.jackpot = jackpot;
+		this.publicity = publicity;
 	}
 
 	public Long getId() {
@@ -145,6 +155,22 @@ public class Event implements Serializable {
 		this.status = status;
 	}
 
+	public List<Jackpot> getJackpot() {
+		return jackpot;
+	}
+
+	public void setJackpot(List<Jackpot> jackpot) {
+		this.jackpot = jackpot;
+	}
+
+	public List<Publicity> getPublicity() {
+		return publicity;
+	}
+
+	public void setPublicity(List<Publicity> publicity) {
+		this.publicity = publicity;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -154,10 +180,12 @@ public class Event implements Serializable {
 		result = prime * result + eventCost;
 		result = prime * result + ((hour == null) ? 0 : hour.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((jackpot == null) ? 0 : jackpot.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + placesNbr;
 		result = prime * result + ((poster == null) ? 0 : poster.hashCode());
+		result = prime * result + ((publicity == null) ? 0 : publicity.hashCode());
 		result = prime * result + (status ? 1231 : 1237);
 		result = prime * result + ticketPrice;
 		return result;
@@ -191,6 +219,11 @@ public class Event implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
+		if (jackpot == null) {
+			if (other.jackpot != null)
+				return false;
+		} else if (!jackpot.equals(other.jackpot))
+			return false;
 		if (location == null) {
 			if (other.location != null)
 				return false;
@@ -208,6 +241,11 @@ public class Event implements Serializable {
 				return false;
 		} else if (!poster.equals(other.poster))
 			return false;
+		if (publicity == null) {
+			if (other.publicity != null)
+				return false;
+		} else if (!publicity.equals(other.publicity))
+			return false;
 		if (status != other.status)
 			return false;
 		if (ticketPrice != other.ticketPrice)
@@ -219,7 +257,8 @@ public class Event implements Serializable {
 	public String toString() {
 		return "Event [id=" + id + ", category=" + category + ", name=" + name + ", placesNbr=" + placesNbr + ", date="
 				+ date + ", hour=" + hour + ", location=" + location + ", poster=" + poster + ", ticketPrice="
-				+ ticketPrice + ", eventCost=" + eventCost + ", status=" + status + "]";
+				+ ticketPrice + ", eventCost=" + eventCost + ", status=" + status + ", jackpot=" + jackpot
+				+ ", publicity=" + publicity + "]";
 	}
 
 	
