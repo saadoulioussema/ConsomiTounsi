@@ -12,6 +12,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 
+
 @Entity
 public class User implements Serializable{
 		/**
@@ -33,6 +34,8 @@ public class User implements Serializable{
 		@ManyToMany
 		private List <Event> events;
 	  
+		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
+	    private List<Recherche> recherches;
 		
 
 		public Long getId() {
@@ -106,6 +109,16 @@ public class User implements Serializable{
 			this.events = events;
 		}
 		
+		
+		
+		public List<Recherche> getRecherches() {
+			return recherches;
+		}
+
+		public void setRecherches(List<Recherche> recherches) {
+			this.recherches = recherches;
+		}
+
 		public User(){}
 
 		
