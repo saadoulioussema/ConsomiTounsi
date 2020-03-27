@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 
 @Entity
@@ -36,6 +38,11 @@ public class User implements Serializable{
 	  
 		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
 	    private List<Recherche> recherches;
+		
+		@JsonIgnore
+		//@JsonBackReference
+		@OneToMany(mappedBy="user")
+		private List<Product_Line> productlines;
 		
 
 		public Long getId() {

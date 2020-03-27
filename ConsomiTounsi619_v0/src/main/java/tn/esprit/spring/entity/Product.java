@@ -23,8 +23,14 @@ public class Product implements Serializable{
 	private List <Ad> ads;
 	@OneToMany(mappedBy="product")
 	private List <UserProductViews> productUsersViews;
+	
+	@OneToMany(mappedBy="product")
+	private  List<Product_Line> productlines;
+	
 	public Long getBarCode() {
 		return barCode;
+		
+		
 	}
 	public void setBarCode(Long barCode) {
 		this.barCode = barCode;
