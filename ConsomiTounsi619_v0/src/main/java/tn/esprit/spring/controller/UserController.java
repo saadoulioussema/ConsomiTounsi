@@ -38,7 +38,7 @@ public class UserController {
                            
         }
         else {
-	User user = iUserService.addUser(u);
+	//User user = iUserService.addUser(u);
 	return Response.status(Status.OK).entity("add successful").build();
         }
 	}
