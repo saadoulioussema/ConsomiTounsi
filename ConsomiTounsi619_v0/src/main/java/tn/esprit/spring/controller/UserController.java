@@ -41,7 +41,7 @@ public class UserController {
 	private JwtTokenUtil jwtTokenUtil;
 	
 	
-	public static tn.esprit.spring.entity.User USERCONNECTED ;
+	public static User USERCONNECTED ;
 	
 	@RequestMapping("/")
 	@ResponseBody
@@ -62,7 +62,8 @@ public class UserController {
 			authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
 
 			final UserDetails userDetails = UserService.loadUserByUsername(authenticationRequest.getUsername());
-			USERCONNECTED = (User)userDetails ;
+			final User user = UserService.findUserByUsername(authenticationRequest.getUsername());
+			USERCONNECTED = user ;
 
 			final String token = jwtTokenUtil.generateToken(userDetails);
 			System.out.println(token);

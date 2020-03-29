@@ -39,6 +39,7 @@ public class ForumController {
 	
 	
 ////////afficher sujets à la une//////////
+
 @GetMapping("/listsubject")
 @ResponseBody
 public List<String> getdate() {
@@ -56,6 +57,7 @@ public Subject Subject (@PathVariable("title") String title) {
 @GetMapping("/findinterested")
 @ResponseBody
 public Response findinterested() {
+	
 String v = rechercheService.extractt(UserController.USERCONNECTED.getId());
 List<Subject> list = subjectService.findbyType(v);
 

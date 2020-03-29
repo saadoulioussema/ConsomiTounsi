@@ -38,10 +38,10 @@ public class UserServiceImpl implements UserDetailsService {
 
 	
 	//OLD METHOD
-//	@Override
-//	public User findUserByUsername(String username) {
-//		return var.findByUsername(username);
-//	}
+	
+	public User findUserByUsername(String username) {
+		return userRepo.findByUsername(username);
+	}
 	
 	//NEW ONE 
 	
@@ -73,10 +73,10 @@ public class UserServiceImpl implements UserDetailsService {
 
 	}
 
-//	@Override
-//	public User authenticate(String username, String email) {
-//		User u = var.findByUsernameAndEmail(username, email);
-//		return u;
-//	}
+	
+	public User authenticate(String username, String email) {
+		User u = userRepo.findByUsernameAndEmail(username, email);
+		return u;
+	}
 
 }
