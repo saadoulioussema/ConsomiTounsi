@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.sevice.impl.UserServiceImpl;
 import tn.esprit.spring.sevice.interfece.IRechercheService;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
-import tn.esprit.spring.sevice.interfece.IUserService;
 import tn.esprit.spring.entity.Recherche;
 import tn.esprit.spring.entity.Subject;
 
@@ -25,7 +25,7 @@ import tn.esprit.spring.entity.Subject;
 public class ForumController {
 	
 	@Autowired
-	IUserService userService;
+	UserServiceImpl UserService;
 	
 	@Autowired
 	ISubjectService subjectService;

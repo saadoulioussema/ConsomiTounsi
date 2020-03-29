@@ -16,11 +16,11 @@ public class Product_Line implements Serializable {
 	private Product_LinePK product_linePK;
 	
 	@ManyToOne
-    @JoinColumn(name = "idProduit", referencedColumnName = "barCode", insertable=false, updatable=false)
+    @JoinColumn(name = "barCode", referencedColumnName = "barCode", insertable=false, updatable=false)
 	private Product product;
 	
 	@ManyToOne
-    @JoinColumn(name = "idUser", referencedColumnName = "id", insertable=false, updatable=false)
+    @JoinColumn(name = "id", referencedColumnName = "id", insertable=false, updatable=false)
 	private User user;
 	
 	

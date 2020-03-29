@@ -3,32 +3,36 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
-
+@Component
 @Entity
+@Table(name = "user")
 public class User implements Serializable{
-		/**
-	 * 
-	 */
-	private static final long serialVersionUID = -6236517548335858347L;
+
+        private static final long serialVersionUID = -6236517548335858347L;
 		@Id
 	    @GeneratedValue(strategy=GenerationType.IDENTITY)
 	    private Long id;
 		private String username;
+		@JsonIgnore
+	    private String password;
 	    private String firstName;
 	    private String lastName;
 	    private String email;
-	    private String role;
+	    private String role;	    
 		@OneToMany(mappedBy="user")
 		private List <UserProductViews> UserProductsViews;
 		@OneToMany(mappedBy="user")
@@ -36,13 +40,6 @@ public class User implements Serializable{
 		@ManyToMany
 		private List <Event> events;
 	  
-		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
-	    private List<Recherche> recherches;
-		
-		@JsonIgnore
-		//@JsonBackReference
-		@OneToMany(mappedBy="user")
-		private List<Product_Line> productlines;
 		
 
 		public Long getId() {
@@ -62,7 +59,7 @@ public class User implements Serializable{
 		}
 		
 		public String getUsername() {
-			return firstName;
+			return username;
 		}
 
 		public void setUsername(String username) {
@@ -118,12 +115,12 @@ public class User implements Serializable{
 		
 		
 		
-		public List<Recherche> getRecherches() {
-			return recherches;
+		public String getPassword() {
+			return password;
 		}
 
-		public void setRecherches(List<Recherche> recherches) {
-			this.recherches = recherches;
+		public void setPassword(String password) {
+			this.password = password;
 		}
 
 		public User(){}
@@ -178,12 +175,11 @@ public class User implements Serializable{
 
 		@Override
 		public String toString() {
-			return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
-					+ ", email=" + email + ", role=" + role + ", UserProductsViews=" + UserProductsViews
-					+ ", userProductCategoriesViews=" + userProductCategoriesViews + ", events=" + events + "]";
-		}
-
-		
-
-		
+			return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
+					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", UserProductsViews="
+					+ UserProductsViews + ", userProductCategoriesViews=" + userProductCategoriesViews + ", events="
+					+ events + "]";
+		}		
+	
+	
 }

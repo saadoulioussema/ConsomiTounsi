@@ -13,7 +13,4 @@ public interface IUserService {
 	void deleteUser(long id) ;
 	User authenticate(String username , String email);
 	User findUserByUsername(String username);
-	
-	
-
 }
