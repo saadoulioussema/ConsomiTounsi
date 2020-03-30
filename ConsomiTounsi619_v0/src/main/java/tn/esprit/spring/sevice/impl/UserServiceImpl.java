@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserDetailsService {
 		return userRepo.save(newuser);
 	}
 
-	
 	public User findUserByUsername(String username) {
 		return userRepo.findByUsername(username);
 	}
@@ -70,10 +69,10 @@ public class UserServiceImpl implements UserDetailsService {
 
 	}
 
-//	@Override
-//	public User authenticate(String username, String email) {
-//		User u = var.findByUsernameAndEmail(username, email);
-//		return u;
-//	}
+	
+	public User authenticate(String username, String email) {
+		User u = userRepo.findByUsernameAndEmail(username, email);
+		return u;
+	}
 
 }
