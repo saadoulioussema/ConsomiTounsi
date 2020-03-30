@@ -37,14 +37,11 @@ public class UserServiceImpl implements UserDetailsService {
 	}
 
 	
-	//OLD METHOD
-//	@Override
-//	public User findUserByUsername(String username) {
-//		return var.findByUsername(username);
-//	}
+	public User findUserByUsername(String username) {
+		return userRepo.findByUsername(username);
+	}
 	
 	//NEW ONE 
-	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepo.findByUsername(username);

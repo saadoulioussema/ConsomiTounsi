@@ -23,6 +23,9 @@ public class Product_Line implements Serializable {
     @JoinColumn(name = "id", referencedColumnName = "id", insertable=false, updatable=false)
 	private User user;
 	
+	@ManyToOne
+	private Panier panier ;
+	
 	
 	private int quantité;
 	
