@@ -73,6 +73,11 @@ public class UserServiceImpl implements UserDetailsService {
 
 	}
 
+
+	public User findUserByUsername(String username) {
+		return userRepo.findByUsername(username);
+	}
+
 //	@Override
 //	public User authenticate(String username, String email) {
 //		User u = var.findByUsernameAndEmail(username, email);

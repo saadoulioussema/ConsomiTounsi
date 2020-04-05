@@ -129,6 +129,12 @@ public class User implements Serializable{
 
 		
 
+		public User(String username, String password) {
+			super();
+			this.username = username;
+			this.password = password;
+		}
+
 		public User(Long id, String username, String firstName, String lastName, String email, String role,
 				List<UserProductViews> userProductsViews, List<UserProductCategoryViews> userProductCategoriesViews) {
 			super();
