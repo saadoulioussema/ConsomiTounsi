@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -27,6 +31,35 @@ public class Recherche implements Serializable{
 	@Column
 	 private String type;
 	
+	@Column
+	private Long nbr;
+	
+	
+
+	public Recherche(long id, String type, Long nbr, User user) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.nbr = nbr;
+		this.user = user;
+	}
+
+
+
+
+
+	public Long getNbr() {
+		return nbr;
+	}
+
+
+
+
+
+	public void setNbr(Long nbr) {
+		this.nbr = nbr;
+	}
+
 	@JsonIgnore 
     @ManyToOne(cascade=CascadeType.PERSIST)
     private User user;

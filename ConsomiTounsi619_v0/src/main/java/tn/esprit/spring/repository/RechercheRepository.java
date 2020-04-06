@@ -8,15 +8,25 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import tn.esprit.spring.entity.Recherche;
+import tn.esprit.spring.entity.User;
 
 
 public interface RechercheRepository extends CrudRepository<Recherche,Long>, JpaRepository<Recherche,Long>{
 	
-	///list of subjects adeq to profile  
+	///list of subjects adeq to profile 
+	//
+	//
+	Recherche findByTypeAndUser(String type, User user);
+	 
+	@Query("select s.type from Recherche s where s.nbr=:max")
+	public String extract(@Param("max") Long max);
 	
-	 @Query("select s.type from Recherche s join s.user u where u.id=:id_user order by s.type ")
-	 public List<String> extract(@Param("id_user") Long id_user);
-
+	
+	@Query("select max(s.nbr) from Recherche s join s.user u where u.id=:id_user")
+	public Long lemax(@Param("id_user") Long id_user);
+	 
+	 
+	
 	 
 	 
 	 

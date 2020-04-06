@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.sevice.impl.UserServiceImpl;
+import tn.esprit.spring.sevice.interfece.ICommentService;
 import tn.esprit.spring.sevice.interfece.IRechercheService;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
+import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Recherche;
 import tn.esprit.spring.entity.Subject;
 
@@ -32,6 +34,9 @@ public class ForumController {
 	
 	@Autowired
 	IRechercheService rechercheService;
+	
+	@Autowired
+	ICommentService commentService;
 	
 	
 	
@@ -58,16 +63,18 @@ public Subject Subject (@PathVariable("title") String title) {
 @ResponseBody
 public Response findinterested() {
 	
-String v = rechercheService.extractt(UserController.USERCONNECTED.getId());
-List<Subject> list = subjectService.findbyType(v);
+	String max = rechercheService.extractt(UserController.USERCONNECTED.getId());
+
+List<Subject> list = subjectService.findbyType(max);
 
 
-if (list != null && list.size() != 0) {
-	return Response.status(Status.OK).entity(list).build();
+if (list.size()==0) {
+	return Response.status(Status.NOT_FOUND).entity( "Do a little search ;) ").build();
+
                    
 }
 else{
-	return Response.status(Status.NOT_FOUND).entity( "Do a little search ;) ").build();
+	return Response.status(Status.OK).entity(list).build();
 
 	
 
@@ -77,8 +84,9 @@ else{
 
 
 }
+
 //////////////////save my search + return subjects researched/////////////////////
-@PostMapping("/search/{type}")
+@GetMapping("/search/{type}")
 @ResponseBody
 public Response addSearch(@PathVariable("type") String type) {
 	
@@ -143,7 +151,58 @@ public void deleteSubject(@PathVariable("subject-id") long subjectId) {
 
 
 ////////////suppression auto des sujets sans intéraction ////////////
-//////////////TO DO/////////////////////
+//////////////TODO/////////////////////
+
+////CRUD COMMERNT ///TODO : AVEC CONDITION (mots interdits)//
+
+@PostMapping("/addComment/{subjectId}")
+@ResponseBody
+public Response addComment(@RequestBody Comment u,@PathVariable("subjectId") Long subjectId) {
+	
+	commentService.addComment(u,UserController.USERCONNECTED.getId() , subjectId);
+return Response.status(Status.OK).entity("add successful").build();
+
+    }
+
+//all comments TODO : ajouter une exception 
+@GetMapping("/ListComment/{subjectId}")
+@ResponseBody
+public Response list(@PathVariable("subjectId") Long subjectId) {
+List<Comment> l = commentService.list(subjectId);
+
+if (l.size()==0) {
+	return Response.status(Status.NOT_FOUND).entity("There's no comment related to this subject !").build();
+
+	}
+else {
+	return Response.status(Status.OK).entity(l).build();
+
+}
+}
+//all userconnected comments TODO : ajouter une exception 
+@GetMapping("/myComments/{subjectId}")
+@ResponseBody
+public List<Comment> mylist(@PathVariable("subjectId") Long subjectId) {
+List<Comment> l = commentService.mylist(subjectId, UserController.USERCONNECTED.getId());
+return l ;
+
+}
+
+@PutMapping("/modify-comment/{commentId}")
+@ResponseBody
+public Comment updateComment(@RequestBody String mot,@PathVariable("commentId") Long id) {
+return commentService.updateComment(id, mot);
+}
+
+
+@DeleteMapping("/delete-comment/{commentId}")
+@ResponseBody
+public void deleteComment(@PathVariable("commentId") long commentId) {
+	commentService.deleteComment(commentId);
+}
+
+
+
 
 	
 	
