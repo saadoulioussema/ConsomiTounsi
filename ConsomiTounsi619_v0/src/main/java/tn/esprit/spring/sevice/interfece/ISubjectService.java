@@ -18,7 +18,9 @@ public interface ISubjectService {
 	  List<String> sub() ;
 	  Subject listbytitle(String title);
 	  List<Subject> findbyType(String type);
-	 
+	  List<Long> notcommented() ;
+	  void autodeleteSubject() ;
+
 	  
 
 	  

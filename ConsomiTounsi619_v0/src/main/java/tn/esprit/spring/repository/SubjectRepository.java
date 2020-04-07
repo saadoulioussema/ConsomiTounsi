@@ -20,9 +20,15 @@ public interface SubjectRepository extends CrudRepository<Subject,Long> {
 	 
 	 List<Subject> findByType(String type);
 	
+	 /////////supp auto subject//////////
+	 @Query("select s.id from Subject s where CURRENT_DATE - s.creation_date >=:mydate ")
+	 public List<Long> subs(@Param("mydate") Double mydate);
 	 
-	
-	 
+	//list of id_subject in class comment
+		 @Query("select s.id from Subject s join s.comments c where c.subject=s")
+		 public List<Long> list1();
+		 
+		 
 	 
 	 
 

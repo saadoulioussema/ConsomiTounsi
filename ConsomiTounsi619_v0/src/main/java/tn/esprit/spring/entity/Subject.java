@@ -2,14 +2,21 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 
@@ -33,32 +40,52 @@ public class Subject implements Serializable{
 	
 	@Temporal(TemporalType.DATE)
     private Date creation_date;
+	
+	@JsonManagedReference
+	@JsonIgnore
+	@OneToMany(mappedBy="subject",cascade=CascadeType.REMOVE)
+	public List<Comment> comments;
+	
+	
 
 	
-	
-	
-	
-
-	
-	
-
-	public Subject() {
+public Subject() {
 		super();
 	}
 
 
-	
 
 
-	public Subject(long id, String type, String title, String description, Date creation_date
-			) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.title = title;
-		this.description = description;
-		this.creation_date = creation_date;
-	}
+
+
+	public Subject(long id, String type, String title, String description, Date creation_date, List<Comment> comments) {
+	super();
+	this.id = id;
+	this.type = type;
+	this.title = title;
+	this.description = description;
+	this.creation_date = creation_date;
+	this.comments = comments;
+}
+
+
+
+
+
+
+	public List<Comment> getComments() {
+	return comments;
+}
+
+
+
+
+
+
+public void setComments(List<Comment> comments) {
+	this.comments = comments;
+}
+
 
 
 

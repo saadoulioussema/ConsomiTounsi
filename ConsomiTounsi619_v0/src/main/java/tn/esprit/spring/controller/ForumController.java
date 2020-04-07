@@ -150,8 +150,22 @@ public void deleteSubject(@PathVariable("subject-id") long subjectId) {
 }
 
 
-////////////suppression auto des sujets sans intéraction ////////////
-//////////////TODO/////////////////////
+/////////////supp auto subject //////////
+
+@GetMapping("/dorra")
+@ResponseBody
+public List<Long> dorra() {
+List<Long> l = subjectService.notcommented();
+return l ;
+}
+
+
+
+
+
+
+
+
 
 ////CRUD COMMERNT ///TODO : AVEC CONDITION (mots interdits)//
 

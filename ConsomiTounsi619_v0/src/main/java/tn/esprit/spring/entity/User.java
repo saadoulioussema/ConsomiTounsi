@@ -3,6 +3,7 @@ package tn.esprit.spring.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +15,10 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 
 @Component
@@ -40,7 +44,53 @@ public class User implements Serializable{
 		@ManyToMany
 		private List <Event> events;
 	  
+		@JsonBackReference
+		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
+	    private List<Recherche> recherches;
 		
+		@JsonManagedReference
+		@JsonIgnore
+		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
+		private List<Comment> comments;
+		
+
+		
+		
+		
+		public User(Long id, String username, String password, String firstName, String lastName, String email,
+				String role, List<UserProductViews> userProductsViews,
+				List<UserProductCategoryViews> userProductCategoriesViews, List<Event> events,
+				List<Recherche> recherches, List<Comment> comments) {
+			super();
+			this.id = id;
+			this.username = username;
+			this.password = password;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
+			this.role = role;
+			UserProductsViews = userProductsViews;
+			this.userProductCategoriesViews = userProductCategoriesViews;
+			this.events = events;
+			this.recherches = recherches;
+			this.comments = comments;
+		}
+
+		public List<Recherche> getRecherches() {
+			return recherches;
+		}
+
+		public void setRecherches(List<Recherche> recherches) {
+			this.recherches = recherches;
+		}
+
+		public List<Comment> getComments() {
+			return comments;
+		}
+
+		public void setComments(List<Comment> comments) {
+			this.comments = comments;
+		}
 
 		public Long getId() {
 			return id;

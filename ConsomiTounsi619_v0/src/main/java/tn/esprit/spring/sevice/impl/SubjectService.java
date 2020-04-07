@@ -1,14 +1,21 @@
 package tn.esprit.spring.sevice.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Subject;
+import tn.esprit.spring.entity.User;
+import tn.esprit.spring.repository.CommentRepository;
 import tn.esprit.spring.repository.SubjectRepository;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
 
@@ -19,6 +26,14 @@ public class SubjectService implements  ISubjectService{
 	
 @Autowired
 private SubjectRepository var;
+
+@Autowired
+private CommentRepository var1;
+
+
+
+
+
 @Override	
 public Subject addSubject(Subject subject){
 		var.save(subject) ;
@@ -88,8 +103,38 @@ public List<Subject> findbyType(String type){
 	}
 
 
-
-
+/////////supp auto subject sans interaction//////////
+@Override
+//@Scheduled(cron = "* * * * * ?")
+public List<Long> notcommented() {
+	 List<Long> mylist = var.list1() ; //1
+	 Double a = (double) 10;
+	 List<Long> mylist1 = var.subs(a);  //1 2 3
+	for(Long i : mylist) {
+		
+		if(mylist1.contains(i)) {
+			mylist1.remove(i);
+			
+		}
+	}
+	
+ return mylist1 ;
+ 
+	  
+}
+/////////////supp auto sub sans interaction///////////
+@Scheduled(cron = "* * * * * ?")
+@Override
+ public void autodeleteSubject() {
+	
+	for(Long i : notcommented()) {
+		
+		var.deleteById(i);
+		
+	}
+	
+	
+}
 		
 		
 }
