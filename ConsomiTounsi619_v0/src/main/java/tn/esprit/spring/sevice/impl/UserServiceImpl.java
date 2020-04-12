@@ -69,10 +69,23 @@ public class UserServiceImpl implements UserDetailsService {
 
 	}
 
+<<<<<<< HEAD
 	
 	public User authenticate(String username, String email) {
 		User u = userRepo.findByUsernameAndEmail(username, email);
 		return u;
 	}
+=======
+
+	public User findUserByUsername(String username) {
+		return userRepo.findByUsername(username);
+	}
+
+//	@Override
+//	public User authenticate(String username, String email) {
+//		User u = var.findByUsernameAndEmail(username, email);
+//		return u;
+//	}
+>>>>>>> refs/heads/Fares
 
 }

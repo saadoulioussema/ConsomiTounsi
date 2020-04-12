@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+<<<<<<< HEAD
 import javax.persistence.Column;
+=======
+>>>>>>> refs/heads/Fares
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,8 +43,8 @@ public class User implements Serializable{
 		private List <UserProductViews> UserProductsViews;
 		@OneToMany(mappedBy="user")
 		private List <UserProductCategoryViews> userProductCategoriesViews;
-		@ManyToMany
-		private List <Event> events;
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+		private List<Participation> participation;
 	  
 		@JsonBackReference
 		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
@@ -146,7 +148,6 @@ public class User implements Serializable{
 			UserProductsViews = userProductsViews;
 		}
 		
-		
 		public String getRole() {
 			return role;
 		}
@@ -154,17 +155,15 @@ public class User implements Serializable{
 		public void setRole(String role) {
 			this.role = role;
 		}
-
-		public List<Event> getEvents() {
-			return events;
+		
+		public List<Participation> getParticipation() {
+			return participation;
 		}
 
-		public void setEvents(List<Event> events) {
-			this.events = events;
+		public void setParticipations(List<Participation> participation) {
+			this.participation = participation;
 		}
-		
-		
-		
+
 		public String getPassword() {
 			return password;
 		}
@@ -175,9 +174,11 @@ public class User implements Serializable{
 
 		public User(){}
 
-		
-
-		
+		public User(String username, String password) {
+			super();
+			this.username = username;
+			this.password = password;
+		}
 
 		public User(Long id, String username, String firstName, String lastName, String email, String role,
 				List<UserProductViews> userProductsViews, List<UserProductCategoryViews> userProductCategoriesViews) {
@@ -191,11 +192,6 @@ public class User implements Serializable{
 			UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 		}
-
-		
-		
-		
-		
 		
 		public User(Long id, String username, String firstName, String lastName, String email, String role) {
 			super();
@@ -207,29 +203,109 @@ public class User implements Serializable{
 			this.role = role;
 		}
 
-		
-		public User(Long id, String username, String firstName, String lastName, String email, String role,
-				List<UserProductViews> userProductsViews, List<UserProductCategoryViews> userProductCategoriesViews,
-				List<Event> events) {
+		public User(Long id, String username, String password, String firstName, String lastName, String email,
+				String role, List<UserProductViews> userProductsViews,
+				List<UserProductCategoryViews> userProductCategoriesViews, List<Participation> participation) {
 			super();
 			this.id = id;
 			this.username = username;
+			this.password = password;
 			this.firstName = firstName;
 			this.lastName = lastName;
 			this.email = email;
 			this.role = role;
 			UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
-			this.events = events;
+			this.participation = participation;
+		}
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((UserProductsViews == null) ? 0 : UserProductsViews.hashCode());
+			result = prime * result + ((email == null) ? 0 : email.hashCode());
+			result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+			result = prime * result + ((id == null) ? 0 : id.hashCode());
+			result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+			result = prime * result + ((participation == null) ? 0 : participation.hashCode());
+			result = prime * result + ((password == null) ? 0 : password.hashCode());
+			result = prime * result + ((role == null) ? 0 : role.hashCode());
+			result = prime * result
+					+ ((userProductCategoriesViews == null) ? 0 : userProductCategoriesViews.hashCode());
+			result = prime * result + ((username == null) ? 0 : username.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			User other = (User) obj;
+			if (UserProductsViews == null) {
+				if (other.UserProductsViews != null)
+					return false;
+			} else if (!UserProductsViews.equals(other.UserProductsViews))
+				return false;
+			if (email == null) {
+				if (other.email != null)
+					return false;
+			} else if (!email.equals(other.email))
+				return false;
+			if (firstName == null) {
+				if (other.firstName != null)
+					return false;
+			} else if (!firstName.equals(other.firstName))
+				return false;
+			if (id == null) {
+				if (other.id != null)
+					return false;
+			} else if (!id.equals(other.id))
+				return false;
+			if (lastName == null) {
+				if (other.lastName != null)
+					return false;
+			} else if (!lastName.equals(other.lastName))
+				return false;
+			if (participation == null) {
+				if (other.participation != null)
+					return false;
+			} else if (!participation.equals(other.participation))
+				return false;
+			if (password == null) {
+				if (other.password != null)
+					return false;
+			} else if (!password.equals(other.password))
+				return false;
+			if (role == null) {
+				if (other.role != null)
+					return false;
+			} else if (!role.equals(other.role))
+				return false;
+			if (userProductCategoriesViews == null) {
+				if (other.userProductCategoriesViews != null)
+					return false;
+			} else if (!userProductCategoriesViews.equals(other.userProductCategoriesViews))
+				return false;
+			if (username == null) {
+				if (other.username != null)
+					return false;
+			} else if (!username.equals(other.username))
+				return false;
+			return true;
 		}
 
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", UserProductsViews="
-					+ UserProductsViews + ", userProductCategoriesViews=" + userProductCategoriesViews + ", events="
-					+ events + "]";
-		}		
+					+ UserProductsViews + ", userProductCategoriesViews=" + userProductCategoriesViews
+					+ ", participation=" + participation + "]";
+		}	
 	
 	
 }
