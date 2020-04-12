@@ -9,10 +9,10 @@ public interface IEventService {
 	
 	Event addEvent(Event event);
 	List<Event> eventsLists();
-	Event updateEvent(Long id, Event event);
+	void updateEvent(Event event);
 	void deleteEvent(Long id) ;
 	Event findbyId(Long id);
 	Event findEventByName(String name);
 	List<Event> filterEvent(EventCategory category);
-//	void addParticipation(Long uid, Long eid);
+	String addParticipation(Long eid);
 }
