@@ -40,11 +40,6 @@ public class UserController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
-	
-<<<<<<< HEAD
-
-=======
->>>>>>> refs/heads/Fares
 	public static User USERCONNECTED ;
 	
 	@RequestMapping("/")
@@ -68,12 +63,8 @@ public class UserController {
 			final UserDetails userDetails = UserService.loadUserByUsername(authenticationRequest.getUsername());
 			final User user = UserService.findUserByUsername(authenticationRequest.getUsername());
 			USERCONNECTED = user ;
-<<<<<<< HEAD
 			System.out.println(USERCONNECTED.getRole());
 
-=======
-			System.out.println(USERCONNECTED.getUsername());
->>>>>>> refs/heads/Fares
 
 			final String token = jwtTokenUtil.generateToken(userDetails);
 			System.out.println(token);

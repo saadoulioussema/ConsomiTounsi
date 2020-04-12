@@ -68,17 +68,10 @@ public class UserServiceImpl implements UserDetailsService {
 		userRepo.deleteById(id);
 
 	}
-
-<<<<<<< HEAD
 	
 	public User authenticate(String username, String email) {
 		User u = userRepo.findByUsernameAndEmail(username, email);
 		return u;
-	}
-=======
-
-	public User findUserByUsername(String username) {
-		return userRepo.findByUsername(username);
 	}
 
 //	@Override
@@ -86,6 +79,5 @@ public class UserServiceImpl implements UserDetailsService {
 //		User u = var.findByUsernameAndEmail(username, email);
 //		return u;
 //	}
->>>>>>> refs/heads/Fares
 
 }
