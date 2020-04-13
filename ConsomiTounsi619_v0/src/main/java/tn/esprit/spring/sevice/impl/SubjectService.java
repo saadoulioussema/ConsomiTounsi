@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Subject;
 import tn.esprit.spring.entity.User;
-import tn.esprit.spring.repository.CommentRepository;
 import tn.esprit.spring.repository.SubjectRepository;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
 
@@ -27,9 +25,9 @@ public class SubjectService implements  ISubjectService{
 @Autowired
 private SubjectRepository var;
 
-@Autowired
+/*@Autowired
 private CommentRepository var1;
-
+*/
 
 
 

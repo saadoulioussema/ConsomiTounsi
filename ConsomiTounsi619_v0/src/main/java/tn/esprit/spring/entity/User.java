@@ -47,19 +47,19 @@ public class User implements Serializable{
 		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
 	    private List<Recherche> recherches;
 		
-		@JsonManagedReference
+		/*@JsonManagedReference
 		@JsonIgnore
 		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
 		private List<Comment> comments;
 		
-
+*/
 		
 		
 		
 		public User(Long id, String username, String password, String firstName, String lastName, String email,
 				String role, List<UserProductViews> userProductsViews,
 				List<UserProductCategoryViews> userProductCategoriesViews, List<Event> events,
-				List<Recherche> recherches, List<Comment> comments) {
+				List<Recherche> recherches) {
 			super();
 			this.id = id;
 			this.username = username;
@@ -70,9 +70,9 @@ public class User implements Serializable{
 			this.role = role;
 			UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
-			this.events = events;
+			//this.events = events;
 			this.recherches = recherches;
-			this.comments = comments;
+			//this.comments = comments; , List<Comment> comments
 		}
 
 		public List<Recherche> getRecherches() {
@@ -83,14 +83,14 @@ public class User implements Serializable{
 			this.recherches = recherches;
 		}
 
-		public List<Comment> getComments() {
+	/*	public List<Comment> getComments() {
 			return comments;
 		}
 
 		public void setComments(List<Comment> comments) {
 			this.comments = comments;
 		}
-
+*/
 		public Long getId() {
 			return id;
 		}
