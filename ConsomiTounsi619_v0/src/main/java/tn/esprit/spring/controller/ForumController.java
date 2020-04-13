@@ -167,7 +167,7 @@ return l ;
 
 
 
-////CRUD COMMERNT ///TODO : AVEC CONDITION (mots interdits)//
+////CRUD COMMERNT // AVEC CONDITION (mots interdits)//
 
 @PostMapping("/addComment/{subjectId}")
 @ResponseBody
@@ -178,7 +178,7 @@ return Response.status(Status.OK).entity("add successful").build();
 
     }
 
-//all comments TODO : ajouter une exception 
+//all comments  ajouter une exception 
 @GetMapping("/ListComment/{subjectId}")
 @ResponseBody
 public Response list(@PathVariable("subjectId") Long subjectId) {
@@ -193,7 +193,7 @@ else {
 
 }
 }
-//all userconnected comments TODO : ajouter une exception 
+//all userconnected comments ajouter une exception 
 @GetMapping("/myComments/{subjectId}")
 @ResponseBody
 public List<Comment> mylist(@PathVariable("subjectId") Long subjectId) {
