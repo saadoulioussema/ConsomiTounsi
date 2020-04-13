@@ -24,6 +24,13 @@ public class Jackpot implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Jackpot(Long id) {
+		super();
+		this.id = id;
+	}
+
+
+
 	public Jackpot(Long id, int sum) {
 		super();
 		this.id = id;

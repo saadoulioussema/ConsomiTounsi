@@ -40,8 +40,6 @@ public class UserController {
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;
 	
-	
-
 	public static User USERCONNECTED ;
 	
 	@RequestMapping("/")

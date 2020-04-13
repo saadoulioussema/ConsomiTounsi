@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -11,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -37,24 +37,23 @@ public class Event implements Serializable {
 	private int ticketPrice;
 	private int eventCost;
 	private boolean status;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="jackpot_id")
 	private Jackpot jackpot;
-	@OneToMany(mappedBy="event")
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
 	private List <Publicity> publicity;
-	@ManyToMany(mappedBy="events")
-	private List<User> users;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
+	private List<Participation> participation;
 	
 	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
 
 	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
 			String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot, List<Publicity> publicity,
-			List<User> users) {
+			List<Participation> participation) {
 		super();
 		this.id = id;
 		this.category = category;
@@ -69,7 +68,24 @@ public class Event implements Serializable {
 		this.status = status;
 		this.jackpot = jackpot;
 		this.publicity = publicity;
-		this.users = users;
+		this.participation = participation;
+	}
+
+
+	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
+			String poster, int ticketPrice, int eventCost, boolean status) {
+		super();
+		this.id = id;
+		this.category = category;
+		this.name = name;
+		this.placesNbr = placesNbr;
+		this.date = date;
+		this.hour = hour;
+		this.location = location;
+		this.poster = poster;
+		this.ticketPrice = ticketPrice;
+		this.eventCost = eventCost;
+		this.status = status;
 	}
 
 
@@ -178,14 +194,13 @@ public class Event implements Serializable {
 		this.publicity = publicity;
 	}
 
-	public List<User> getUsers() {
-		return users;
+	public List<Participation> getParticipation() {
+		return participation;
 	}
 
-	public void setUsers(List<User> users) {
-		this.users = users;
+	public void setParticipation(List<Participation> participation) {
+		this.participation = participation;
 	}
-
 
 
 	@Override
@@ -200,15 +215,14 @@ public class Event implements Serializable {
 		result = prime * result + ((jackpot == null) ? 0 : jackpot.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((participation == null) ? 0 : participation.hashCode());
 		result = prime * result + placesNbr;
 		result = prime * result + ((poster == null) ? 0 : poster.hashCode());
 		result = prime * result + ((publicity == null) ? 0 : publicity.hashCode());
 		result = prime * result + (status ? 1231 : 1237);
 		result = prime * result + ticketPrice;
-		result = prime * result + ((users == null) ? 0 : users.hashCode());
 		return result;
 	}
-
 
 
 	@Override
@@ -254,6 +268,11 @@ public class Event implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (participation == null) {
+			if (other.participation != null)
+				return false;
+		} else if (!participation.equals(other.participation))
+			return false;
 		if (placesNbr != other.placesNbr)
 			return false;
 		if (poster == null) {
@@ -270,23 +289,17 @@ public class Event implements Serializable {
 			return false;
 		if (ticketPrice != other.ticketPrice)
 			return false;
-		if (users == null) {
-			if (other.users != null)
-				return false;
-		} else if (!users.equals(other.users))
-			return false;
 		return true;
 	}
-
-
 
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", category=" + category + ", name=" + name + ", placesNbr=" + placesNbr + ", date="
 				+ date + ", hour=" + hour + ", location=" + location + ", poster=" + poster + ", ticketPrice="
 				+ ticketPrice + ", eventCost=" + eventCost + ", status=" + status + ", jackpot=" + jackpot
-				+ ", publicity=" + publicity + ", users=" + users + "]";
+				+ ", publicity=" + publicity + ", participation=" + participation + "]";
 	}
-	
+
+
 	
 }
