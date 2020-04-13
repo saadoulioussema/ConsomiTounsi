@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.sevice.impl.UserServiceImpl;
+import tn.esprit.spring.sevice.interfece.ICommentService;
 import tn.esprit.spring.sevice.interfece.IRechercheService;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
+import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Recherche;
 import tn.esprit.spring.entity.Subject;
 
@@ -33,9 +35,9 @@ public class ForumController {
 	@Autowired
 	IRechercheService rechercheService;
 	
-	/*@Autowired
+	@Autowired
 	ICommentService commentService;
-	*/
+	
 	
 	
 	
@@ -147,7 +149,7 @@ public void deleteSubject(@PathVariable("subject-id") long subjectId) {
 	subjectService.deleteSubject(subjectId);
 }
 
-/*
+
 /////////////supp auto subject //////////
 
 @GetMapping("/dorra")
@@ -158,7 +160,7 @@ return l ;
 }
 
 
-*/
+
 
 
 
@@ -166,7 +168,7 @@ return l ;
 
 
 ////CRUD COMMERNT // AVEC CONDITION (mots interdits)//
-/*
+
 @PostMapping("/addComment/{subjectId}")
 @ResponseBody
 public Response addComment(@RequestBody Comment u,@PathVariable("subjectId") Long subjectId) {
@@ -214,7 +216,7 @@ public void deleteComment(@PathVariable("commentId") long commentId) {
 }
 
 
-*/
+
 
 	
 	
