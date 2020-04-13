@@ -1353,3 +1353,9 @@ Caused by: org.hibernate.QueryException: could not resolve property: comments of
 2020-04-13 14:14:58.649  INFO 11524 --- [main] o.s.s.c.ThreadPoolTaskScheduler          : Initializing ExecutorService 'taskScheduler'
 2020-04-13 14:14:58.692  INFO 11524 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/SpringMVC'
 2020-04-13 14:14:58.692  INFO 11524 --- [main] t.e.s.ConsomiTounsi619V0Application      : Started ConsomiTounsi619V0Application in 3.863 seconds (JVM running for 4.311)
+2020-04-13 14:15:33.421  INFO 11524 --- [RMI TCP Connection(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-04-13 14:15:33.433  INFO 11524 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'taskScheduler'
+2020-04-13 14:15:33.433  INFO 11524 --- [RMI TCP Connection(2)-127.0.0.1] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2020-04-13 14:15:33.433  INFO 11524 --- [RMI TCP Connection(2)-127.0.0.1] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-04-13 14:15:33.433  INFO 11524 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-04-13 14:15:33.433  INFO 11524 --- [RMI TCP Connection(2)-127.0.0.1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
