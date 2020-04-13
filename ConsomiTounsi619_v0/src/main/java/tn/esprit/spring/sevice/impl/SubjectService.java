@@ -103,9 +103,8 @@ public List<Subject> findbyType(String type){
 	}
 
 
-/////////supp auto subject sans interaction//////////
+/////////subject sans interaction//////////
 @Override
-//@Scheduled(cron = "* * * * * ?")
 public List<Long> notcommented() {
 	 List<Long> mylist = var.list1() ; //1
 	 Double a = (double) 10;
