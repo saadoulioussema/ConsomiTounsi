@@ -43,11 +43,11 @@ public class User implements Serializable{
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Participation> participation;
 	  
-		@JsonBackReference
+		//@JsonBackReference
 		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
 	    private List<Recherche> recherches;
 		
-		@JsonManagedReference
+		//@JsonManagedReference
 		@JsonIgnore
 		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
 		private List<Comment> comments;

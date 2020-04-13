@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.sevice.impl.UserServiceImpl;
-import tn.esprit.spring.sevice.interfece.ICommentService;
 import tn.esprit.spring.sevice.interfece.IRechercheService;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
 import tn.esprit.spring.entity.Comment;
@@ -35,14 +34,14 @@ public class ForumController {
 	@Autowired
 	IRechercheService rechercheService;
 	
-	@Autowired
+	/*@Autowired
 	ICommentService commentService;
+	*/
 	
 	
+/*	
 	
-	
-	
-//	
+
 ////////afficher sujets à la une//////////
 
 @GetMapping("/listsubject")
@@ -125,24 +124,24 @@ return subjectService.updateSubject(s);
 }
 
 
-
+*/
 
 
 //////pour ADMIN/////test sujets redondants/////
 @PostMapping("/addSubject")
 @ResponseBody
-public Response addSubject(@RequestBody Subject u) {
-	Subject subexists = subjectService.test(u.getType(), u.getDescription());
+public Subject addSubject(@RequestBody Subject u) {
+/*	Subject subexists = subjectService.test(u.getType(), u.getDescription());
     if (subexists != null) {
     	return Response.status(Status.NOT_FOUND).entity( "There is already a subject exists with these informations").build();
                        
     }
-    else {
+    else {*/
     	 subjectService.addSubject(u);
-return Response.status(Status.OK).entity("add successful").build();
-    }
+return u ;
+    
 }
-
+/*
 @DeleteMapping("/delete-subject/{subject-id}")
 @ResponseBody
 public void deleteSubject(@PathVariable("subject-id") long subjectId) {
@@ -167,13 +166,13 @@ return l ;
 
 
 
-////CRUD COMMERNT // AVEC CONDITION (mots interdits)//
+////CRUD COMMERNT // AVEC CONDITION (mots interdits)//,@PathVariable("subjectId") Long subjectId///{subjectId}
 
-@PostMapping("/addComment/{subjectId}")
+@PostMapping("/addComment")
 @ResponseBody
-public Response addComment(@RequestBody Comment u,@PathVariable("subjectId") Long subjectId) {
+public Response addComment(@RequestBody Comment u) {
 	
-	commentService.addComment(u,UserController.USERCONNECTED.getId() , subjectId);
+	commentService.addComment(u);
 return Response.status(Status.OK).entity("add successful").build();
 
     }
@@ -216,7 +215,7 @@ public void deleteComment(@PathVariable("commentId") long commentId) {
 }
 
 
-
+*/
 
 	
 	

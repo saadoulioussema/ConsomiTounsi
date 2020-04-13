@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Subject;
 import tn.esprit.spring.entity.User;
-import tn.esprit.spring.repository.CommentRepository;
 import tn.esprit.spring.repository.SubjectRepository;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
 
@@ -26,8 +25,7 @@ public class SubjectService implements  ISubjectService{
 @Autowired
 private SubjectRepository var;
 
-@Autowired
-private CommentRepository var1;
+
 
 
 
@@ -101,7 +99,7 @@ public List<Subject> findbyType(String type){
 		return var.findByType(type);
 	}
 
-
+/*
 /////////subject sans interaction//////////
 
 @Override
@@ -123,7 +121,7 @@ public List<Long> notcommented() {
 }
 
 /////////////supp auto sub sans interaction///////////
-@Scheduled(cron = "* * * * * ?")
+//@Scheduled(cron = "* * * * * ?")
 @Override
  public void autodeleteSubject() {
 	
@@ -135,7 +133,7 @@ public List<Long> notcommented() {
 	
 	
 }
-		
+*/		
 		
 }
 	

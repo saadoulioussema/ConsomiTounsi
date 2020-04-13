@@ -27,12 +27,12 @@ public class Comment implements Serializable{
 	@Column
 	 private String mot;
 	
-	@JsonBackReference
+	//@JsonBackReference
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="idSubject",referencedColumnName="id")
 	private Subject subject;
 	
-	@JsonBackReference
+	//@JsonBackReference
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="idUser",referencedColumnName="id")
 	private User user;

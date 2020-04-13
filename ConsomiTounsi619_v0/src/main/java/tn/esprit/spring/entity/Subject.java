@@ -23,7 +23,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class Subject implements Serializable{
 	
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -6236517548335858347L
+			;
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Column
@@ -41,7 +42,7 @@ public class Subject implements Serializable{
 	@Temporal(TemporalType.DATE)
     private Date creation_date;
 	
-	@JsonManagedReference
+	//@JsonManagedReference
 	@JsonIgnore
 	@OneToMany(mappedBy="subject",cascade=CascadeType.REMOVE)
 	public List<Comment> comments;
