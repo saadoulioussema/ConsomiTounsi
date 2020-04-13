@@ -41,11 +41,11 @@ public class Subject implements Serializable{
 	@Temporal(TemporalType.DATE)
     private Date creation_date;
 	
-	/*@JsonManagedReference
+	@JsonManagedReference
 	@JsonIgnore
 	@OneToMany(mappedBy="subject",cascade=CascadeType.REMOVE)
 	public List<Comment> comments;
-	*/
+	
 	
 
 	
@@ -58,14 +58,14 @@ public Subject() {
 
 
 
-	public Subject(long id, String type, String title, String description, Date creation_date ) {
+	public Subject(long id, String type, String title, String description, Date creation_date,List<Comment> comments ) {
 	super();
 	this.id = id;
 	this.type = type;
 	this.title = title;
 	this.description = description;
 	this.creation_date = creation_date;
-	//this.comments = comments List<Comment> comments;
+	this.comments = comments ;
 }
 
 
@@ -73,7 +73,7 @@ public Subject() {
 
 
 
-/*	public List<Comment> getComments() {
+	public List<Comment> getComments() {
 	return comments;
 }
 
@@ -88,7 +88,7 @@ public void setComments(List<Comment> comments) {
 
 
 
-*/
+
 
 
 	public String getTitle() {
