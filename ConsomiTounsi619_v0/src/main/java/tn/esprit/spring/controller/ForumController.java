@@ -147,7 +147,7 @@ public void deleteSubject(@PathVariable("subject-id") long subjectId) {
 	subjectService.deleteSubject(subjectId);
 }
 
-
+/*
 /////////////supp auto subject //////////
 
 @GetMapping("/dorra")
@@ -158,7 +158,7 @@ return l ;
 }
 
 
-
+*/
 
 
 

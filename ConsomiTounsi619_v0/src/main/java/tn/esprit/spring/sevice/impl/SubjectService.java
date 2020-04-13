@@ -102,6 +102,7 @@ public List<Subject> findbyType(String type){
 
 
 /////////subject sans interaction//////////
+/*
 @Override
 public List<Long> notcommented() {
 	 List<Long> mylist = var.list1() ; //1
@@ -119,6 +120,7 @@ public List<Long> notcommented() {
  
 	  
 }
+
 /////////////supp auto sub sans interaction///////////
 @Scheduled(cron = "* * * * * ?")
 @Override
@@ -132,7 +134,7 @@ public List<Long> notcommented() {
 	
 	
 }
-		
+*/		
 		
 }
 	
