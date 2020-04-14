@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import tn.esprit.spring.entity.Subject;
+import tn.esprit.spring.entity.Subject_evaluation;
 
 
 
@@ -20,7 +21,7 @@ public interface ISubjectService {
 	  List<Subject> findbyType(String type);
 	  List<Long> notcommented() ;
 	  void autodeleteSubject() ;
-
+	  Subject_evaluation addrate(int value,Long id);
 	  
 
 	  

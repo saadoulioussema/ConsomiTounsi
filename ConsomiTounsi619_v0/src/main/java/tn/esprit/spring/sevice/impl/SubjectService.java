@@ -13,10 +13,13 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Subject;
+import tn.esprit.spring.entity.Subject_evaluation;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.CommentRepository;
 import tn.esprit.spring.repository.SubjectRepository;
+import tn.esprit.spring.repository.Subject_evaluationRepository;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
+
 
 
 
@@ -28,6 +31,9 @@ private SubjectRepository var;
 
 @Autowired
 private CommentRepository var1;
+
+@Autowired
+private Subject_evaluationRepository var2;
 
 
 
@@ -132,6 +138,18 @@ public List<Long> notcommented() {
 		var.deleteById(i);
 		
 	}
+	
+	
+}
+/////////////////////subject rating /////////////////////
+public Subject_evaluation addrate(int value,Long id) {
+	
+	Subject s = var.findById(id).get();
+	Subject_evaluation e = new Subject_evaluation();
+	e.setValue(value);
+	e.setsubject(s);
+	var2.save(e);
+	return e ;
 	
 	
 }
