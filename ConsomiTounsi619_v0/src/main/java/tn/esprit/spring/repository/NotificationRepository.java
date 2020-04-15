@@ -16,4 +16,5 @@ public interface NotificationRepository extends CrudRepository<Notification, Lon
 
 	@Query("SELECT n FROM Notification n WHERE n.user=:userid")
 	List<Notification> myNotifications(@Param("userid") User userid);
+	
 }
