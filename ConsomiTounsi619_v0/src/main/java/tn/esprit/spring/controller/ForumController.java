@@ -39,10 +39,7 @@ public class ForumController {
 	@Autowired
 	ICommentService commentService;
 	
-	
-	
-	
-	
+
 
 ////////afficher sujets à la une//////////
 
