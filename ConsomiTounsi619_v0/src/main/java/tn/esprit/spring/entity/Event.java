@@ -29,6 +29,7 @@ public class Event implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private EventCategory category;
 	private String name;
+	private String eventGoal;
 	private int placesNbr;
 	private Date date;
 	private String hour;
@@ -41,6 +42,8 @@ public class Event implements Serializable {
 	@JoinColumn(name="jackpot_id")
 	private Jackpot jackpot;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
+	private List<Notification> notification;
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
 	private List <Publicity> publicity;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
 	private List<Participation> participation;
@@ -50,14 +53,14 @@ public class Event implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
-			String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot, List<Publicity> publicity,
-			List<Participation> participation) {
+	public Event(Long id, EventCategory category, String name, String eventGoal, int placesNbr, Date date, String hour,
+			String location, String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot,
+			List<Notification> notification, List<Publicity> publicity, List<Participation> participation) {
 		super();
 		this.id = id;
 		this.category = category;
 		this.name = name;
+		this.eventGoal = eventGoal;
 		this.placesNbr = placesNbr;
 		this.date = date;
 		this.hour = hour;
@@ -67,28 +70,10 @@ public class Event implements Serializable {
 		this.eventCost = eventCost;
 		this.status = status;
 		this.jackpot = jackpot;
+		this.notification = notification;
 		this.publicity = publicity;
 		this.participation = participation;
 	}
-
-
-	public Event(Long id, EventCategory category, String name, int placesNbr, Date date, String hour, String location,
-			String poster, int ticketPrice, int eventCost, boolean status) {
-		super();
-		this.id = id;
-		this.category = category;
-		this.name = name;
-		this.placesNbr = placesNbr;
-		this.date = date;
-		this.hour = hour;
-		this.location = location;
-		this.poster = poster;
-		this.ticketPrice = ticketPrice;
-		this.eventCost = eventCost;
-		this.status = status;
-	}
-
-
 
 	public Long getId() {
 		return id;
@@ -112,6 +97,14 @@ public class Event implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getEventGoal() {
+		return eventGoal;
+	}
+
+	public void setEventGoal(String eventGoal) {
+		this.eventGoal = eventGoal;
 	}
 
 	public int getPlacesNbr() {
@@ -186,6 +179,14 @@ public class Event implements Serializable {
 		this.jackpot = jackpot;
 	}
 
+	public List<Notification> getNotification() {
+		return notification;
+	}
+
+	public void setNotification(List<Notification> notification) {
+		this.notification = notification;
+	}
+
 	public List<Publicity> getPublicity() {
 		return publicity;
 	}
@@ -202,7 +203,6 @@ public class Event implements Serializable {
 		this.participation = participation;
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -210,11 +210,13 @@ public class Event implements Serializable {
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + eventCost;
+		result = prime * result + ((eventGoal == null) ? 0 : eventGoal.hashCode());
 		result = prime * result + ((hour == null) ? 0 : hour.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((jackpot == null) ? 0 : jackpot.hashCode());
 		result = prime * result + ((location == null) ? 0 : location.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((notification == null) ? 0 : notification.hashCode());
 		result = prime * result + ((participation == null) ? 0 : participation.hashCode());
 		result = prime * result + placesNbr;
 		result = prime * result + ((poster == null) ? 0 : poster.hashCode());
@@ -223,7 +225,6 @@ public class Event implements Serializable {
 		result = prime * result + ticketPrice;
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -242,6 +243,11 @@ public class Event implements Serializable {
 		} else if (!date.equals(other.date))
 			return false;
 		if (eventCost != other.eventCost)
+			return false;
+		if (eventGoal == null) {
+			if (other.eventGoal != null)
+				return false;
+		} else if (!eventGoal.equals(other.eventGoal))
 			return false;
 		if (hour == null) {
 			if (other.hour != null)
@@ -267,6 +273,11 @@ public class Event implements Serializable {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
+			return false;
+		if (notification == null) {
+			if (other.notification != null)
+				return false;
+		} else if (!notification.equals(other.notification))
 			return false;
 		if (participation == null) {
 			if (other.participation != null)
@@ -294,12 +305,11 @@ public class Event implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", category=" + category + ", name=" + name + ", placesNbr=" + placesNbr + ", date="
-				+ date + ", hour=" + hour + ", location=" + location + ", poster=" + poster + ", ticketPrice="
-				+ ticketPrice + ", eventCost=" + eventCost + ", status=" + status + ", jackpot=" + jackpot
-				+ ", publicity=" + publicity + ", participation=" + participation + "]";
+		return "Event [id=" + id + ", category=" + category + ", name=" + name + ", eventGoal=" + eventGoal
+				+ ", placesNbr=" + placesNbr + ", date=" + date + ", hour=" + hour + ", location=" + location
+				+ ", poster=" + poster + ", ticketPrice=" + ticketPrice + ", eventCost=" + eventCost + ", status="
+				+ status + ", jackpot=" + jackpot + ", notification=" + notification + ", publicity=" + publicity
+				+ ", participation=" + participation + "]";
 	}
-
-
 	
-}
+	}

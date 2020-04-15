@@ -8,14 +8,12 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import tn.esprit.spring.entity.Participation;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.User;
 
-@Repository
-public interface ParticipationRepository extends CrudRepository<Participation,Long>, JpaRepository<Participation,Long> {
-	
-	@Query("SELECT p FROM Participation p WHERE p.user=:user")
-	List<Participation> myParticipations(@Param ("user") User user);
+ @Repository
+public interface NotificationRepository extends CrudRepository<Notification, Long>,JpaRepository<Notification, Long> {
 
-
+	@Query("SELECT n FROM Notification n WHERE n.user=:userid")
+	List<Notification> myNotifications(@Param("userid") User userid);
 }
