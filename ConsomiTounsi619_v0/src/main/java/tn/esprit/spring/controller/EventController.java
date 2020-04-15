@@ -47,7 +47,6 @@ public class EventController {
 		return list;
 	}
 	
-	//My Id
 	@GetMapping("/myId")
 	public Long getMyId() {
 		return UserController.USERCONNECTED.getId();
