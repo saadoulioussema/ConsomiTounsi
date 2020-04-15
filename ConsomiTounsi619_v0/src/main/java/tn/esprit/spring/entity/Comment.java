@@ -1,6 +1,7 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -37,6 +39,14 @@ public class Comment implements Serializable{
 	@ManyToOne(cascade=CascadeType.PERSIST)
 	@JoinColumn(name="idUser",referencedColumnName="id")
 	private User user;
+	
+	
+	///evaluation
+	
+	@OneToMany(mappedBy="comment" , cascade=CascadeType.REMOVE)
+	private List<Comment_evaluation> ratings;
+	
+	
 
 	public Comment(long id, String mot, Subject subject, User user) {
 		super();
@@ -45,6 +55,20 @@ public class Comment implements Serializable{
 		this.subject = subject;
 		this.user = user;
 	}
+	
+	
+
+	public List<Comment_evaluation> getRatings() {
+		return ratings;
+	}
+
+
+
+	public void setRatings(List<Comment_evaluation> ratings) {
+		this.ratings = ratings;
+	}
+
+
 
 	public Comment() {
 		super();

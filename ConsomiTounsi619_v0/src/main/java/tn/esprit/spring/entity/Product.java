@@ -1,12 +1,22 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 public class Product implements Serializable{
 	/**
@@ -15,8 +25,16 @@ public class Product implements Serializable{
 	private static final long serialVersionUID = -7950217207447904668L;
 	@Id
 	private Long barCode;
+	@NotNull (message="product name is null")
+	@Column(unique=true)
 	private String name;
-	private int price;
+	@NotNull
+	@Positive(message="The price should be positive number ")
+	private float price;
+	
+	@Temporal(TemporalType.DATE)
+    private Date exprdate;
+	
 	@ManyToOne
 	private ProductCategory category;
 	
@@ -30,25 +48,44 @@ public class Product implements Serializable{
 	private  List<Product_Line> productlines;
 	
 	
+	
 	public Long getBarCode() {
 		return barCode;
 		
 		
 	}
 	public void setBarCode(Long barCode) {
+		if (!isValidBarCode(barCode)) {
+			throw new IllegalArgumentException("Invalid Barcode, barcode should be a number with '13' digits and starts with '619'");
+		}
 		this.barCode = barCode;
 	}
+	boolean isValidBarCode(Long code ) {
+		if((code.toString().indexOf("619")!=0)||(code.toString().length()!=13)) return false;
+		return true;}
+	
+	
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPrice() {
+	
+	
+	
+	
+	public float getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(float price) {
 		this.price = price;
+	}
+	public Date getExprdate() {
+		return exprdate;
+	}
+	public void setExprdate(Date exprdate) {
+		this.exprdate = exprdate;
 	}
 	public ProductCategory getCategory() {
 		return category;
@@ -71,31 +108,35 @@ public class Product implements Serializable{
 	public Product() {
 		super();
 	}
-	public Product(Long barCode, String name, int price, ProductCategory category, List<Ad> ads,
-			List<UserProductViews> productUsersViews) {
+
+	
+	
+	
+	
+	
+	@Override
+	public String toString() {
+		return "Product [barCode=" + barCode + ", name=" + name + ", price=" + price + ", exprdate=" + exprdate + "]";
+	}
+	public Product(Long barCode, @NotNull(message = "product name is null") String name,
+			@NotNull @Positive(message = "The price should be positive number ") float price, ProductCategory category, Date exprdate) {
 		super();
 		this.barCode = barCode;
 		this.name = name;
 		this.price = price;
 		this.category = category;
-		this.ads = ads;
-		this.productUsersViews = productUsersViews;
+		this.exprdate = exprdate;
+		
 	}
-	@Override
-	public String toString() {
-		return "Product [barCode=" + barCode + ", name=" + name + ", price=" + price + ", category=" + category
-				+ ", ads=" + ads + ", productUsersViews=" + productUsersViews + "]";
-	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((ads == null) ? 0 : ads.hashCode());
 		result = prime * result + ((barCode == null) ? 0 : barCode.hashCode());
-		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + ((exprdate == null) ? 0 : exprdate.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + price;
-		result = prime * result + ((productUsersViews == null) ? 0 : productUsersViews.hashCode());
+		result = prime * result + Float.floatToIntBits(price);
 		return result;
 	}
 	@Override
@@ -107,34 +148,26 @@ public class Product implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Product other = (Product) obj;
-		if (ads == null) {
-			if (other.ads != null)
-				return false;
-		} else if (!ads.equals(other.ads))
-			return false;
 		if (barCode == null) {
 			if (other.barCode != null)
 				return false;
 		} else if (!barCode.equals(other.barCode))
 			return false;
-		if (category == null) {
-			if (other.category != null)
+		if (exprdate == null) {
+			if (other.exprdate != null)
 				return false;
-		} else if (!category.equals(other.category))
+		} else if (!exprdate.equals(other.exprdate))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (price != other.price)
-			return false;
-		if (productUsersViews == null) {
-			if (other.productUsersViews != null)
-				return false;
-		} else if (!productUsersViews.equals(other.productUsersViews))
+		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
 			return false;
 		return true;
-	}
+	}	
+	
+	
 	
 }
