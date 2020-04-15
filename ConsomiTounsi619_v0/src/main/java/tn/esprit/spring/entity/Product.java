@@ -14,6 +14,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -47,6 +48,12 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy="product")
 	private  List<Product_Line> productlines;
 	
+	@JsonIgnore 
+    @ManyToOne
+    private Ray ray;
+	
+	
+	
 	
 	
 	public Long getBarCode() {
@@ -75,6 +82,12 @@ public class Product implements Serializable{
 	
 	
 	
+	public Ray getRay() {
+		return ray;
+	}
+	public void setRay(Ray ray) {
+		this.ray = ray;
+	}
 	public float getPrice() {
 		return price;
 	}

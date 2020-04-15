@@ -20,8 +20,9 @@ public interface EventRepository extends CrudRepository<Event,Long>, JpaReposito
 	@Query("SELECT ev FROM Event ev WHERE ev.category=:category")
 	List<Event> filterByCategory(@Param ("category") EventCategory category);
 	
-//	@Modifying
-//	@Query(value="INSERT INTO Participation (users_id,events_id) VALUES (:uid,:eid)", nativeQuery = true)
-//	@Transactional
-//	void participate(@Param ("uid") Long uid,@Param ("eid") Long eid);
+	@Query("SELECT ev FROM Event ev where ev.date > current_timestamp()")
+	List<Event> upcomingEvents();
+	
+	@Query("SELECT ev FROM Event ev where ev.date < current_timestamp()")
+	List<Event> passedEvents();
 }
