@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.data.repository.query.Param;
 
 import tn.esprit.spring.entity.Comment;
+import tn.esprit.spring.entity.Comment_evaluation;
+import tn.esprit.spring.entity.Subject_evaluation;
 
 
 public interface ICommentService {
@@ -19,6 +21,9 @@ public interface ICommentService {
 	
 	 void deleteComment(long id) ;
 	  Comment updateComment(Long id,String mot);
+	  Comment_evaluation addEv(Comment_evaluation e, Long id);
+	  
+	  List<Comment> Bestcomments();
 	
 	
 	

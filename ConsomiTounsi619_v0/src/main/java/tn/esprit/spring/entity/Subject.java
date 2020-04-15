@@ -20,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
+
 @Entity
 public class Subject implements Serializable{
 	
@@ -47,9 +48,30 @@ public class Subject implements Serializable{
 	@OneToMany(mappedBy="subject",cascade=CascadeType.REMOVE)
 	public List<Comment> comments;
 	
+	///evaluation
 	
+		@OneToMany(mappedBy="subject" , cascade=CascadeType.REMOVE)
+	    private List<Subject_evaluation> ratings;
 
 	
+public List<Subject_evaluation> getRatings() {
+			return ratings;
+		}
+
+
+
+
+
+
+		public void setRatings(List<Subject_evaluation> ratings) {
+			this.ratings = ratings;
+		}
+
+
+
+
+
+
 public Subject() {
 		super();
 	}

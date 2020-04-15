@@ -20,6 +20,7 @@ import tn.esprit.spring.sevice.interfece.ICommentService;
 import tn.esprit.spring.sevice.interfece.IRechercheService;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
 import tn.esprit.spring.entity.Comment;
+import tn.esprit.spring.entity.Comment_evaluation;
 import tn.esprit.spring.entity.Recherche;
 import tn.esprit.spring.entity.Subject;
 
@@ -76,13 +77,7 @@ if (list.size()==0) {
 else{
 	return Response.status(Status.OK).entity(list).build();
 
-	
-
-	
-}
-
-
-
+	}
 }
 
 //////////////////save my search + return subjects researched/////////////////////
@@ -150,14 +145,6 @@ public void deleteSubject(@PathVariable("subject-id") long subjectId) {
 }
 
 
-/////////////supp auto subject //////////
-
-@GetMapping("/dorra")
-@ResponseBody
-public List<Long> dorra() {
-List<Long> l = subjectService.notcommented();
-return l ;
-}
 
 
 
@@ -167,7 +154,8 @@ return l ;
 
 
 
-////CRUD COMMERNT // AVEC CONDITION (mots interdits)//,//
+
+////CRUD COMMERNT // TODO AVEC CONDITION (mots interdits)//,//
 
 @PostMapping("/addComment/{subjectId}")
 @ResponseBody
@@ -228,10 +216,39 @@ return Response.status(Status.OK).entity("add successful").build();
     }  
 
 */
+
+///////////////////comment evaluation///////////////////
+@PostMapping("/evaluate/{commentId}")
+@ResponseBody
+public Response addevaluation(@RequestBody Comment_evaluation u,@PathVariable("commentId") Long commentId) {
+	
+	commentService.addEv(u, commentId);
+return Response.status(Status.OK).entity("add successful").build();
+
+    }
+
 	
 	
+////////////// commentaires + pertinents /////////////////// 	
 	
+
+
+
+
+@GetMapping("/BestComments")
+@ResponseBody
+public List<Comment> mylist() {
+
 	
-	
+	return commentService.Bestcomments();
+
+}
+
+
+
+
+
+
+
 
 }
