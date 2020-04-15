@@ -11,7 +11,8 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Participation implements Serializable {
+public class Notification implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -19,25 +20,29 @@ public class Participation implements Serializable {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
-	@ManyToOne
-	@JsonIgnore
-	private Event event;
+	String body;
+	String date;
+	String status;
 	@ManyToOne
 	@JsonIgnore
 	private User user;
-	private String participationDate;
+	@ManyToOne
+	@JsonIgnore
+	private Event event;
 	
-	public Participation() {
+	public Notification() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Participation(Long id, Event event, User user, String participationDate) {
+	public Notification(Long id, String body, String date, String status, User user, Event event) {
 		super();
 		this.id = id;
-		this.event = event;
+		this.body = body;
+		this.date = date;
+		this.status = status;
 		this.user = user;
-		this.participationDate = participationDate;
+		this.event = event;
 	}
 
 	public Long getId() {
@@ -48,12 +53,28 @@ public class Participation implements Serializable {
 		this.id = id;
 	}
 
-	public Event getEvent() {
-		return event;
+	public String getBody() {
+		return body;
 	}
 
-	public void setEvent(Event event) {
-		this.event = event;
+	public void setBody(String body) {
+		this.body = body;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public User getUser() {
@@ -64,21 +85,23 @@ public class Participation implements Serializable {
 		this.user = user;
 	}
 
-	public String getParticipationDate() {
-		return participationDate;
+	public Event getEvent() {
+		return event;
 	}
 
-	public void setParticipationDate(String participationDate) {
-		this.participationDate = participationDate;
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((body == null) ? 0 : body.hashCode());
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((event == null) ? 0 : event.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((participationDate == null) ? 0 : participationDate.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -91,7 +114,17 @@ public class Participation implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Participation other = (Participation) obj;
+		Notification other = (Notification) obj;
+		if (body == null) {
+			if (other.body != null)
+				return false;
+		} else if (!body.equals(other.body))
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
+			return false;
 		if (event == null) {
 			if (other.event != null)
 				return false;
@@ -102,10 +135,10 @@ public class Participation implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (participationDate == null) {
-			if (other.participationDate != null)
+		if (status == null) {
+			if (other.status != null)
 				return false;
-		} else if (!participationDate.equals(other.participationDate))
+		} else if (!status.equals(other.status))
 			return false;
 		if (user == null) {
 			if (other.user != null)
@@ -117,8 +150,8 @@ public class Participation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Participation [id=" + id + ", event=" + event + ", user=" + user + ", participationDate="
-				+ participationDate + "]";
+		return "Notification [id=" + id + ", body=" + body + ", date=" + date + ", status=" + status + ", user=" + user
+				+ ", event=" + event + "]";
 	}
-
+	
 }

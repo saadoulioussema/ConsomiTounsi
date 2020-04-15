@@ -2,21 +2,15 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 import java.util.List;
-
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import org.springframework.stereotype.Component;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 
@@ -42,6 +36,8 @@ public class User implements Serializable{
 		private List <UserProductCategoryViews> userProductCategoriesViews;
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Participation> participation;
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+		private List<Notification> notification;
 	  
 		//@JsonBackReference
 		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
@@ -51,10 +47,6 @@ public class User implements Serializable{
 		@JsonIgnore
 		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
 		private List<Comment> comments;
-		
-
-		
-		
 		
 		public User(Long id, String username, String password, String firstName, String lastName, String email,
 				String role, List<UserProductViews> userProductsViews,
@@ -152,12 +144,12 @@ public class User implements Serializable{
 		public void setRole(String role) {
 			this.role = role;
 		}
-		
+
 		public List<Participation> getParticipation() {
 			return participation;
 		}
 
-		public void setParticipations(List<Participation> participation) {
+		public void setParticipation(List<Participation> participation) {
 			this.participation = participation;
 		}
 
@@ -167,6 +159,14 @@ public class User implements Serializable{
 
 		public void setPassword(String password) {
 			this.password = password;
+		}
+
+		public List<Notification> getNotification() {
+			return notification;
+		}
+
+		public void setNotification(List<Notification> notification) {
+			this.notification = notification;
 		}
 
 		public User(){}
@@ -202,7 +202,8 @@ public class User implements Serializable{
 
 		public User(Long id, String username, String password, String firstName, String lastName, String email,
 				String role, List<UserProductViews> userProductsViews,
-				List<UserProductCategoryViews> userProductCategoriesViews, List<Participation> participation) {
+				List<UserProductCategoryViews> userProductCategoriesViews, List<Participation> participation,
+				List<Notification> notification, List<Recherche> recherches, List<Comment> comments) {
 			super();
 			this.id = id;
 			this.username = username;
@@ -214,6 +215,9 @@ public class User implements Serializable{
 			UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 			this.participation = participation;
+			this.notification = notification;
+			this.recherches = recherches;
+			this.comments = comments;
 		}
 
 		@Override
@@ -221,12 +225,15 @@ public class User implements Serializable{
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((UserProductsViews == null) ? 0 : UserProductsViews.hashCode());
+			result = prime * result + ((comments == null) ? 0 : comments.hashCode());
 			result = prime * result + ((email == null) ? 0 : email.hashCode());
 			result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 			result = prime * result + ((id == null) ? 0 : id.hashCode());
 			result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+			result = prime * result + ((notification == null) ? 0 : notification.hashCode());
 			result = prime * result + ((participation == null) ? 0 : participation.hashCode());
 			result = prime * result + ((password == null) ? 0 : password.hashCode());
+			result = prime * result + ((recherches == null) ? 0 : recherches.hashCode());
 			result = prime * result + ((role == null) ? 0 : role.hashCode());
 			result = prime * result
 					+ ((userProductCategoriesViews == null) ? 0 : userProductCategoriesViews.hashCode());
@@ -248,6 +255,11 @@ public class User implements Serializable{
 					return false;
 			} else if (!UserProductsViews.equals(other.UserProductsViews))
 				return false;
+			if (comments == null) {
+				if (other.comments != null)
+					return false;
+			} else if (!comments.equals(other.comments))
+				return false;
 			if (email == null) {
 				if (other.email != null)
 					return false;
@@ -268,6 +280,11 @@ public class User implements Serializable{
 					return false;
 			} else if (!lastName.equals(other.lastName))
 				return false;
+			if (notification == null) {
+				if (other.notification != null)
+					return false;
+			} else if (!notification.equals(other.notification))
+				return false;
 			if (participation == null) {
 				if (other.participation != null)
 					return false;
@@ -277,6 +294,11 @@ public class User implements Serializable{
 				if (other.password != null)
 					return false;
 			} else if (!password.equals(other.password))
+				return false;
+			if (recherches == null) {
+				if (other.recherches != null)
+					return false;
+			} else if (!recherches.equals(other.recherches))
 				return false;
 			if (role == null) {
 				if (other.role != null)
@@ -301,8 +323,8 @@ public class User implements Serializable{
 			return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
 					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", UserProductsViews="
 					+ UserProductsViews + ", userProductCategoriesViews=" + userProductCategoriesViews
-					+ ", participation=" + participation + "]";
-		}	
-	
+					+ ", participation=" + participation + ", notification=" + notification + ", recherches="
+					+ recherches + ", comments=" + comments + "]";
+		}
 	
 }
