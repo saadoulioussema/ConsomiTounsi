@@ -2,6 +2,8 @@
 package tn.esprit.spring.controller;
 
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Ray;
 import tn.esprit.spring.sevice.interfece.IRayInfoService;
 
@@ -108,5 +111,44 @@ public class RestRayController {
   }
 
 	
+	//fonctionalités avancées
+	
+	//afficher all rayons
+	@RequestMapping(value = "/rays", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Ray>> getAllRays(){
+    	logger.debug("Invocation de la resource : GET /product");
+    	List<Ray> rays = rayInfoService.getAllRays();
+    	if(rays.isEmpty()){
+        	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    	}
+    	return new ResponseEntity<>(rays, HttpStatus.OK);
+    }
+	
+	//nombre de rayons (category)
+	@RequestMapping(value = "/raycat/{categoryray}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	  public ResponseEntity<String> countRaycategoty(@PathVariable("categoryray") Category categoryray){
+		    String ch=" ";
+		   ch="nombre de rayons de cette category est "+rayInfoService.countRaysbyCategory(categoryray);
+		     return new ResponseEntity<>(ch, HttpStatus.OK);
+	  }
+	
+	//afficher rayons par category(category)
+	@RequestMapping(value = "/rayscat/{categoryray}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Ray>> getAllRayscat(@PathVariable("categoryray") Category categoryray){
+    	logger.debug("Invocation de la resource : GET /product");
+    	List<Ray> rays = (List<Ray>) rayInfoService.getRayByCat(categoryray);
+    	if(rays.isEmpty()){
+        	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    	}
+    	return new ResponseEntity<>(rays, HttpStatus.OK);
+    }
+	
+	// calculer le nombre de produit par rayon(idray)
+	@RequestMapping(value = "/numberproductbyray/{idray}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	  public ResponseEntity<String> countProductsInRays(@PathVariable("idray") Long idray){
+		    String ch=" ";
+		   ch="nombre de produit par rayon de cet id est "+rayInfoService.countProductsInRays(idray);
+		     return new ResponseEntity<>(ch, HttpStatus.OK);
+	  }
 	
 }

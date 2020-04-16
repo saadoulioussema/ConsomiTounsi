@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Product;
 import tn.esprit.spring.entity.Ray;
 import tn.esprit.spring.repository.ProductRepository;
@@ -137,6 +138,31 @@ public class RayMySQLServiceImpl implements IRayInfoService{
 	@Override
 	public Long countRays() {
 		return rayRepository.count();
+	}
+
+// fonctionalité
+	
+	@Override
+	public List<Ray> getAllRays() {
+		return (List<Ray>) rayRepository.findAll();
+	}
+
+
+	@Override
+	public Long countRaysbyCategory(Category categoryray) {
+		return rayRepository.countRaysByCategory(categoryray);
+	}
+
+
+	@Override
+	public List<Ray> getRayByCat(Category categoryray) {
+		return rayRepository.findByCategory(categoryray);
+	}
+
+
+	@Override
+	public Long countProductsInRays(Long idray) {
+		return rayRepository.countProductsInRays(idray);
 	}
 	
 }

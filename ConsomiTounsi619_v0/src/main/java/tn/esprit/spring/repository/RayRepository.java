@@ -6,6 +6,8 @@
 
 package tn.esprit.spring.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -29,9 +31,18 @@ public interface RayRepository extends CrudRepository<Ray, Long> {
     
    // Ray findByTypeAndCategory(Type typeray, Category categoryray);
     
-    @Query("Select c.categoryray from Ray c where c.id=?1")
-    String findCategoryById(Long id);
+//    @Query("Select c.categoryray from Ray c where c.id=?1")
+//    String findCategoryById(Long id);
     
     @Query("Select count(c) from Ray c where c.categoryray=:categoryray")
     long countRaysByCategory(@Param("categoryray") Category categoryray);
+    
+    @Query("Select c from Ray c where c.categoryray=:categoryray")
+    List<Ray> findByCategory(@Param("categoryray")Category categoryray);
+    
+    
+    @Query("Select count(p) From Product p "
+			+ "JOIN  p.ray c"
+			+ " where c.id=:idray")
+    long countProductsInRays(@Param("idray") Long idray);
 }
