@@ -2,6 +2,8 @@
 package tn.esprit.spring.controller;
 
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,13 +13,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Product;
 import tn.esprit.spring.entity.Ray;
+import tn.esprit.spring.sevice.interfece.IProductService;
 import tn.esprit.spring.sevice.interfece.IRayInfoService;
 
 /**
@@ -34,6 +40,9 @@ public class RestRayController {
 	
 	@Autowired
 	private IRayInfoService rayInfoService;
+	
+	@Autowired
+	IProductService iProductService;
 	
 	//private Logger logger = LoggerFactory.getLogger(IdentityController.class);
 	private Logger logger = LoggerFactory.getLogger(this.getClass()); // A faire pour toute les classes
@@ -151,4 +160,93 @@ public class RestRayController {
 		     return new ResponseEntity<>(ch, HttpStatus.OK);
 	  }
 	
+	
+	//afficher all rayons vide
+		@RequestMapping(value = "/raysvide", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	    public ResponseEntity<List<Ray>> getAllRaysvide(){
+	    	logger.debug("Invocation de la resource : GET /product");
+	    	List<Ray> rays = rayInfoService.getAllRays();
+	    	List<Ray> 	result=  new ArrayList<>();
+	    	int nbrays=rays.size();	
+			Ray ray=new Ray();	
+			
+	    	if(rays.isEmpty()){
+	        	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    	}
+	    	for(int index = 0; index < nbrays; index++){
+				ray=rays.get(index);
+				if(rayInfoService.countProductsInRays(ray.getId())==0){
+	    		result.add(ray);}
+	    	}
+	    	return new ResponseEntity<>(result, HttpStatus.OK);
+	    }
+		
+		
+		//afficher all rayons pleins
+				@RequestMapping(value = "/raysplein", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+			    public ResponseEntity<List<Ray>> getAllRaysplein(){
+			    	logger.debug("Invocation de la resource : GET /product");
+			    	List<Ray> rays = rayInfoService.getAllRays();
+			    	List<Ray> 	result=  new ArrayList<>();
+			    	int nbrays=rays.size();	
+					Ray ray=new Ray();	
+					
+			    	if(rays.isEmpty()){
+			        	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			    	}
+			    		for(int index = 0; index < nbrays; index++){
+						ray=rays.get(index);
+						if(rayInfoService.countProductsInRays(ray.getId())==ray.getCapacity()){
+			    		result.add(ray);}
+			    	}
+			    	return new ResponseEntity<>(result, HttpStatus.OK);
+			    }
+				
+				//afficher liste de date expiration d'un rayon passé en paramètre
+				@RequestMapping(value = "/raysdate/{idray}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+			    public ResponseEntity<List<Date>> getListDate(@PathVariable("idray") Long idray){
+			    	logger.debug("Invocation de la resource : GET /product");
+			    	Ray ray = rayInfoService.getRayById(idray);
+			    	List<Product> products1= ray.getProducts(); 
+			    	List<Date> 	result=  new ArrayList<>();
+			    
+					Product product=new Product();	
+					for(int index = 0; index < products1.size(); index++){
+						product=products1.get(index);
+			    		result.add(product.getExprdate());			    	
+			    	}
+			    	return new ResponseEntity<>(result, HttpStatus.OK);
+			    }
+		
+				
+				//ajouter un produit dans un rayon
+				@RequestMapping(value = "/addProductparrayon", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+			    public ResponseEntity<Void> addProducttt(@RequestBody Product product){
+				
+					if (!iProductService.existsById(product.getBarCode())) {
+					//	product.setCategory(validCategory(product.getCategory()));
+						
+					//Category categoryproduct= (Category)Enum.Parse(typeof(Category), product.getCategory().getName());  
+					//Category categoryproduct=product.getCategory().getName();
+					//Enum to String using Enum.valueOf()
+					//	Category categoryproduct = Category.valueOf(Category.class,  product.getCategory().getName());
+				       
+				        //Enum to String using Currency.valueOf()
+						Category categoryproduct = Category.valueOf( product.getCategory().getName());
+						List<Ray> rays =  rayInfoService.getRayByCat(categoryproduct);
+						Ray ray=rays.get(0);
+						if(rayInfoService.countProductsInRays(ray.getId())<ray.getCapacity())
+						{
+							rayInfoService.addProductAndAssignToRay(product, ray.getId());
+						}
+						else {
+							throw new IllegalArgumentException("produit non ajouté! rayon est de capacité maximal");
+						}
+						
+				return new ResponseEntity<>(HttpStatus.OK);
+					}else {
+						throw new IllegalArgumentException("Product already exist");
+					}
+				}
+
 }
