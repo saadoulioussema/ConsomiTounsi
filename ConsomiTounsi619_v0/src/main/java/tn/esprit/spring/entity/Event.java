@@ -35,8 +35,8 @@ public class Event implements Serializable {
 	private String hour;
 	private String location;
 	private String poster;
-	private int ticketPrice;
-	private int eventCost;
+	private float ticketPrice;
+	private float eventCost;
 	private boolean status;
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="jackpot_id")
@@ -54,7 +54,7 @@ public class Event implements Serializable {
 	}
 
 	public Event(Long id, EventCategory category, String name, String eventGoal, int placesNbr, Date date, String hour,
-			String location, String poster, int ticketPrice, int eventCost, boolean status, Jackpot jackpot,
+			String location, String poster, float ticketPrice, float eventCost, boolean status, Jackpot jackpot,
 			List<Notification> notification, List<Publicity> publicity, List<Participation> participation) {
 		super();
 		this.id = id;
@@ -147,19 +147,19 @@ public class Event implements Serializable {
 		this.poster = poster;
 	}
 
-	public int getTicketPrice() {
+	public float getTicketPrice() {
 		return ticketPrice;
 	}
 
-	public void setTicketPrice(int ticketPrice) {
+	public void setTicketPrice(float ticketPrice) {
 		this.ticketPrice = ticketPrice;
 	}
 
-	public int getEventCost() {
+	public float getEventCost() {
 		return eventCost;
 	}
 
-	public void setEventCost(int eventCost) {
+	public void setEventCost(float eventCost) {
 		this.eventCost = eventCost;
 	}
 
@@ -209,7 +209,7 @@ public class Event implements Serializable {
 		int result = 1;
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + eventCost;
+		result = prime * result + Float.floatToIntBits(eventCost);
 		result = prime * result + ((eventGoal == null) ? 0 : eventGoal.hashCode());
 		result = prime * result + ((hour == null) ? 0 : hour.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -222,7 +222,7 @@ public class Event implements Serializable {
 		result = prime * result + ((poster == null) ? 0 : poster.hashCode());
 		result = prime * result + ((publicity == null) ? 0 : publicity.hashCode());
 		result = prime * result + (status ? 1231 : 1237);
-		result = prime * result + ticketPrice;
+		result = prime * result + Float.floatToIntBits(ticketPrice);
 		return result;
 	}
 
@@ -242,7 +242,7 @@ public class Event implements Serializable {
 				return false;
 		} else if (!date.equals(other.date))
 			return false;
-		if (eventCost != other.eventCost)
+		if (Float.floatToIntBits(eventCost) != Float.floatToIntBits(other.eventCost))
 			return false;
 		if (eventGoal == null) {
 			if (other.eventGoal != null)
@@ -298,7 +298,7 @@ public class Event implements Serializable {
 			return false;
 		if (status != other.status)
 			return false;
-		if (ticketPrice != other.ticketPrice)
+		if (Float.floatToIntBits(ticketPrice) != Float.floatToIntBits(other.ticketPrice))
 			return false;
 		return true;
 	}
