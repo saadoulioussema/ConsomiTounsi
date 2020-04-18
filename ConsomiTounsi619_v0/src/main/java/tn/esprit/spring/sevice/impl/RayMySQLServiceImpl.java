@@ -164,5 +164,12 @@ public class RayMySQLServiceImpl implements IRayInfoService{
 	public Long countProductsInRays(Long idray) {
 		return rayRepository.countProductsInRays(idray);
 	}
+
+
+	@Override
+	public List<Product> getProductExprdate() {
+		return productRepository.findProductByExprdate();
+	}
+	
 	
 }

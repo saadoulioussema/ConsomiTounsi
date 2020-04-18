@@ -249,4 +249,31 @@ public class RestRayController {
 					}
 				}
 
+				
+				
+				//afficher Produit ayant date expiré
+				@RequestMapping(value = "/productexprdate", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+			    public ResponseEntity<List<Product>> getProductexpr(){
+			    	logger.debug("Invocation de la resource : GET /product");
+			    	List<Product> product =  rayInfoService.getProductExprdate();
+			    	if(product.isEmpty()){
+			        	return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			    	}
+			    	return new ResponseEntity<>(product, HttpStatus.OK);
+			    }
+				
+				
+				//supprimer les produits de date expiré des rayon
+				@RequestMapping(value = "/deleteexpr", method = RequestMethod.DELETE)
+			    public ResponseEntity<Void> deleteexpr(){
+			    	logger.debug("Invocation de la resource : DELETE /client/");
+			    	List<Product> products =  rayInfoService.getProductExprdate();
+			    
+			    	for(int index = 0; index < products.size(); index++){
+						Product product=products.get(index);
+						iProductService.removeProduct(product.getBarCode());
+			    	}
+			    	return new ResponseEntity<>(HttpStatus.OK);
+			    }
+				
 }

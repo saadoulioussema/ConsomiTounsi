@@ -25,4 +25,5 @@ public interface IRayInfoService {
 	public Long countRaysbyCategory(Category categoryray);
 	public List<Ray> getRayByCat(Category categoryray);
 	public Long countProductsInRays( Long idray);
+	public List<Product> getProductExprdate();
 }

@@ -20,4 +20,9 @@ public interface ProductRepository extends JpaRepository<Product,Long>{
 			+ "JOIN  p.category c"
 			+ " where c.id=:id") 
 	List <Product> findProductsByCategory(@Param("id") Long id);
+	
+	
+	
+	  @Query("Select p from Product p where p.exprdate < CURDATE()") 
+		List<Product> findProductByExprdate();
 }
