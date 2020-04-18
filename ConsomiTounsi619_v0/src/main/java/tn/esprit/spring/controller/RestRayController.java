@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +22,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Notif;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.Product;
 import tn.esprit.spring.entity.Ray;
 import tn.esprit.spring.sevice.interfece.IProductService;
@@ -72,6 +75,8 @@ public class RestRayController {
 	@RequestMapping(value = "/ray/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> addRay(@RequestBody Ray ray){
     	logger.debug("Invocation de la resource : POST /ray/");
+    	ray.setUser(UserController.USERCONNECTED);
+    	
     	rayInfoService.addRay(ray);
     	return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -276,4 +281,34 @@ public class RestRayController {
 			    	return new ResponseEntity<>(HttpStatus.OK);
 			    }
 				
+				
+				//afficher des notifs de user connecté
+				@RequestMapping(value = "/addProductparrayon", method = RequestMethod.GET, consumes = MediaType.APPLICATION_JSON_VALUE)
+			    public ResponseEntity<List<Notif>> affnotif(){
+				
+					List<Notif> notif=rayInfoService.myNotifications();
+						
+					if(notif.isEmpty()){
+						throw new IllegalArgumentException("pas de produit de date expirée");}
+						else {
+							return new ResponseEntity<>(notif, HttpStatus.OK);
+						}	
+				}
+				
+				//creation de notif dans la base 
+				@RequestMapping(value = "/createnotif/", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+			    public ResponseEntity<Void> createnotif(){
+			    	logger.debug("Invocation de la resource : POST /ray/");
+			    	
+			    	List<Product> products =  rayInfoService.getProductExprdate();
+			    	for(int index = 0; index < products.size(); index++){
+						Product product=products.get(index);
+						rayInfoService.notifyuser(product.getName(),product.getRay());
+			    	}
+			    	
+			    	
+			    	return new ResponseEntity<>(HttpStatus.CREATED);
+			    }
+				
+
 }

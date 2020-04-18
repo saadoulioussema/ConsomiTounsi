@@ -1,6 +1,7 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -48,6 +49,14 @@ public class User implements Serializable{
 		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
 		private List<Comment> comments;
 		
+		
+		  @OneToMany(mappedBy="user"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
+		    private List<Ray> rays = new ArrayList<>();
+		  
+		  @OneToMany(mappedBy="user"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
+		    private List<Notif> notifs = new ArrayList<>();
+
+		
 		public User(Long id, String username, String password, String firstName, String lastName, String email,
 				String role, List<UserProductViews> userProductsViews,
 				List<UserProductCategoryViews> userProductCategoriesViews, List<Event> events,
@@ -65,6 +74,28 @@ public class User implements Serializable{
 			//this.events = events;
 			this.recherches = recherches;
 			//this.comments = comments; , List<Comment> comments
+		}
+
+		
+		
+		public List<Notif> getNotifs() {
+			return notifs;
+		}
+
+
+
+		public void setNotifs(List<Notif> notifs) {
+			this.notifs = notifs;
+		}
+
+
+
+		public List<Ray> getRays() {
+			return rays;
+		}
+
+		public void setRays(List<Ray> rays) {
+			this.rays = rays;
 		}
 
 		public List<Recherche> getRecherches() {

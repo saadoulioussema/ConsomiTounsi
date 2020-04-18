@@ -4,6 +4,8 @@ package tn.esprit.spring.sevice.interfece;
 import java.util.List;
 
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Notif;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.Product;
 
 import tn.esprit.spring.entity.Ray;
@@ -26,4 +28,7 @@ public interface IRayInfoService {
 	public List<Ray> getRayByCat(Category categoryray);
 	public Long countProductsInRays( Long idray);
 	public List<Product> getProductExprdate();
+	
+	void notifyuser(String productName, Ray ray);
+	List<Notif> myNotifications(); 
 }

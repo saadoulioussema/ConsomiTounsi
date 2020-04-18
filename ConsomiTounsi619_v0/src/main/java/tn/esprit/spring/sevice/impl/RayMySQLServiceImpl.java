@@ -1,6 +1,8 @@
 
 package tn.esprit.spring.sevice.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.NoResultException;
@@ -9,9 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import tn.esprit.spring.controller.UserController;
 import tn.esprit.spring.entity.Category;
+import tn.esprit.spring.entity.Notif;
+import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.Product;
 import tn.esprit.spring.entity.Ray;
+import tn.esprit.spring.entity.User;
+import tn.esprit.spring.repository.NotifRepository;
+import tn.esprit.spring.repository.NotificationRepository;
 import tn.esprit.spring.repository.ProductRepository;
 import tn.esprit.spring.repository.RayRepository;
 import tn.esprit.spring.sevice.interfece.IRayInfoService;
@@ -29,6 +37,9 @@ public class RayMySQLServiceImpl implements IRayInfoService{
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	NotifRepository NR;
 	
 	
 	/**
@@ -169,6 +180,28 @@ public class RayMySQLServiceImpl implements IRayInfoService{
 	@Override
 	public List<Product> getProductExprdate() {
 		return productRepository.findProductByExprdate();
+	}
+
+
+	@Override
+	public void notifyuser(String productName, Ray ray) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		java.util.Date date = new java.util.Date();
+		
+		User user =ray.getUser();
+		Notif n = new Notif();
+			n.setUser(user);
+			n.setBody("Dear "+user.getUsername()+", there is a product who's named "+productName+"has an expired date,you are required to check it and remove it,Thanks.");
+			n.setDate(dateFormat.format(date));
+			n.setStatus("Not Seen Yet");
+			NR.save(n);
+	}
+
+
+	@Override
+	public List<Notif> myNotifications() {
+		List<Notif> list = NR.myNotifications(UserController.USERCONNECTED);
+		return list;
 	}
 	
 	

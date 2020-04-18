@@ -1,6 +1,7 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -51,6 +53,10 @@ public class Product implements Serializable{
 	@JsonIgnore 
     @ManyToOne
     private Ray ray;
+	
+	
+	  @OneToOne(mappedBy="product"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
+	    private Notif notif;
 	
 	
 	
@@ -127,6 +133,12 @@ public class Product implements Serializable{
 	
 	
 	
+	public Notif getNotif() {
+		return notif;
+	}
+	public void setNotif(Notif notif) {
+		this.notif = notif;
+	}
 	@Override
 	public String toString() {
 		return "Product [barCode=" + barCode + ", name=" + name + ", price=" + price + ", exprdate=" + exprdate + "]";
