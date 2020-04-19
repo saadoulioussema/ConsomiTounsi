@@ -184,14 +184,15 @@ public class RayMySQLServiceImpl implements IRayInfoService{
 
 
 	@Override
-	public void notifyuser(String productName, Ray ray) {
+	public void notifyuser(Product product, Ray ray) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		java.util.Date date = new java.util.Date();
 		
 		User user =ray.getUser();
 		Notif n = new Notif();
 			n.setUser(user);
-			n.setBody("Dear "+user.getUsername()+", there is a product who's named "+productName+"has an expired date,you are required to check it and remove it,Thanks.");
+			n.setProduct(product);
+			n.setBody("Dear "+user.getUsername()+", there is a product "+product.getBarCode()+" who's named "+product.getName()+" has an expired date,you are required to check it and remove it,Thanks.");
 			n.setDate(dateFormat.format(date));
 			n.setStatus("Not Seen Yet");
 			NR.save(n);
@@ -202,6 +203,13 @@ public class RayMySQLServiceImpl implements IRayInfoService{
 	public List<Notif> myNotifications() {
 		List<Notif> list = NR.myNotifications(UserController.USERCONNECTED);
 		return list;
+	}
+
+
+	@Override
+	public void deleteNotif(Notif notif) {
+		NR.delete(notif);
+		
 	}
 	
 	

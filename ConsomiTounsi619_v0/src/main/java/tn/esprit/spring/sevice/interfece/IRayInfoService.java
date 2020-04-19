@@ -29,6 +29,7 @@ public interface IRayInfoService {
 	public Long countProductsInRays( Long idray);
 	public List<Product> getProductExprdate();
 	
-	void notifyuser(String productName, Ray ray);
+	void notifyuser(Product product, Ray ray);
 	List<Notif> myNotifications(); 
+	public void deleteNotif(Notif notif);
 }

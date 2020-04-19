@@ -276,6 +276,9 @@ public class RestRayController {
 			    
 			    	for(int index = 0; index < products.size(); index++){
 						Product product=products.get(index);
+						
+						rayInfoService.deleteNotif(product.getNotif()); 
+						
 						iProductService.removeProduct(product.getBarCode());
 			    	}
 			    	return new ResponseEntity<>(HttpStatus.OK);
@@ -303,7 +306,7 @@ public class RestRayController {
 			    	List<Product> products =  rayInfoService.getProductExprdate();
 			    	for(int index = 0; index < products.size(); index++){
 						Product product=products.get(index);
-						rayInfoService.notifyuser(product.getName(),product.getRay());
+						rayInfoService.notifyuser(product,product.getRay());
 			    	}
 			    	
 			    	
