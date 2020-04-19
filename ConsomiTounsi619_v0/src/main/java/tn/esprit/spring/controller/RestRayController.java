@@ -271,7 +271,7 @@ public class RestRayController {
 				//supprimer les produits de date expiré des rayon
 				@RequestMapping(value = "/deleteexpr", method = RequestMethod.DELETE)
 			    public ResponseEntity<Void> deleteexpr(){
-			    	logger.debug("Invocation de la resource : DELETE /client/");
+			    	logger.debug("Invocation de la resourceee : DELETE /client/");
 			    	List<Product> products =  rayInfoService.getProductExprdate();
 			    
 			    	for(int index = 0; index < products.size(); index++){
