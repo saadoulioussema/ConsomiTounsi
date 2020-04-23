@@ -3,15 +3,23 @@ package tn.esprit.spring.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import java.net.MalformedURLException;
+import java.nio.file.Path;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +33,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 
 import tn.esprit.spring.entity.Category;
 import tn.esprit.spring.entity.Notif;
@@ -212,7 +224,7 @@ public class RestRayController {
 			    	return new ResponseEntity<>(result, HttpStatus.OK);
 			    }
 				
-				//afficher liste de date expiration d'un rayon passé en paramètre
+				//afficher liste de date expiration d'un id_rayon passé en paramètre
 				@RequestMapping(value = "/raysdate/{idray}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 			    public ResponseEntity<List<Date>> getListDate(@PathVariable("idray") Long idray){
 			    	logger.debug("Invocation de la resource : GET /product");
@@ -318,10 +330,10 @@ public class RestRayController {
 			    	return new ResponseEntity<>(HttpStatus.CREATED);
 			    }
 				
-				
+				//upload video <-> ajouter push 3al serveur
 				@RequestMapping(value="/video", method=RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 				public ResponseEntity<Object> uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
-					File convertFile = new File("C:\\Users\\Lenovo\\Desktop\\zz\\"+file.getOriginalFilename());
+					File convertFile = new File("./uploads\\"+file.getOriginalFilename());
 					convertFile.createNewFile();
 					FileOutputStream fout = new FileOutputStream(convertFile);
 					
@@ -331,6 +343,61 @@ public class RestRayController {
 					fout.close();
 					return new ResponseEntity<>("File is uploaded successfully", HttpStatus.OK);
 				}
+//				//download video
+//				@RequestMapping(value="/download/{filename}", method=RequestMethod.GET, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//				public ResponseEntity<Resource> downloadFile(@PathVariable("filename") String filename) {
+//					File ff = new File("./uploads\\"+filename);
+//					
+//					 Path pathToFile =ff.toPath();
+//				        UrlResource resource = null;
+//				        try {
+//				            resource = new UrlResource(pathToFile.toUri());
+//				        } catch (MalformedURLException e) {
+//				            throw new RuntimeException(e);
+//				        }
+//				        return new ResponseEntity<>(resource, HttpStatus.OK);
+//				        }
+				
+				
+				//download video
+				@RequestMapping(value="/download", method=RequestMethod.GET, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+				public ResponseEntity<MultipartFile> downloadFile(@RequestParam("file") MultipartFile file) {
+					//File ff = new File("./uploads\\"+filename);
+					
+//					 Path pathToFile =file.toPath();
+//				        UrlResource resource = null;
+//				        try {
+//				            resource = new UrlResource(pathToFile.toUri());
+//				        } catch (MalformedURLException e) {
+//				            throw new RuntimeException(e);
+//				        }
+				        return new ResponseEntity<>(file, HttpStatus.OK);
+				        }
+				
+				
+				
+				//download video22
+				@RequestMapping(value="/download2", method=RequestMethod.GET, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+				public ResponseEntity<Object> downloadFile2(@RequestParam("file") File file) throws FileNotFoundException {
+					//File file = new File("./uploads\\"+filename);
+					
+					InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+					HttpHeaders headers = new HttpHeaders();
+					headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+					headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+					headers.add("Pragma", "no-cache");
+					headers.add("Expires", "0");
+					
+					ResponseEntity<Object> responseEntity = ResponseEntity.ok()
+							.headers(headers)
+							.contentLength(file.length())
+							.contentType(MediaType
+							.parseMediaType("application/txt")).body(resource);
+					return responseEntity;
+					}
+				
+				
+					
 				
 
 }
