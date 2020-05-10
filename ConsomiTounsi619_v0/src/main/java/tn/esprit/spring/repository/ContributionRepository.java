@@ -8,18 +8,17 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import tn.esprit.spring.entity.Contribution;
 import tn.esprit.spring.entity.Event;
-import tn.esprit.spring.entity.Participation;
 import tn.esprit.spring.entity.User;
 
 @Repository
-public interface ParticipationRepository extends CrudRepository<Participation,Long>, JpaRepository<Participation,Long> {
+public interface ContributionRepository extends CrudRepository<Contribution, Long>,JpaRepository<Contribution, Long> {
 	
-	@Query("SELECT p FROM Participation p WHERE p.user=:user")
-	List<Participation> myParticipations(@Param ("user") User user);
+	@Query("SELECT c FROM Contribution c WHERE c.event=:event ")
+	List<Contribution> contributionOfEvent(@Param("event") Event event);
 	
-	@Query("SELECT p FROM Participation p WHERE p.event=:event")
-	List<Participation> Participations(@Param ("event") Event event);
-
+	@Query("SELECT c FROM Contribution c WHERE c.user=:user ")
+	List<Contribution> contributionOfUser(@Param("user") User user);
 
 }
