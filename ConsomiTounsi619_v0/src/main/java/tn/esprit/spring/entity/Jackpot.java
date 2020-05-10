@@ -1,6 +1,7 @@
 package tn.esprit.spring.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,21 +18,14 @@ public class Jackpot implements Serializable {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
-	private int sum;
+	private float sum;
 	
 	public Jackpot() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Jackpot(Long id) {
-		super();
-		this.id = id;
-	}
-
-
-
-	public Jackpot(Long id, int sum) {
+	public Jackpot(Long id, float sum) {
 		super();
 		this.id = id;
 		this.sum = sum;
@@ -45,11 +39,11 @@ public class Jackpot implements Serializable {
 		this.id = id;
 	}
 
-	public int getSum() {
+	public float getSum() {
 		return sum;
 	}
 
-	public void setSum(int sum) {
+	public void setSum(float sum) {
 		this.sum = sum;
 	}
 
@@ -58,7 +52,7 @@ public class Jackpot implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + sum;
+		result = prime * result + Float.floatToIntBits(sum);
 		return result;
 	}
 
@@ -76,7 +70,7 @@ public class Jackpot implements Serializable {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (sum != other.sum)
+		if (Float.floatToIntBits(sum) != Float.floatToIntBits(other.sum))
 			return false;
 		return true;
 	}
@@ -85,6 +79,10 @@ public class Jackpot implements Serializable {
 	public String toString() {
 		return "Jackpot [id=" + id + ", sum=" + sum + "]";
 	}
+	
+	
 
+
+	
 	
 }

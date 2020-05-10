@@ -5,6 +5,6 @@ import tn.esprit.spring.entity.Notification;
 
 public interface INotificationService {
 	
-	void notifyAllUser(String eventName, String eventGoal);
-	List<Notification> myNotifications(); 
+	public void notifyAllUser(String eventName, String eventGoal);
+	public List<Notification> myNotifications(); 
 }
