@@ -1,18 +1,26 @@
 package tn.esprit.spring.controller;
 
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import tn.esprit.spring.entity.Contribution;
 import tn.esprit.spring.entity.Event;
@@ -22,12 +30,13 @@ import tn.esprit.spring.entity.Participation;
 import tn.esprit.spring.repository.EventRepository;
 import tn.esprit.spring.repository.ParticipationRepository;
 import tn.esprit.spring.sevice.impl.ContributionService;
+import tn.esprit.spring.sevice.impl.FileStorageService;
 import tn.esprit.spring.sevice.impl.NotificationService;
 import tn.esprit.spring.sevice.impl.ParticipationService;
 import tn.esprit.spring.sevice.interfece.IEventService;
 
 @RestController
-public class EventController {
+public class EventRestController {
 	@Autowired
 	IEventService ES;
 	@Autowired
@@ -41,11 +50,25 @@ public class EventController {
 	@Autowired
 	ParticipationRepository PR;
 	
+	ObjectMapper objectMapper = new ObjectMapper();
+
+	@Autowired
+	FileStorageService fileStorageService;
+	
 	/**********************************Admin**********************************/
-	@PostMapping("/add-Event")
+	@PostMapping(value="/add-Event",consumes=MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ResponseBody
-	public void addEvent(@RequestBody Event ev) {
+	public void addEvent(@RequestParam(value = "evJson", required = true) String evJson,
+						 @RequestParam(required = true, value ="file") MultipartFile file)
+						throws JsonParseException, JsonMappingException, IOException {
+		String fileName = fileStorageService.storeFile(file);
+		String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/uploads/")
+				.path(fileName).toUriString();
+		
+		Event ev = objectMapper.readValue(evJson, Event.class);
+		ev.setPoster(fileDownloadUri);
 		ES.addEvent(ev);
+		
 		NS.notifyAllUser(ev.getName(),ev.getDescription());
 	}
 	
@@ -62,6 +85,7 @@ public class EventController {
 	
 	@GetMapping("/retrieve-Event-ById/{id}")
 	public Event getEventById(@PathVariable Long id) {
+		
 		return ES.findbyId(id);
 		}
 	
