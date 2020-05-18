@@ -65,7 +65,6 @@ public class EventService implements IEventService {
 		NewEvent.setPoster(event.getPoster());
 		NewEvent.setTicketPrice(event.getTicketPrice());
 		NewEvent.setGoal(event.getGoal());
-		NewEvent.setStatus(false);
 		Jackpot j = new Jackpot();
 		j.setSum(0);
 		JR.save(j);

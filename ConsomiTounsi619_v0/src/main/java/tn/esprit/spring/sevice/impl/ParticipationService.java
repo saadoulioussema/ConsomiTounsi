@@ -70,21 +70,21 @@ public class ParticipationService implements IParticipationService {
 				ER.saveAndFlush(ev);
 				UR.save(u);
 				
-//			if(participationsList().size()<=1) { //Early bird ticket // 1 sera modifié par nombre de tickets des EarlyBirdTicket
-//				float newPrice = (float) (ev.getTicketPrice()*0.8);// pourcentage de réduction en early bird ticket
-//				p.setEvent(ev);
-//				p.setUser(u);
-//				p.setParticipationDate(dateFormat.format(date));
-//				p.setPrice(newPrice);
-//				ev.setPlacesNbr(ev.getPlacesNbr()-1);
-//				ev.setParticipantsNbr(ev.getParticipantsNbr()+1);
-//				ev.setCollAmount(ev.getCollAmount()+ev.getTicketPrice());
-//				u.setAccBalance(u.getAccBalance()-newPrice);	
-//				PR.save(p);
-//				ER.saveAndFlush(ev);
-//				UR.save(u);
-//				return "you are among the first 20 participants, discount by 20%";
-//			}
+			if((participationsList().size()<=ev.getNbrEarlyBirdTickets()) && (ev.isEarlyBirdOpt())) { //Early bird ticket // 1 sera modifié par nombre de tickets des EarlyBirdTicket
+				float newPrice = (float) (ev.getTicketPrice()*(ev.getDiscountPercentage()/100));// pourcentage de réduction en early bird ticket
+				p.setEvent(ev);
+				p.setUser(u);
+				p.setParticipationDate(dateFormat.format(date));
+				p.setPrice(newPrice);
+				ev.setPlacesNbr(ev.getPlacesNbr()-1);
+				ev.setParticipantsNbr(ev.getParticipantsNbr()+1);
+				ev.setCollAmount(ev.getCollAmount()+ev.getTicketPrice());
+				u.setAccBalance(u.getAccBalance()-newPrice);	
+				PR.save(p);
+				ER.saveAndFlush(ev);
+				UR.save(u);
+				return "you are among the first 20 participants, discount by 20%";
+			}
 			return "Participation successfully added. You're welcome.";
 		}else {
 			return "Sorry, there are no places available.";
