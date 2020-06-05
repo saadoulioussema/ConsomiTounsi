@@ -1,0 +1,17 @@
+{
+  "groups": [
+    {
+      "name": "file",
+      "type": "tn.esprit.spring.config.FileStorageProperties",
+      "sourceType": "tn.esprit.spring.config.FileStorageProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "file.upload-dir",
+      "type": "java.lang.String",
+      "sourceType": "tn.esprit.spring.config.FileStorageProperties"
+    }
+  ],
+  "hints": []
+}

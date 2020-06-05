@@ -42,9 +42,9 @@ public class UserController {
 	
 	public static User USERCONNECTED ;
 	
-	@RequestMapping("/")
-	@ResponseBody
-	public String welcome() { return "Bonjour, Bienvenue à l'application de test des Web ServicesREST"; }
+//	@RequestMapping("/")
+//	@ResponseBody
+//	public String welcome() { return "Bonjour, Bienvenue à l'application de test des Web ServicesREST"; }
 	
 
 	@PostMapping("/register")
