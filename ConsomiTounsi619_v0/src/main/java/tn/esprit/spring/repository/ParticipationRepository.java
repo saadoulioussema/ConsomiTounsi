@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Participation;
 import tn.esprit.spring.entity.User;
 
@@ -16,6 +17,9 @@ public interface ParticipationRepository extends CrudRepository<Participation,Lo
 	
 	@Query("SELECT p FROM Participation p WHERE p.user=:user")
 	List<Participation> myParticipations(@Param ("user") User user);
+	
+	@Query("SELECT p FROM Participation p WHERE p.event=:event")
+	List<Participation> Participations(@Param ("event") Event event);
 
 
 }

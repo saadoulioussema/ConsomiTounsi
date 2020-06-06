@@ -17,6 +17,7 @@ import tn.esprit.spring.entity.UserDTO;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
+	
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired

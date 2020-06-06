@@ -31,19 +31,19 @@ public class Comment implements Serializable{
 	 private String mot;
 	
 	//@JsonBackReference
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="idSubject",referencedColumnName="id")
 	private Subject subject;
 	
 	//@JsonBackReference
-	@ManyToOne(cascade=CascadeType.PERSIST)
+	@ManyToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="idUser",referencedColumnName="id")
 	private User user;
 	
 	
 	///evaluation
 	
-	@OneToMany(mappedBy="comment" , cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy="comment" , cascade=CascadeType.MERGE)
 	private List<Comment_evaluation> ratings;
 	
 	
@@ -57,6 +57,14 @@ public class Comment implements Serializable{
 	}
 	
 	
+
+	public Comment(long id, String mot) {
+		super();
+		this.id = id;
+		this.mot = mot;
+	}
+
+
 
 	public List<Comment_evaluation> getRatings() {
 		return ratings;
@@ -107,6 +115,13 @@ public class Comment implements Serializable{
 	}
 
 	
+
+	public Comment(String mot) {
+		super();
+		this.mot = mot;
+	}
+
+
 
 	@Override
 	public String toString() {

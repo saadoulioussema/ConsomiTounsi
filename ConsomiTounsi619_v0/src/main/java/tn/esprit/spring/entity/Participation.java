@@ -19,25 +19,27 @@ public class Participation implements Serializable {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
+	private float price;
+	private String participationDate;
 	@ManyToOne
 	@JsonIgnore
 	private Event event;
 	@ManyToOne
 	@JsonIgnore
 	private User user;
-	private String participationDate;
 	
 	public Participation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Participation(Long id, Event event, User user, String participationDate) {
+	public Participation(Long id, float price, String participationDate, Event event, User user) {
 		super();
 		this.id = id;
+		this.price = price;
+		this.participationDate = participationDate;
 		this.event = event;
 		this.user = user;
-		this.participationDate = participationDate;
 	}
 
 	public Long getId() {
@@ -46,6 +48,22 @@ public class Participation implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public float getPrice() {
+		return price;
+	}
+
+	public void setPrice(float price) {
+		this.price = price;
+	}
+
+	public String getParticipationDate() {
+		return participationDate;
+	}
+
+	public void setParticipationDate(String participationDate) {
+		this.participationDate = participationDate;
 	}
 
 	public Event getEvent() {
@@ -64,14 +82,6 @@ public class Participation implements Serializable {
 		this.user = user;
 	}
 
-	public String getParticipationDate() {
-		return participationDate;
-	}
-
-	public void setParticipationDate(String participationDate) {
-		this.participationDate = participationDate;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,6 +89,7 @@ public class Participation implements Serializable {
 		result = prime * result + ((event == null) ? 0 : event.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((participationDate == null) ? 0 : participationDate.hashCode());
+		result = prime * result + Float.floatToIntBits(price);
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -107,6 +118,8 @@ public class Participation implements Serializable {
 				return false;
 		} else if (!participationDate.equals(other.participationDate))
 			return false;
+		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
+			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;
@@ -117,8 +130,9 @@ public class Participation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Participation [id=" + id + ", event=" + event + ", user=" + user + ", participationDate="
-				+ participationDate + "]";
+		return "Participation [id=" + id + ", price=" + price + ", participationDate=" + participationDate + ", event="
+				+ event + ", user=" + user + "]";
 	}
-
+	
+	
 }
