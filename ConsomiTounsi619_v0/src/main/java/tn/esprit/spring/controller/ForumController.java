@@ -1,5 +1,6 @@
 package tn.esprit.spring.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.Response;
@@ -15,17 +16,22 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import tn.esprit.spring.sevice.impl.UserServiceImpl;
-import tn.esprit.spring.sevice.interfece.ICommentService;
-import tn.esprit.spring.sevice.interfece.IRechercheService;
-import tn.esprit.spring.sevice.interfece.ISubjectService;
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Comment_evaluation;
 import tn.esprit.spring.entity.Recherche;
 import tn.esprit.spring.entity.Subject;
+import tn.esprit.spring.sevice.impl.UserServiceImpl;
+import tn.esprit.spring.sevice.interfece.ICommentService;
+import tn.esprit.spring.sevice.interfece.IRechercheService;
+import tn.esprit.spring.sevice.interfece.ISubjectService;
+import tn.esprit.spring.sevice.interfece.IUserService;
+
+
 
 @RestController
 public class ForumController {
+	
+	
 	
 	@Autowired
 	UserServiceImpl UserService;
@@ -45,16 +51,11 @@ public class ForumController {
 
 @GetMapping("/listsubject")
 @ResponseBody
-public List<String> getdate() {
-	List<String> list = subjectService.sub();
+public List<Subject> getdate() {
+	List<Subject> list = subjectService.sub();
 return list;
 }
-/////////find subject by title//////////
-@GetMapping("/showSubject/{title}")
-@ResponseBody
-public Subject Subject (@PathVariable("title") String title) {
-	return subjectService.listbytitle(title);
-}
+
 /////////////////sujects adéquats au profil/////////////////////
 
 @GetMapping("/findinterested")
@@ -95,7 +96,7 @@ public Response addSearch(@PathVariable("type") String type) {
     }
     else {
     	
-rechercheService.addSearch(r, UserController.USERCONNECTED.getId());
+rechercheService.addSearch(r, UserService.findbyid(UserController.USERCONNECTED.getId()) );
 return Response.status(Status.OK).entity(list).build();
     }
 	 
@@ -143,27 +144,18 @@ public void deleteSubject(@PathVariable("subject-id") long subjectId) {
 
 
 
-
-
-
-
-
-
-
-
-
-////CRUD COMMERNT // TODO AVEC CONDITION (mots interdits)//,//
+////CRUD COMMERNT //  AVEC CONDITION (mots interdits includes empty word)////
 
 @PostMapping("/addComment/{subjectId}")
 @ResponseBody
 public Response addComment(@RequestBody Comment u,@PathVariable("subjectId") Long subjectId) {
 	
-	commentService.addComment(u,UserController.USERCONNECTED.getId(),subjectId);
-return Response.status(Status.OK).entity("add successful").build();
+	String msg = commentService.addComment(u,UserController.USERCONNECTED.getId(),subjectId);
+return Response.status(Status.OK).entity(msg).build();
 
     }
 
-//all comments  ajouter une exception 
+//all comments 
 @GetMapping("/ListComment/{subjectId}")
 @ResponseBody
 public Response list(@PathVariable("subjectId") Long subjectId) {
@@ -179,10 +171,10 @@ else {
 }
 }
 //all userconnected comments ajouter une exception 
-@GetMapping("/myComments/{subjectId}")
+@GetMapping("/myComments")
 @ResponseBody
-public List<Comment> mylist(@PathVariable("subjectId") Long subjectId) {
-List<Comment> l = commentService.mylist(subjectId, UserController.USERCONNECTED.getId());
+public List<Comment> mylist() {
+List<Comment> l = commentService.mylist(UserController.USERCONNECTED.getId());
 return l ;
 
 }
@@ -215,6 +207,7 @@ return Response.status(Status.OK).entity("add successful").build();
 */
 
 ///////////////////comment evaluation///////////////////
+
 @PostMapping("/evaluate/{commentId}")
 @ResponseBody
 public Response addevaluation(@RequestBody Comment_evaluation u,@PathVariable("commentId") Long commentId) {
@@ -228,13 +221,9 @@ return Response.status(Status.OK).entity("add successful").build();
 	
 ////////////// commentaires + pertinents /////////////////// 	
 	
-
-
-
-
 @GetMapping("/BestComments")
 @ResponseBody
-public List<Comment> mylist() {
+public List<Comment> Best() {
 
 	
 	return commentService.Bestcomments();

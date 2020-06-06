@@ -14,11 +14,12 @@ import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Subject;
 import tn.esprit.spring.entity.Subject_evaluation;
-import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.CommentRepository;
 import tn.esprit.spring.repository.SubjectRepository;
 import tn.esprit.spring.repository.Subject_evaluationRepository;
 import tn.esprit.spring.sevice.interfece.ISubjectService;
+
+
 
 
 
@@ -88,7 +89,7 @@ public Subject test(String type , String description){
 }
 
 @Override	
-public List<String> sub(){
+public List<Subject> sub(){
 	Double mydate = (double) 3;
 	return var.sub(mydate);
 	
@@ -142,14 +143,13 @@ public List<Long> notcommented() {
 	
 }
 /////////////////////subject rating /////////////////////
-public Subject_evaluation addrate(int value,Long id) {
+public void addrate(int value,long id) {
 	
 	Subject s = var.findById(id).get();
 	Subject_evaluation e = new Subject_evaluation();
 	e.setValue(value);
 	e.setsubject(s);
 	var2.save(e);
-	return e ;
 	
 	
 }

@@ -28,7 +28,7 @@ public class Subject_evaluation implements Serializable{
 	
 	
 	@JsonIgnore 
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Subject subject;
 
 

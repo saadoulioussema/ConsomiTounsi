@@ -44,12 +44,12 @@ public class User implements Serializable{
 		private List<Contribution> contribution;
 	  
 		//@JsonBackReference
-		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
+		@OneToMany(mappedBy="user" , cascade=CascadeType.MERGE)
 	    private List<Recherche> recherches;
 		
 		//@JsonManagedReference
 		@JsonIgnore
-		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
+		@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
 		private List<Comment> comments;
 		
 		
