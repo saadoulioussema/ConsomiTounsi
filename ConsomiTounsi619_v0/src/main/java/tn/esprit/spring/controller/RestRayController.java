@@ -402,7 +402,7 @@ public class RestRayController {
 							.parseMediaType("application/txt")).body(resource);
 					return responseEntity;
 					} catch (Exception e ) {
-	return new ResponseEntity<>("error occurreddd", HttpStatus.INTERNAL_SERVER_ERROR);	
+	return new ResponseEntity<>("error occurredt", HttpStatus.INTERNAL_SERVER_ERROR);	
 } finally {
 	if(filewriter !=null)
 		filewriter.close();
