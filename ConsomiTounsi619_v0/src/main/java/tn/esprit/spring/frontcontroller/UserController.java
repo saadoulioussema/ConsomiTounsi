@@ -20,7 +20,7 @@ import tn.esprit.spring.sevice.interfece.IUserService;
 @Scope(value = "session")
 @Controller(value = "userFController")
 @ELBeanName(value = "userFController")
-@Join(path = "/", to = "/welcome.jsf")
+@Join(path = "/welcome", to = "/welcomeadmin.jsf")
 public class UserController {
 	
 
@@ -112,4 +112,14 @@ public class UserController {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	
+	public String ToSubMan() {
+		String navigateTo = "null";
+		
+		navigateTo = "/pages/forum/admin/gererSujet.xhtml?faces-redirect=true";
+		return navigateTo;
+	}
+	
+	
 }

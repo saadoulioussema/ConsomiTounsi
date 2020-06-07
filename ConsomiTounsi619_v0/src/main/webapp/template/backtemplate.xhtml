@@ -6,7 +6,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
 
-<head>
+<h:head>
+
 	<!-- Meta Tag -->
     <meta charset="utf-8"/>
   <script src="/resources/back/vendors/base/vendor.bundle.base.js"></script>
@@ -41,9 +42,11 @@
         padding: 0;
       }
     </style>
-  
-</head>
-<body>
+</h:head>
+<h:body>
+
+<ui:insert name="welcome" />
+<h:form>
  <div class="container-scroller">
 
 
@@ -163,7 +166,8 @@
                </a>
                <div class="collapse" id="ui-basice">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/forum/admin/welcomea.xhtml">Forum Management</a></li>
+                <li class="nav-item"><h:commandLink value="Subject Management" style="font-weight: bold;color:blue;height:80px"
+                           action="#{userFController.ToSubMan()}"  /></li>
               </ul>
             </div>
               
@@ -218,7 +222,7 @@
         <div class="content-wrapper">
           <div class="row">
          
-          
+         <ui:insert name="hello"></ui:insert>	
 
         </div>
        </div>
@@ -257,6 +261,6 @@
   <!-- End custom js for this page-->
   
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnhgNBg6jrSuqhTeKKEFDWI0_5fZLx0vM&amp;callback=initMap" ></script>
-
-</body>
+</h:form>
+</h:body>
 </html>

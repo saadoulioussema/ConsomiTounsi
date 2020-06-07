@@ -33,9 +33,9 @@ import tn.esprit.spring.sevice.interfece.ISubjectService;
 @Scope(value = "session")
 @Controller(value = "subjectController")
 @ELBeanName(value = "subjectController")
-@Join(path = "/", to = "/login.jsf")
+@Join(path = "/", to = "/welcomea.jsf")
 public class SubjectJsfControl{
-/*
+
 	@Autowired
 	ISubjectService isubjectService;
 	
@@ -242,7 +242,7 @@ public class SubjectJsfControl{
 	/**************************************************************************************************
 	  *****************                  CRUD Subject                    ********************
 	 ***************************************************************************************************/
-/*	public void handleException (Throwable exception){
+	public void handleException (Throwable exception){
 	    String message="";
 	    if (exception instanceof ApplicationError){
 	        message = ""+ exception.getMessage();
@@ -301,7 +301,7 @@ public void mettreAjourSubject(){
 }
 
 /**************************sub à la une**********************************************/
-	/*
+	
 public List<Subject> getList() {
 	 list = isubjectService.sub();
 return list;
@@ -324,7 +324,7 @@ return list1;
 
 }	
 /****************save my search + return subjects researched*************Recherche********************/	
-	/*
+/*	
 public List<Subject> getList2() {
 	
 	Recherche r = new Recherche(typesearched);
@@ -343,7 +343,7 @@ public List<Subject> getList2() {
 /**************************************************************************************************
  *****************      CRUD COMMENTS      ********************
 ***************************************************************************************************/
-	/*
+	
 public List<Comment> showlist(long subjectId) {
  mylist = commentService.list(subjectId);
 comments=mylist;
@@ -358,6 +358,7 @@ if (mylist.size()==0) {
 return mylist ;
 }
 //////////////////Dictionnaire mots interdits///////////////////////
+/*
 public void addComment(long subjectId) {
 	Comment u = new Comment(mot);
 	String msg = commentService.addComment(u,userJsfControl.getAuthenticatedUser().getId(),subjectId);
@@ -396,7 +397,7 @@ long id = commentService.findbyid(commentIdToBeUpdated).getSubject().getId();
 
 
 /*************************************subject Rating***************************************************/
-	/*
+	
 public void Rate(long subjectId) {
 	isubjectService.addrate(rating1, subjectId);
 	if(true) {
@@ -408,7 +409,7 @@ public void Rate(long subjectId) {
 	}
    }  
 /*************************************comment evaluation***************************************************/
-	/*
+	
 //Like : 
 public void addLevaluation(Long commentId) {
 	Comment_evaluation u = new Comment_evaluation();
@@ -483,7 +484,7 @@ public void addMevaluation(long commentId) {
   }
   
 /*************************************get evaluations***************************************************/
-/*
+
 
 public String getLike(long commentId) {
 	Comment_evaluation c = commentService.Evatuation(commentId) ;
@@ -548,14 +549,14 @@ else {
 
 
 /*************************************comments most pertinent ***************************************************/
-	/*
+	
 public List<Comment> getpertcomm() {
 pertcomm = commentService.Bestcomments();
 return pertcomm ;
 
 }
 
-*/
+
 
 
 
