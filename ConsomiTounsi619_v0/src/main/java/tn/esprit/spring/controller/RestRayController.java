@@ -140,12 +140,12 @@ public class RestRayController {
 	    String ch=" ";
 	   ch="nombre de rayons est "+rayInfoService.countRays();
 	     return new ResponseEntity<>(ch, HttpStatus.OK);
-  }
-
+  }     
+             
+	 
+	//fonctionalités avancées   
 	
-	//fonctionalités avancées
-	
-	//afficher all rayons
+	//afficher all rayons 
 	@RequestMapping(value = "/rays", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Ray>> getAllRays(){
     	logger.debug("Invocation de la resource : GET /product");
