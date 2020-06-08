@@ -148,11 +148,11 @@
 													<li class="active"><a href="/welcome.jsf">Home</a></li>
 													<li><a href="#">Product</a></li>												
 													<li><a href="#">Service</a></li>
-													<li><a href="#">Shop<i class="ti-angle-down"></i><span class="new">New</span></a>
+													<li><a href="#">Forum<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
-															<li><a href="shop-grid.html">Shop Grid</a></li>
-															<li><a href="cart.html">Cart</a></li>
-															<li><a href="checkout.html">Checkout</a></li>
+															<li><h:commandLink value="Subjects" style="font-weight: bold;color:red;height:80px"
+                           								action="#{subjectController.ToSub()}"  /></li>
+															<li><a href="/pages/forum/client/welcomec.jsf">Chat</a></li>
 														</ul>
 													</li>
 													<li><a href="#">Pages</a></li>									

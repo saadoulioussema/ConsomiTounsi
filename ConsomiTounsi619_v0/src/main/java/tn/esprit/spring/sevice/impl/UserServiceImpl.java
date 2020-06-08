@@ -74,6 +74,10 @@ public class UserServiceImpl implements UserDetailsService {
 		User u = userRepo.findByUsernameAndEmail(username, email);
 		return u;
 	}
+	public User authenticatejsf(String username, String password) {
+		User u = userRepo.findByUsernameAndPassword(username, password);
+		return u;
+	}
 
 //	@Override
 //	public User authenticate(String username, String email) {

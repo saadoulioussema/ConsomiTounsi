@@ -1,5 +1,7 @@
 package tn.esprit.spring.frontcontroller;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.ocpsoft.rewrite.annotation.Join;
@@ -15,51 +17,85 @@ import org.springframework.stereotype.Controller;
 
 //import tn.esprit.spring.entity.Role;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.sevice.impl.UserServiceImpl;
 import tn.esprit.spring.sevice.interfece.IUserService;
 
 @Scope(value = "session")
 @Controller(value = "userFController")
 @ELBeanName(value = "userFController")
-@Join(path = "/welcome", to = "/welcomeadmin.jsf")
+@Join(path = "/", to = "/login.jsf")
 public class UserController {
 	
 
 	
 
+	//@Autowired
+	//private AuthenticationManager authenticationManager;
+	
+	
+	//@Autowired
+	//private PasswordEncoder bcryptEncoder;
+	
 	@Autowired
-	private AuthenticationManager authenticationManager;
+	UserServiceImpl userServiceImpl;
 	
 	
-	@Autowired
-	private PasswordEncoder bcryptEncoder;
-	
-	private User authenticatedUser;
 
 	
 	
-	private String login;
+	private String username;
 	private Boolean loggedIn;
 	private String password;
+	private User authenticatedUser;
 	
-	public UserController() {
-
+	
+	@PostConstruct
+	public void init() {
 		authenticatedUser = new User();
-		loggedIn = false;
+	}
+	
+	
+	public String dologin() {
+		String navigateTo = "null";
+		
+		authenticatedUser = userServiceImpl.authenticatejsf(username,password);
+	 
+		if (authenticatedUser != null && authenticatedUser.getRole().equals("admin")  ) {
+			navigateTo = "/welcomeadmin.xhtml?faces-redirect=true";
+			loggedIn = true;
+		}
+		
+		else if(authenticatedUser != null && authenticatedUser.getRole().equals("client")) {
+			
+			navigateTo = "/welcomeclient.xhtml?faces-redirect=true";
+			loggedIn = true;
+			
+	}
+		
+	  else {
+			FacesMessage facesMessage = new FacesMessage("Login Failed: please check your username/password and try again.");
+			FacesContext.getCurrentInstance().addMessage("form:btn", facesMessage);
 		}
 
+		return navigateTo;
+	}
+	
+	
+/*
+ *login with token  
 	public String dologin()  {
 		String navigateTo = "null";
 	
-//		String UserName =authenticatedUser.getUsername();
-//		String UserPass = authenticatedUser.getPassword();
-//		authenticatedUser = UserService.findUserByUsername(UserName);			
-//		if (authenticatedUser != null && authenticatedUser.getRole() == Role.ADMINISTRATEUR && bcryptEncoder.matches(UserPass, authenticatedUser.getPassword())) {
-//			navigateTo = "/welcome.xhtml?faces-redirect=true";
-//			loggedIn = true;
-//		} else {
-//			FacesMessage facesMessage = new FacesMessage("Login Failed: please check your username/password and try again.");
-//			FacesContext.getCurrentInstance().addMessage("form:btn", facesMessage);
-//		}
+		String UserName =authenticatedUser.getUsername();
+		String UserPass = authenticatedUser.getPassword();
+		authenticatedUser = UserService.findUserByUsername(UserName);			
+		if (authenticatedUser != null && authenticatedUser.getRole() == Role.ADMINISTRATEUR && bcryptEncoder.matches(UserPass, authenticatedUser.getPassword())) {
+			navigateTo = "/welcome.xhtml?faces-redirect=true";
+			loggedIn = true;
+		} else {
+			FacesMessage facesMessage = new FacesMessage("Login Failed: please check your username/password and try again.");
+			FacesContext.getCurrentInstance().addMessage("form:btn", facesMessage);
+		}
 		return navigateTo;
 	}
 	
@@ -72,7 +108,7 @@ public class UserController {
 			throw new Exception("INVALID_CREDENTIALS", e);
 		}
 	}
-
+*/
 
 	
 	public String doLogout() {
@@ -89,13 +125,20 @@ public class UserController {
 		this.authenticatedUser = authenticatedUser;
 	}
 
-	public String getLogin() {
-		return login;
+	
+
+
+
+
+	public String getUsername() {
+		return username;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
+
 
 	public Boolean getLoggedIn() {
 		return loggedIn;
@@ -114,12 +157,7 @@ public class UserController {
 	}
 	
 	
-	public String ToSubMan() {
-		String navigateTo = "null";
-		
-		navigateTo = "/pages/forum/admin/gererSujet.xhtml?faces-redirect=true";
-		return navigateTo;
-	}
+	
 	
 	
 }

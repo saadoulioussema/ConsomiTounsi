@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Comment_evaluation;
+import tn.esprit.spring.entity.Recherche;
 import tn.esprit.spring.entity.Subject;
 import tn.esprit.spring.entity.Subject_evaluation;
 import tn.esprit.spring.sevice.impl.CommentService;
@@ -33,7 +34,7 @@ import tn.esprit.spring.sevice.interfece.ISubjectService;
 @Scope(value = "session")
 @Controller(value = "subjectController")
 @ELBeanName(value = "subjectController")
-@Join(path = "/", to = "/welcomea.jsf")
+@Join(path = "/welcomea", to = "/welcomea.jsf")
 public class SubjectJsfControl{
 
 	@Autowired
@@ -41,8 +42,8 @@ public class SubjectJsfControl{
 	
 	@Autowired
 	IRechercheService rechercheService;
-	//@Autowired
-	//UserJsfControl userJsfControl;
+	@Autowired
+	UserController userJsfControl;
 	@Autowired
 	CommentService commentService ;
 	
@@ -77,6 +78,8 @@ public class SubjectJsfControl{
 	private String HImageURL = "/resources/images/H.jpg";
 	private String SImageURL = "/resources/images/S.jpg";
 	private String MImageURL = "/resources/images/M.png";
+	private String RImageURL = "/resources/images/R.jpg";
+
 
 	
 	//rating///
@@ -93,6 +96,22 @@ public class SubjectJsfControl{
 	}
 	
 	
+
+
+
+	public String getRImageURL() {
+		return RImageURL;
+	}
+
+
+
+
+
+	public void setRImageURL(String rImageURL) {
+		RImageURL = rImageURL;
+	}
+
+
 
 
 
@@ -307,7 +326,7 @@ public List<Subject> getList() {
 return list;
 }
 /**************************Sub Interested**********************************************/
-	/*
+	
 public List<Subject> getList1() {
 	
 	String max = rechercheService.extractt(userJsfControl.getAuthenticatedUser().getId());
@@ -324,7 +343,7 @@ return list1;
 
 }	
 /****************save my search + return subjects researched*************Recherche********************/	
-/*	
+
 public List<Subject> getList2() {
 	
 	Recherche r = new Recherche(typesearched);
@@ -358,7 +377,7 @@ if (mylist.size()==0) {
 return mylist ;
 }
 //////////////////Dictionnaire mots interdits///////////////////////
-/*
+
 public void addComment(long subjectId) {
 	Comment u = new Comment(mot);
 	String msg = commentService.addComment(u,userJsfControl.getAuthenticatedUser().getId(),subjectId);
@@ -558,7 +577,25 @@ return pertcomm ;
 
 
 
-
+/**************************redirection*********************************************/
+public String ToSubMan() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/admin/gererSujet.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+public String ToSub() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/client/welcomec.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+public String ToRech() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/client/recherche.xhtml?faces-redirect=true";
+	return navigateTo;
+}
 
 
 
