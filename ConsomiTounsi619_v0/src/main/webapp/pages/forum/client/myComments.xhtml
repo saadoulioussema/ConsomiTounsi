@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/template.xhtml">
+
+
+
+<ui:define name="mycomm">
+
+		<h:panelGroup>
+		<h:form>
+			   <b>All My Comments</b>
+			   
+				<br/><br/>
+				<br/><br/>
+<h:inputText value="#{subjectController.mot}" ></h:inputText>
+<br/><br/>
+				<br/><br/>
+		<h:dataTable value="#{subjectController.allcomm}" var="comm" border="1">
+		<h:column>
+		<f:facet name="header">
+		<h:outputText value="Comment" />
+		</f:facet>
+		<h:outputText value="#{comm.mot}" />
+		</h:column>
+		<h:column>
+		<f:facet name="header">
+		<h:outputText value="Title of Sbject" />
+		</f:facet>
+		<h:outputText value="#{comm.subject.title}" />
+		</h:column>
+		
+		<h:column>
+		<f:facet name="header">
+		<h:outputText value="Action" />
+		</f:facet>
+		<h:commandButton action="#{subjectController.deleteComment(comm.id)}"
+		value="Delete" />
+		<h:commandButton action="#{subjectController.modifiercomm(comm)}"
+		value="Modify" />
+		
+		</h:column>
+		
+		</h:dataTable>
+		<h:commandButton action="#{subjectController.mettreAjourcomment()}"
+		value="Update Comment" />
+		</h:form>
+		</h:panelGroup>
+		</ui:define>
+		</ui:composition>

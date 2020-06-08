@@ -32,8 +32,10 @@ public class User implements Serializable{
 	    private String email;
 	    private String role;	
 	    private float accBalance;
-		@OneToMany(mappedBy="user")
-		private List <UserProductViews> UserProductsViews;
+	    
+	    
+	    
+		
 		@OneToMany(mappedBy="user")
 		private List <UserProductCategoryViews> userProductCategoriesViews;
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
@@ -48,8 +50,8 @@ public class User implements Serializable{
 	    private List<Recherche> recherches;
 		
 		//@JsonManagedReference
-		@JsonIgnore
-		@OneToMany(mappedBy="user",cascade=CascadeType.ALL)
+		//@JsonIgnore
+		@OneToMany(mappedBy="user",cascade=CascadeType.MERGE)
 		private List<Comment> comments;
 		
 		
@@ -59,6 +61,9 @@ public class User implements Serializable{
 		  @OneToMany(mappedBy="user"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
 		    private List<Notif> notifs = new ArrayList<>();
 
+		  @OneToMany(mappedBy="user")
+			private List <UserProductViews> UserProductsViews;
+		  
 		
 		public User(Long id, String username, String password, String firstName, String lastName, String email,
 				String role, List<UserProductViews> userProductsViews,
@@ -72,7 +77,7 @@ public class User implements Serializable{
 			this.lastName = lastName;
 			this.email = email;
 			this.role = role;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 			//this.events = events;
 			this.recherches = recherches;
@@ -163,14 +168,14 @@ public class User implements Serializable{
 		public void setUserProductCategoriesViews(List<UserProductCategoryViews> userProductCategoriesViews) {
 			this.userProductCategoriesViews = userProductCategoriesViews;
 		}
-		
+	
 		public List<UserProductViews> getUserProductsViews() {
 			return UserProductsViews;
 		}
 		public void setUserProductsViews(List<UserProductViews> userProductsViews) {
 			UserProductsViews = userProductsViews;
 		}
-		
+
 		public String getRole() {
 			return role;
 		}
@@ -236,7 +241,7 @@ public class User implements Serializable{
 			this.lastName = lastName;
 			this.email = email;
 			this.role = role;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 		}
 		
@@ -262,7 +267,7 @@ public class User implements Serializable{
 			this.lastName = lastName;
 			this.email = email;
 			this.role = role;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 			this.participation = participation;
 			this.notification = notification;
@@ -284,7 +289,7 @@ public class User implements Serializable{
 			this.email = email;
 			this.role = role;
 			this.accBalance = accBalance;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 			this.participation = participation;
 			this.notification = notification;
@@ -403,13 +408,12 @@ public class User implements Serializable{
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", accBalance=" + accBalance
-					+ ", UserProductsViews=" + UserProductsViews + ", userProductCategoriesViews="
-					+ userProductCategoriesViews + ", participation=" + participation + ", notification=" + notification
-					+ ", contribution=" + contribution + ", recherches=" + recherches + ", comments=" + comments + "]";
+					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", accBalance=" + accBalance+"]";
+					
+		}
 		}
 		
 
 		
 	
-}
+

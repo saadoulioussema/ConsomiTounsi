@@ -376,6 +376,8 @@ if (mylist.size()==0) {
 }
 return mylist ;
 }
+
+
 //////////////////Dictionnaire mots interdits///////////////////////
 
 public void addComment(long subjectId) {
@@ -594,6 +596,37 @@ public String ToRech() {
 	String navigateTo = "null";
 	
 	navigateTo = "/pages/forum/client/recherche.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+public String ToLaUne() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/client/ALaUne.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+public String ToInterest() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/client/findInterested.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+public String ToAll() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/client/allSubjects.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+public String MyComm() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/client/myComments.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+
+public String PertComm() {
+	String navigateTo = "null";
+	
+	navigateTo = "/pages/forum/client/pertinentComments.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 
