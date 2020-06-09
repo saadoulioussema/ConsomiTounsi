@@ -26,13 +26,26 @@ public class Dictionary implements Serializable{
 	
 	private static final long serialVersionUID = -6236517548335858347L;
 	@Id
-	@GeneratedValue (strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
 	@Column
 	private String mot;
 	
 	
 	
 	
+	public Dictionary(Long id, String mot) {
+		super();
+		this.id = id;
+		this.mot = mot;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getMot() {
 		return mot;
 	}
