@@ -128,6 +128,12 @@ public class ProductServiceImpl implements IProductService{
 	public List< Product> findProductByName(String name){
 		return productRepository.findProductByName(name);
 	}
+	
+	@Override
+	public List<Product> getProducts() {
+		
+		return productRepository.findAll();
+	}
 }
 
 

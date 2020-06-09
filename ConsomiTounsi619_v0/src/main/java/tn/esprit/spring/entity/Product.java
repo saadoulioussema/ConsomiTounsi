@@ -38,6 +38,9 @@ public class Product implements Serializable{
 	@Temporal(TemporalType.DATE)
     private Date exprdate;
 	
+	private int quantity;
+
+	
 	@ManyToOne
 	private ProductCategory category;
 	
@@ -62,6 +65,18 @@ public class Product implements Serializable{
 	
 	
 	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	public List<Product_Line> getProductlines() {
+		return productlines;
+	}
+	public void setProductlines(List<Product_Line> productlines) {
+		this.productlines = productlines;
+	}
 	public Long getBarCode() {
 		return barCode;
 		
