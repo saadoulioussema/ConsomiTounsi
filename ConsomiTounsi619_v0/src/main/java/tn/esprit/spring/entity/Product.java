@@ -50,7 +50,8 @@ public class Product implements Serializable{
 	@OneToMany(mappedBy="product")
 	private List <UserProductViews> productUsersViews;
 	
-	@OneToMany(mappedBy="product")
+	@OneToMany
+	//(mappedBy="product")
 	private  List<Product_Line> productlines;
 	
 	@JsonIgnore 

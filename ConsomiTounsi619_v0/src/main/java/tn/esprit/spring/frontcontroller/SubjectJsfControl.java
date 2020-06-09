@@ -589,44 +589,44 @@ public String ToSubMan() {
 public String ToSub() {
 	String navigateTo = "null";
 	
-	navigateTo = "/pages/forum/client/welcomec.xhtml?faces-redirect=true";
+	navigateTo = "/welcomec.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 public String ToRech() {
 	String navigateTo = "null";
 	
-	navigateTo = "/pages/forum/client/recherche.xhtml?faces-redirect=true";
+	navigateTo = "/recherche.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 public String ToLaUne() {
 	String navigateTo = "null";
 	
-	navigateTo = "/pages/forum/client/ALaUne.xhtml?faces-redirect=true";
+	navigateTo = "/ALaUne.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 public String ToInterest() {
 	String navigateTo = "null";
 	
-	navigateTo = "/pages/forum/client/findInterested.xhtml?faces-redirect=true";
+	navigateTo = "/findInterested.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 public String ToAll() {
 	String navigateTo = "null";
 	
-	navigateTo = "/pages/forum/client/allSubjects.xhtml?faces-redirect=true";
+	navigateTo = "/allSubjects.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 public String MyComm() {
 	String navigateTo = "null";
 	
-	navigateTo = "/pages/forum/client/myComments.xhtml?faces-redirect=true";
+	navigateTo = "/myComments.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 
 public String PertComm() {
 	String navigateTo = "null";
 	
-	navigateTo = "/pages/forum/client/pertinentComments.xhtml?faces-redirect=true";
+	navigateTo = "/pertinentComments.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 
