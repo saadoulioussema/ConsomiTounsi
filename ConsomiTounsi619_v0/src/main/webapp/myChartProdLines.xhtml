@@ -1,0 +1,117 @@
+
+
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	template="template/template.xhtml">
+
+
+	<ui:param name="page_name" value="Consomi TN !" />
+	<ui:define name="myChartProdlines">
+
+	<h:form>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+			<div class="shopping-cart section">
+		<div class="container">
+		<div class="header shop">
+		
+			<div class="middle-inner">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-2 col-md-3 col-12">
+							<div class="right-bar">
+								<!-- Search Form -->
+								<div class="sinlge-bar shopping" style="display: inline-block;padding: 0;margin: 0;float: right;position: relative;">
+									<a href="#" class="single-icon" ><i class="ti-bag"></i> <span class="total-count"><p:outputLabel value="#{PanierJSFController.myquantity}"></p:outputLabel> </span></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+			<div class="row">
+				<div class="col-12">
+				
+					<!-- Shopping Summery -->
+					<table class="table shopping-summery">
+					<thead>
+						<tr class="main-hading">
+							<th>PRODUCT NAME</th>
+
+							<th class="text-center">UNIT PRICE</th>
+							<th class="text-center">QUANTITY</th>
+							<th class="text-center">TOTAL</th>
+							<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat value="#{PanierJSFController.myprodlines}"
+							var="prodline">
+							<tr>
+
+
+								<td><h:outputText value="#{prodline.produit.name}">
+									</h:outputText></td>
+								<td><h:outputText value="#{prodline.produit.price} DT"
+										class="text-center" /></td>
+								<td><h:outputText value="#{prodline.quantité}"
+										class="col-xs-2 col-sm-5" /></td>
+								<td><h:outputText value="#{prodline.prix} DT"
+										class="col-xs-2 col-sm-5" /></td>
+								<td><h:commandLink
+										action="#{PanierJSFController.deleteProdLine(prodline.plId)}">
+										<i class="fa fa-trash"></i>
+									</h:commandLink></td>
+
+
+							</tr>
+						</ui:repeat>
+					</tbody>
+
+				</table>
+			</div>
+			</div>
+			
+			
+
+			<div class="sommepanier">
+				<h:outputText value="Total Price:"
+					style="font-weight: bold;color:black;height:10px;" />
+				<h:outputText class="prodname"
+					value="#{PanierJSFController.monpanier.prixTotal} DT "
+					style="font-weight: bold;color:red;height:80px" />
+				
+			</div>
+			<div>
+				<h:commandButton id="btn" value="Validate My Cart"
+					class="btn btn-lg btn-primary btn-block"
+					action="#{PanierJSFController.ToMyCart()}"
+					style="width:200px; height:50px;margin-right:500px;text-align:center" />
+
+
+			</div>
+			
+			
+			</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

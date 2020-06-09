@@ -1,0 +1,100 @@
+
+
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	template="template/template.xhtml">
+
+
+	<ui:param name="page_name" value="Consomi TN !" />
+	<ui:define name="myBills">
+
+	<h:form>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+			<div class="shopping-cart section">
+		<div class="container">
+		
+			<div class="row">
+				<div class="col-12">
+				
+					<!-- Shopping Summery -->
+					<table class="table shopping-summery">
+					<thead>
+						<tr class="main-hading">
+							<th class="text-center">DATE</th>
+
+							<th class="text-center">PRICE OF CART</th>
+							<th class="text-center">TOTAL QUANTITY</th>
+							<th class="text-center">SHIPPING</th>
+							<th class="text-center">DELIEVERY</th>
+							<th class="text-center">PRICE TO PAY</th>
+							<th class="text-center"><i class="ti-trash remove-icon"></i></th>
+							<th class="text-center">PDF BILL</th>
+							
+						</tr>
+					</thead>
+					<tbody>
+						<ui:repeat value="#{PanierJSFController.myBills}"
+							var="facture">
+							<tr>
+
+
+								<td><h:outputText value="#{facture.panierDetail.datePanier}">
+									</h:outputText></td>
+								<td><h:outputText value="#{facture.panierDetail.prixTotal} DT"
+										class="text-center" /></td>
+								<td><h:outputText value="#{facture.panierDetail.quantiteTotale}"
+										class="col-xs-2 col-sm-5" /></td>
+								<td><h:outputText value="#{facture.panierDetail.remise} DT"
+										class="col-xs-2 col-sm-5" /></td>
+									<td><h:outputText value="#{facture.fraisDeliv} DT"
+										class="col-xs-2 col-sm-5" /></td>	
+										<td><h:outputText value="#{PanierJSFController.getThePriceOfBill(facture)} DT"
+										class="col-xs-2 col-sm-5" /></td>
+								<td><h:commandLink
+										action="#{PanierJSFController.deleteMyBill(facture.idFacture)}">
+										<i class="fa fa-trash"></i>
+									</h:commandLink></td>
+									<td>
+									<h:commandLink
+										action="#{PanierJSFController.generateFacturePdf(facture.panierDetail)}">
+										<i class="fa fa-file-pdf-o" style="width:30px;height:30px"></i>
+
+										</h:commandLink>
+									</td>
+
+
+							</tr>
+						</ui:repeat>
+					</tbody>
+
+				</table>
+			</div>
+			</div>
+			
+			
+
+			
+			
+			
+			</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

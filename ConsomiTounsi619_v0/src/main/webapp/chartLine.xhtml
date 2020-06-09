@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ct="http://www.chartistjsf.org/charts">
+
+
+  <div class="card-header">My Categories Statistics</div>
+  
+
+
+    <f:view contentType="text/html">
+        <h:head>
+
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Prime Faces</title>
+            </f:facet>
+        </h:head>
+        <h:body>
+            <div style="width: 60%; height: 60%; margin-left: auto; margin-right: auto; margin-top: auto; margin-bottom: auto;">
+                <ct:chart id="pieChart" type="pie" model="#{ChartLineController.pieChartModel}" >
+                <p:ajax event="itemSelect" listener="#{ChartLineController.pieItemSelect}" update="pieChartMessage" />
+   
+                </ct:chart>
+            </div>
+            <p:message id="pieChartMessage" for="pieChart" showDetail="true" /> 
+        </h:body>
+
+    </f:view>
+
+</html>
+
+
