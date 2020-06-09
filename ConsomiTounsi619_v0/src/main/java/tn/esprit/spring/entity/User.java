@@ -64,6 +64,11 @@ public class User implements Serializable{
 		  @OneToMany(mappedBy="user")
 			private List <UserProductViews> UserProductsViews;
 		  
+		  @JsonIgnore
+			//@JsonBackReference
+			@OneToMany(mappedBy="user")
+			private List<Panier> panierId;
+		  
 		
 		public User(Long id, String username, String password, String firstName, String lastName, String email,
 				String role, List<UserProductViews> userProductsViews,

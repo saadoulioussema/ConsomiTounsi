@@ -2,6 +2,7 @@ package tn.esprit.spring.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,19 +19,35 @@ public class Facture implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idFacture;
+	private int idFacture;
 	
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.REMOVE)
 	private Panier panierDetail;
+	
+	private float fraisDeliv;
+	
 
 
-	public Long getIdFacture() {
+	
+
+
+	public float getFraisDeliv() {
+		return fraisDeliv;
+	}
+
+
+	public void setFraisDeliv(float fraisDeliv) {
+		this.fraisDeliv = fraisDeliv;
+	}
+
+
+	public int getIdFacture() {
 		return idFacture;
 	}
 
 
-	public void setIdFacture(Long idFacture) {
+	public void setIdFacture(int idFacture) {
 		this.idFacture = idFacture;
 	}
 
@@ -54,10 +71,14 @@ public class Facture implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idFacture == null) ? 0 : idFacture.hashCode());
+		result = prime * result + Float.floatToIntBits(fraisDeliv);
+		result = prime * result + idFacture;
 		result = prime * result + ((panierDetail == null) ? 0 : panierDetail.hashCode());
 		return result;
 	}
+
+
+	
 
 
 	@Override
@@ -69,10 +90,9 @@ public class Facture implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Facture other = (Facture) obj;
-		if (idFacture == null) {
-			if (other.idFacture != null)
-				return false;
-		} else if (!idFacture.equals(other.idFacture))
+		if (Float.floatToIntBits(fraisDeliv) != Float.floatToIntBits(other.fraisDeliv))
+			return false;
+		if (idFacture != other.idFacture)
 			return false;
 		if (panierDetail == null) {
 			if (other.panierDetail != null)
@@ -89,16 +109,31 @@ public class Facture implements Serializable{
 	}
 
 
-	public Facture(Long idFacture, Panier panierDetail) {
-		super();
-		this.idFacture = idFacture;
-		this.panierDetail = panierDetail;
-	}
+	
 
 
 	public Facture() {
 		super();
 	}
+
+
+	public Facture(Panier panierDetail, float fraisLivraison) {
+		super();
+		this.panierDetail = panierDetail;
+		this.fraisDeliv = fraisLivraison;
+	}
+
+
+	public Facture(int idFacture, Panier panierDetail, float fraisLivraison) {
+		super();
+		this.idFacture = idFacture;
+		this.panierDetail = panierDetail;
+		this.fraisDeliv = fraisLivraison;
+	}
+
+
+	
+	
 	
 	
 	
