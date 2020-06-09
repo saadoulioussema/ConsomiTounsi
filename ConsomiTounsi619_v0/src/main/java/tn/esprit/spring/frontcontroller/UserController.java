@@ -1,5 +1,7 @@
 package tn.esprit.spring.frontcontroller;
 
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -40,7 +42,7 @@ public class UserController {
 	UserServiceImpl userServiceImpl;
 	
 	
-
+	private List<User> users;
 	
 	
 	private String username;
@@ -109,7 +111,18 @@ public class UserController {
 		}
 	}
 */
+	public List<User> getUsers() {
+		users= userServiceImpl.mylist();
+		return users;
+	}
 
+
+
+
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 	
 	public String doLogout() {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();

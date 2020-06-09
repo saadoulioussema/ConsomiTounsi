@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -33,39 +37,48 @@ public class User implements Serializable{
 	    private String role;	
 	    private float accBalance;
 	    
+	    @Type(type="true_false")
+	    private Boolean online;
 	    
 	    
-		
-		@OneToMany(mappedBy="user")
+	    
+	    @LazyCollection(LazyCollectionOption.FALSE)
+	    @OneToMany(mappedBy="user")
 		private List <UserProductCategoryViews> userProductCategoriesViews;
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Participation> participation;
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Notification> notification;
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Contribution> contribution;
 	  
 		//@JsonBackReference
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(mappedBy="user" , cascade=CascadeType.MERGE)
 	    private List<Recherche> recherches;
 		
 		//@JsonManagedReference
 		//@JsonIgnore
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(mappedBy="user",cascade=CascadeType.MERGE)
 		private List<Comment> comments;
 		
-		
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		  @OneToMany(mappedBy="user"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
 		    private List<Ray> rays = new ArrayList<>();
-		  
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		  @OneToMany(mappedBy="user"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
 		    private List<Notif> notifs = new ArrayList<>();
-
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		  @OneToMany(mappedBy="user")
 			private List <UserProductViews> UserProductsViews;
 		  
 		  @JsonIgnore
 			//@JsonBackReference
+		  @LazyCollection(LazyCollectionOption.FALSE)
 			@OneToMany(mappedBy="user")
 			private List<Panier> panierId;
 		  
@@ -91,6 +104,34 @@ public class User implements Serializable{
 
 		
 		
+		public User(Long id, String username, String password, String firstName, String lastName, String email,
+				String role, float accBalance, Boolean online) {
+			super();
+			this.id = id;
+			this.username = username;
+			this.password = password;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
+			this.role = role;
+			this.accBalance = accBalance;
+			this.online = online;
+		}
+
+
+
+		public Boolean getOnline() {
+			return online;
+		}
+
+
+
+		public void setOnline(Boolean online) {
+			this.online = online;
+		}
+
+
+
 		public List<Notif> getNotifs() {
 			return notifs;
 		}
