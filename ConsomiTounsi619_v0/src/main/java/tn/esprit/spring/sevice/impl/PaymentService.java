@@ -6,8 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+//import com.google.gson.Gson;
+//import com.google.gson.GsonBuilder;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Charge;
@@ -44,14 +44,15 @@ public class PaymentService implements IPaymentService{
 
 	@Override
 	public String retrieveStripeCustomer(String idCus) {
-		Stripe.apiKey = "sk_test_CvsodfpwIsa4ZRQkFlA2B5Kr00wZ35cc9S";
-		try {
-			Customer a = Customer.retrieve(idCus);
-			Gson gson = new GsonBuilder().create();
-			return gson.toJson(a);
-		} catch (StripeException e) {
-			throw new RuntimeException(e);
-		}
+//		Stripe.apiKey = "sk_test_CvsodfpwIsa4ZRQkFlA2B5Kr00wZ35cc9S";
+//		try {
+//			Customer a = Customer.retrieve(idCus);
+//			Gson gson = new GsonBuilder().create();
+//			return gson.toJson(a);
+//		} catch (StripeException e) {
+//			throw new RuntimeException(e);
+//		}
+		return null;
 	}
 
 	@Override

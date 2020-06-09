@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui" template="/template/backtemplate.xhtml" >
+
+	<ui:param name="page_name" value="add Driver"/>
+	<ui:define name="addDriver">
+            <div class="col-md-4 grid-margin stretch-card">
+              <div class="card float">
+                <div class="card-body ">
+                  <h4 class="card-title ">Add Driver</h4>
+
+                  <h:form class="forms-sample">
+                    <div class="form-group">
+                      <label>First Name</label>
+                      <h:inputText class="form-control" value="#{driverFController.firstName}" a:placeholder="First Name"></h:inputText>
+                    </div>
+                    <div class="form-group">
+                      <label>Last Name</label>
+                    <h:inputText class="form-control" value="#{driverFController.lastName}" a:placeholder="Last Name"></h:inputText>
+                    </div>
+                    
+                    <div class="form-group">
+                      <label>Password</label>
+                    <h:inputSecret  class="form-control" a:placeholder="passsword" value="#{driverFController.password}" />
+                    </div>
+                    <div class="form-group">
+                      <label>Phone Number</label>
+                    <h:inputText class="form-control" value="#{driverFController.phoneNumber}" a:placeholder="Phone Number"></h:inputText>
+                    </div>
+                    
+                     <div class="form-group">
+                     <label>Salary Number</label>
+                    <h:inputText class="form-control" value="#{driverFController.salary}" a:placeholder="Salary"></h:inputText>
+                    </div>
+               
+               <h:commandButton class="btn btn-primary mr-2" value="Add" action="#{driverFController.addDriver()}" />
+ 			   <h:commandButton class="btn btn-light" value="Cancel" action="#{driverFController.back()}" />
+                  </h:form>
+                </div>
+              </div>
+             </div>
+	</ui:define>
+</ui:composition>
+
