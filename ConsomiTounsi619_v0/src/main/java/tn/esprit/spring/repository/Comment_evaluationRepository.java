@@ -5,13 +5,18 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Comment_evaluation;
 
+
+
+
+@Repository
 public interface Comment_evaluationRepository extends CrudRepository<Comment_evaluation,Long>{
 	
-	@Query("select e.comment from Comment_evaluation e ")
+	@Query("select distinct e.comment from Comment_evaluation e ")
 	public List<Comment> evsave();
 	
 	@Query("select e from Comment_evaluation e where e.comment=:comment")

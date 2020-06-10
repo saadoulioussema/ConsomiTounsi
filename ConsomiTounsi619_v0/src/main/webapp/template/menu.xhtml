@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pu="http://primefaces.org/ultima">
+
+	<h:form id="menuform">
+		<div class="layout-menu #{guestPreferences.menuClass}">
+			<div class="nano">
+				<div class="nano-content menu-scroll-content">
+					<ui:fragment
+						rendered="#{guestPreferences.profileMode == 'inline' and guestPreferences.menuLayout != 'menu-layout-static menu-layout-horizontal'}">
+						<div class="profile">
+							<div class="profile-image"></div>
+							<a id="profile-options" href="#"> <span class="profile-name">
+									#{userFController.authenticatedUser.email}</span>
+							</a>
+						</div>
+
+
+					</ui:fragment>
+					<ui:fragment>
+
+						<div>
+							<h:panelGroup columns="2">
+
+<h:form>
+<br/><br/>
+<h:dataTable value="#{userFController.users}" var="subject" border="1">
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Connected Users" />
+</f:facet>
+<h:outputText >
+					<i class="material-icons" style="font-size: 10px; #{user.online? 'color: green':'color: red'}">&#xe853;</i>
+					<h:outputText value="#{subject.email}" style="display:inline-block" />
+					</h:outputText>
+					
+</h:column>
+
+</h:dataTable>
+</h:form>
+</h:panelGroup>
+							
+						</div>
+					</ui:fragment>
+				</div>
+			</div>
+		</div>
+	</h:form>
+</ui:composition>

@@ -1,0 +1,80 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" 
+	template="template/template.xhtml">
+	
+	
+<ui:param name="page_name" value="Consomi TN !"/>
+		<ui:define name="productsList">
+		
+		<h:form>
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-9 col-md-8 col-12">
+			 <ui:repeat value="#{PanierJSFController.myproducts}"
+                                var="produit">
+						<div class="row">
+							<div class="col-lg-4 col-md-6 col-12">
+								<div class="single-product">
+									<h:outputText value="Product Name:" style="font-weight: bold;color:red;height:80px"></h:outputText>
+										<div class="product-img">
+										<h5><h:outputText value="#{produit.name}">
+                                                </h:outputText> </h5>
+									</div>
+											
+										
+									<div class="product-content">
+									<h:outputText value="Product Category:" style="font-weight: bold;color:red;height:80px"></h:outputText>
+										<h6><h:outputText value="#{produit.category.name}">
+                                                </h:outputText> </h6>
+										<div class="product-price">
+										<h:outputText value="Price:" style="font-weight: bold;color:red;height:80px"></h:outputText>
+											<span><h:outputText value="#{produit.price} DT">
+                                                </h:outputText> </span>
+										</div>
+									</div>
+									
+									<div class="product-action">
+<!-- 													<h:panelGroup rendered="#{produit.quantity != null}"> -->
+    												 <h:commandLink rendered="#{produit.quantity ne 0}" value="Add To Cart" style="font-weight: bold;color:blue;height:80px"
+                                    action="#{PanierJSFController.addToMyCart(produit.barCode,1)}">
+                                    <i class="fa fa-cart-plus"></i>
+
+                                </h:commandLink> 
+
+										<h:outputLabel rendered="#{produit.quantity eq 0}" value="Not Available" style="font-weight: bold;color:blue;height:80px"><i class="fa fa-frown-o"></i>
+										</h:outputLabel>
+   
+<!-- 													</h:panelGroup> -->
+<!-- 													<h:panelGroup rendered="#{produit.quantity == null}"> -->
+<!-- 														<h:outputText rendered="#{produit.quantity eq 0}" value="Not Available" style="font-weight: bold;color:blue;height:80px"></h:outputText> -->
+<!-- 													</h:panelGroup> -->
+												</div>
+										
+								</div>
+							</div>
+							
+					</div>
+					</ui:repeat>
+					</div>
+				</div>
+			</div>
+		
+		
+		</h:form>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+</ui:define>
+</ui:composition>
+

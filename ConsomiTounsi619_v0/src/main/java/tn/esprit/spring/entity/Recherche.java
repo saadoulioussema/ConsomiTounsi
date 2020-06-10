@@ -61,7 +61,8 @@ public class Recherche implements Serializable{
 	}
 
 	@JsonIgnore 
-    @ManyToOne(cascade=CascadeType.PERSIST)
+	
+    @ManyToOne(cascade=CascadeType.MERGE)
     private User user;
 
 	

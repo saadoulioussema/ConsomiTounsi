@@ -10,6 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.hibernate.annotations.Type;
 import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -32,33 +36,52 @@ public class User implements Serializable{
 	    private String email;
 	    private String role;	
 	    private float accBalance;
-		@OneToMany(mappedBy="user")
-		private List <UserProductViews> UserProductsViews;
-		@OneToMany(mappedBy="user")
+	    
+	    @Type(type="true_false")
+	    private Boolean online;
+	    
+	    
+	    
+	    @LazyCollection(LazyCollectionOption.FALSE)
+	    @OneToMany(mappedBy="user")
 		private List <UserProductCategoryViews> userProductCategoriesViews;
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Participation> participation;
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Notification> notification;
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Contribution> contribution;
 	  
 		//@JsonBackReference
-		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
+	    @LazyCollection(LazyCollectionOption.FALSE)
+		@OneToMany(mappedBy="user" , cascade=CascadeType.MERGE)
 	    private List<Recherche> recherches;
 		
 		//@JsonManagedReference
-		@JsonIgnore
-		@OneToMany(mappedBy="user",cascade=CascadeType.REMOVE)
+		//@JsonIgnore
+	    @LazyCollection(LazyCollectionOption.FALSE)
+		@OneToMany(mappedBy="user",cascade=CascadeType.MERGE)
 		private List<Comment> comments;
 		
-		
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		  @OneToMany(mappedBy="user"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
 		    private List<Ray> rays = new ArrayList<>();
-		  
+	    @LazyCollection(LazyCollectionOption.FALSE)
 		  @OneToMany(mappedBy="user"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
 		    private List<Notif> notifs = new ArrayList<>();
-
+	    @LazyCollection(LazyCollectionOption.FALSE)
+		  @OneToMany(mappedBy="user")
+			private List <UserProductViews> UserProductsViews;
+		  
+		  @JsonIgnore
+			//@JsonBackReference
+		  @LazyCollection(LazyCollectionOption.FALSE)
+			@OneToMany(mappedBy="user")
+			private List<Panier> panierId;
+		  
 		
 		public User(Long id, String username, String password, String firstName, String lastName, String email,
 				String role, List<UserProductViews> userProductsViews,
@@ -72,7 +95,7 @@ public class User implements Serializable{
 			this.lastName = lastName;
 			this.email = email;
 			this.role = role;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 			//this.events = events;
 			this.recherches = recherches;
@@ -81,6 +104,34 @@ public class User implements Serializable{
 
 		
 		
+		public User(Long id, String username, String password, String firstName, String lastName, String email,
+				String role, float accBalance, Boolean online) {
+			super();
+			this.id = id;
+			this.username = username;
+			this.password = password;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
+			this.role = role;
+			this.accBalance = accBalance;
+			this.online = online;
+		}
+
+
+
+		public Boolean getOnline() {
+			return online;
+		}
+
+
+
+		public void setOnline(Boolean online) {
+			this.online = online;
+		}
+
+
+
 		public List<Notif> getNotifs() {
 			return notifs;
 		}
@@ -163,14 +214,14 @@ public class User implements Serializable{
 		public void setUserProductCategoriesViews(List<UserProductCategoryViews> userProductCategoriesViews) {
 			this.userProductCategoriesViews = userProductCategoriesViews;
 		}
-		
+	
 		public List<UserProductViews> getUserProductsViews() {
 			return UserProductsViews;
 		}
 		public void setUserProductsViews(List<UserProductViews> userProductsViews) {
 			UserProductsViews = userProductsViews;
 		}
-		
+
 		public String getRole() {
 			return role;
 		}
@@ -236,7 +287,7 @@ public class User implements Serializable{
 			this.lastName = lastName;
 			this.email = email;
 			this.role = role;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 		}
 		
@@ -262,7 +313,7 @@ public class User implements Serializable{
 			this.lastName = lastName;
 			this.email = email;
 			this.role = role;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 			this.participation = participation;
 			this.notification = notification;
@@ -284,7 +335,7 @@ public class User implements Serializable{
 			this.email = email;
 			this.role = role;
 			this.accBalance = accBalance;
-			UserProductsViews = userProductsViews;
+			this.UserProductsViews = userProductsViews;
 			this.userProductCategoriesViews = userProductCategoriesViews;
 			this.participation = participation;
 			this.notification = notification;
@@ -403,13 +454,12 @@ public class User implements Serializable{
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", accBalance=" + accBalance
-					+ ", UserProductsViews=" + UserProductsViews + ", userProductCategoriesViews="
-					+ userProductCategoriesViews + ", participation=" + participation + ", notification=" + notification
-					+ ", contribution=" + contribution + ", recherches=" + recherches + ", comments=" + comments + "]";
+					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", accBalance=" + accBalance+"]";
+					
+		}
 		}
 		
 
 		
 	
-}
+

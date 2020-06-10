@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import tn.esprit.spring.entity.Comment;
 import tn.esprit.spring.entity.Subject;
@@ -12,6 +13,8 @@ import tn.esprit.spring.entity.User;
 
 
 
+
+@Repository
 public interface CommentRepository extends CrudRepository<Comment,Long>{
 	//list of comments
 	 @Query("select s from Comment s where s.subject=:subject")
@@ -19,8 +22,9 @@ public interface CommentRepository extends CrudRepository<Comment,Long>{
 	 
 	 
 	 //list of user's comments of the subject
-	 @Query("select s from Comment s where s.subject=:subject and s.user=:user")
-	 public List<Comment> mylist(@Param("subject") Subject subject,@Param("user") User user);
+	 @Query("select s from Comment s where s.user=:user")
+	 public List<Comment> mylist(@Param("user") User user);
+	 
 	 
 	
 

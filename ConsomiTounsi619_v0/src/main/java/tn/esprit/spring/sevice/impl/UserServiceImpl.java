@@ -17,6 +17,7 @@ import tn.esprit.spring.entity.UserDTO;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
+	
 	@Autowired
 	private UserRepository userRepo;
 	@Autowired
@@ -71,6 +72,10 @@ public class UserServiceImpl implements UserDetailsService {
 	
 	public User authenticate(String username, String email) {
 		User u = userRepo.findByUsernameAndEmail(username, email);
+		return u;
+	}
+	public User authenticatejsf(String username, String password) {
+		User u = userRepo.findByUsernameAndPassword(username, password);
 		return u;
 	}
 

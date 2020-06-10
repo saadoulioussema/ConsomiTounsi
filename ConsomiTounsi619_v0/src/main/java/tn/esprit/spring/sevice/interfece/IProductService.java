@@ -28,5 +28,7 @@ public interface IProductService {
 	public List<Product> findProductByName(String name);
 
 	//List<Product> getProductsByCategory(Long idCategory);
+	
+	public List<Product> getProducts();
 
 }

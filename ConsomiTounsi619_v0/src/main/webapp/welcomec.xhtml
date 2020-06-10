@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/template.xhtml">
+
+
+
+<ui:define name="welcomec">
+
+		<p:panel>
+			<h:form>
+			   <p:outputLabel value="Search :"></p:outputLabel>
+				<p:inputText value="#{subjectController.typesearched}" a:placeholder="Type..."  />
+				<p:commandButton  value="Search" action="#{subjectController.ToRech()}" />
+					<br/><br/>
+				
+				<p:commandButton action="#{subjectController.ToLaUne()}" value="Show new subjects !" ></p:commandButton>
+				<h:graphicImage value="/resources/images/new.png" />
+				
+				
+				<p:commandButton action="#{subjectController.ToInterest()}" value="What can Interest me !" ></p:commandButton>
+				<h:graphicImage value="/resources/images/interest.png" />
+				<p:commandButton action="#{subjectController.ToAll()}" value="Show All Subjects" ></p:commandButton>
+				<h:graphicImage value="/resources/images/all.png" />
+			
+			</h:form>
+		</p:panel>
+</ui:define>
+</ui:composition>

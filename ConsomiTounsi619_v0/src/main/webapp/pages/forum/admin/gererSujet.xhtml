@@ -1,0 +1,100 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+     >
+
+
+  
+
+
+    <f:view contentType="text/html">
+    
+        <h:head >
+		
+            
+        </h:head>
+        <h:body style="background-image: url('/resources/a.jpg');">
+        
+        
+        <b style="font-weight: bold;color:red;height:120px">Subjects Management</b>
+        <p:panel columns="2">
+<h:form>
+
+<table>
+<tr>
+<td><p:outputLabel value="Type"></p:outputLabel></td>
+<td><p:inputText value="#{subjectController.type}"></p:inputText></td>
+</tr>
+<tr>
+<td><p:outputLabel value="Title"></p:outputLabel></td>
+<td><p:inputText value="#{subjectController.title}"></p:inputText></td>
+</tr>
+<tr>
+<td><p:outputLabel value="Description"></p:outputLabel></td>
+<td><p:inputText value="#{subjectController.description}"></p:inputText></td>
+</tr>
+<tr>
+<td><p:outputLabel value="Creation Date"></p:outputLabel></td>
+<td><p:inputText id="date" value="#{subjectController.creation_date}">
+<f:convertDateTime pattern="dd-MM-yyyy"></f:convertDateTime>
+</p:inputText></td>
+<td><h:message for="date" style="color:red"></h:message></td>
+</tr>
+<tr>
+<td colspan="2">
+</td>
+<h:commandButton value="Add Subject"
+action="#{subjectController.ajouterSubject()}"></h:commandButton>
+<h:messages style="color:red"></h:messages>
+<td></td>
+</tr>
+</table>
+
+<h:commandButton action="#{subjectController.mettreAjourSubject()}"
+value="Update Subject" />
+</h:form>
+</p:panel>
+
+<p:panel columns="2">
+<h:form>
+
+<p:dataTable id="subjects" value="#{subjectController.subjects}" var="subject" border="1">
+<f:facet name="header">
+      List of Subjects
+</f:facet>
+<p:column headerText="type">
+            <h:outputText value="#{subject.type}" />
+</p:column>
+<p:column headerText="title">
+            <h:outputText value="#{subject.title}" />
+</p:column>
+<p:column headerText="description">
+            <h:outputText value="#{subject.description}" />
+</p:column>
+
+<p:column headerText="Creation Date">
+            <h:outputText value="#{subject.creation_date}" />
+</p:column>
+
+
+<p:column>
+<f:facet name="header">
+<h:outputText value="Action" />
+</f:facet>
+<h:commandButton action="#{subjectController.deleteSubject(subject.id)}"
+value="Delete" />
+<h:commandButton 
+value="Modify" action="#{subjectController.modifier(subject)}" />
+</p:column>
+</p:dataTable >
+</h:form>
+</p:panel> 
+        </h:body>
+
+    </f:view>
+
+</html>
+
+

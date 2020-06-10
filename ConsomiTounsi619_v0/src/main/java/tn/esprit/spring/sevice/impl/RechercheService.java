@@ -3,6 +3,8 @@ package tn.esprit.spring.sevice.impl;
 import java.util.Collections;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,9 @@ import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.RechercheRepository;
 import tn.esprit.spring.repository.UserRepository;
 import tn.esprit.spring.sevice.interfece.IRechercheService;
+
+
+
 
 
 @Service
@@ -39,9 +44,9 @@ public class RechercheService implements IRechercheService{
 	
 	
 	@Override	
-	public Recherche addSearch(Recherche rech,Long user_id){
-		//le user introduit :
-		User u = var1.findById(user_id).get();
+	@Transactional
+	public Recherche addSearch(Recherche rech,User u){
+		
 		//le type introduit :
 		String t = rech.getType();
 		//la recherche sur ce type :

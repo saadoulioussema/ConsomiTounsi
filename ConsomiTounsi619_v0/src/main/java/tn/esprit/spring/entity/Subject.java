@@ -57,24 +57,35 @@ public class Subject implements Serializable{
 public List<Subject_evaluation> getRatings() {
 			return ratings;
 		}
-
-
-
-
-
-
-		public void setRatings(List<Subject_evaluation> ratings) {
+public void setRatings(List<Subject_evaluation> ratings) {
 			this.ratings = ratings;
 		}
-
-
-
-
-
-
 public Subject() {
 		super();
 	}
+
+
+
+
+
+
+	public Subject(long id, String type, String title, String description, Date creation_date) {
+	super();
+	this.id = id;
+	this.type = type;
+	this.title = title;
+	this.description = description;
+	this.creation_date = creation_date;
+}
+	public Subject(String type, String title, String description, Date creation_date
+		) {
+	super();
+	this.type = type;
+	this.title = title;
+	this.description = description;
+	this.creation_date = creation_date;
+	
+}
 
 
 

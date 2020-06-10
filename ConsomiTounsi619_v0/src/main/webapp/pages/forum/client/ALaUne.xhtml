@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?> <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core" 
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	template="/template/template.xhtml"
+	>
+
+<ui:define name="ALaUne">
+<h:panelGroup columns="2">
+
+<h:form>
+<h:graphicImage value="/resources/ok.png" />
+<br/><br/>
+<h:dataTable value="#{subjectController.list}" var="subject" border="1">
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="type" />
+</f:facet>
+<h:outputText value="#{subject.type}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="title" />
+</f:facet>
+<h:outputText value="#{subject.title}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="description" />
+</f:facet>
+<h:outputText value="#{subject.description}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="Creation Date" />
+</f:facet>
+<h:outputText value="#{subject.creation_date}" />
+</h:column>
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Action" />
+</f:facet>
+<h:commandButton value="Show Comments" action="#{subjectController.showlist(subject.id)}"  />
+</h:column>
+</h:dataTable>
+</h:form>
+</h:panelGroup>
+
+<h:panelGroup >
+<h:form>
+<b style="color:red">Comments : </b>
+<br/><br/>
+<h:dataTable value="#{subjectController.comments}" var="comm" border="1">
+<h:column>
+<f:facet name="header">
+<h:outputText value="comment" />
+</f:facet>
+<h:outputText value="#{comm.mot}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="User" />
+</f:facet>
+<h:outputText value="#{comm.user.username}" />
+</h:column>
+
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Evaluations " />
+</f:facet>
+<h:outputText value="#{subjectController.getLike(comm.id)}" />
+<h:graphicImage value="#{subjectController.LImageURL}" width="25" height="25"></h:graphicImage >
+<br/>
+<h:outputText value="#{subjectController.getDislike(comm.id)}" />
+<h:graphicImage value="#{subjectController.DImageURL}" width="25" height="25"></h:graphicImage >
+<br/>
+<h:outputText value="#{subjectController.getHappy(comm.id)}" />
+<h:graphicImage value="#{subjectController.HImageURL}" width="25" height="25"></h:graphicImage >
+<br/>
+<h:outputText value="#{subjectController.getSad(comm.id)}" />
+<h:graphicImage value="#{subjectController.SImageURL}" width="20" height="20"></h:graphicImage >
+<br/>
+<h:outputText value="#{subjectController.getMedium(comm.id)}" />
+<h:graphicImage value="#{subjectController.MImageURL}" width="25" height="25"></h:graphicImage >
+<br/>
+
+
+</h:column>
+
+</h:dataTable>
+</h:form>
+</h:panelGroup>
+</ui:define>
+</ui:composition>

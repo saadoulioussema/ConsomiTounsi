@@ -38,9 +38,9 @@ public class Comment_evaluation implements Serializable{
 	 private int m;
 
 	
-	
+	//
 	@JsonIgnore 
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne(cascade=CascadeType.ALL)
     private Comment comment;
 
 	
@@ -57,10 +57,26 @@ public class Comment_evaluation implements Serializable{
 		this.comment = comment;
 	}
 
+	
+
+	public Comment_evaluation( int l, int d, int h, int s, int m) {
+		super();
+		this.l = l;
+		this.d = d;
+		this.h = h;
+		this.s = s;
+		this.m = m;
+	}
 	public Comment_evaluation() {
 		super();
+		this.l = 0;
+		this.d = 0;
+		this.h = 0;
+		this.s = 0;
+		this.m = 0;
 	}
-
+	
+	
 	public Comment_evaluation(long id, int l, int d, int h, int s, int m) {
 		super();
 		this.id = id;
