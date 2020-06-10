@@ -54,7 +54,7 @@ public class Product implements Serializable{
     @ManyToOne
     private Ray ray;
 	
-	
+	  @JsonIgnore 
 	  @OneToOne(mappedBy="product"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
 	    private Notif notif;
 	

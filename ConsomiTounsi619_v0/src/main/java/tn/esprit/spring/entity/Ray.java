@@ -36,7 +36,7 @@ public class Ray {
     private Category categoryray ;
     private int capacity;
    
-    
+    @JsonIgnore 
     @OneToMany(mappedBy="ray"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
     private List<Product> products = new ArrayList<>();
 

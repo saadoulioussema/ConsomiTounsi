@@ -8,9 +8,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import java.net.MalformedURLException;
 import java.nio.file.Path;
@@ -411,6 +415,52 @@ public class RestRayController {
 				
 				}				
 					
-				
-
+				@RequestMapping(value="/download5", method=RequestMethod.GET) 	
+				public ResponseEntity<Object> downloadFile() throws IOException  {
+					FileWriter filewriter =  null;
+					try {
+					CSVData csv1 = new CSVData();
+					csv1.setId("1");
+					csv1.setName("talk2amareswaran");
+					csv1.setNumber("5601");
+					
+					CSVData csv2 = new CSVData();
+					csv2.setId("2");
+					csv2.setName("Amareswaran");
+					csv2.setNumber("8710");  
+					
+					List<CSVData> csvDataList = new ArrayList<>();
+					csvDataList.add(csv1);
+					csvDataList.add(csv2);
+					
+					StringBuilder filecontent = new StringBuilder("ID, NAME, NUMBER\n");
+					for(CSVData csv:csvDataList) {
+						filecontent.append(csv.getId()).append(",").append(csv.getName()).append(",").append(csv.getNumber()).append("\n");
+					}
+					
+				  	//String filename = "C:\\talk2amareswaran-downloads\\filedownload\\filedownload\\csvdata.csv";
+			String filename = "C:\\Users\\Lenovo\\Documents\\workspace-sts-3.9.4.RELEASE\\Consomi-jsf\\src\\main\\java\\tn\\esprit\\spring\\controller\\csvdata.csv";
+			
+				 filewriter = new FileWriter(filename);
+					filewriter.write(filecontent.toString());  
+					filewriter.flush();
+					
+					File file = new File(filename);
+					
+					InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
+					HttpHeaders headers = new HttpHeaders();
+					headers.add("Content-Disposition", String.format("attachment; filename=\"%s\"", file.getName()));
+					headers.add("Cache-Control", "no-cache, no-store, must-revalidate");
+					headers.add("Pragma", "no-cache");
+					headers.add("Expires", "0");
+					
+					ResponseEntity<Object> responseEntity = ResponseEntity.ok().headers(headers).contentLength(file.length()).contentType(MediaType.parseMediaType("application/txt")).body(resource);
+					return responseEntity;
+					} catch (Exception e ) {
+						return new ResponseEntity<>("error occurred", HttpStatus.INTERNAL_SERVER_ERROR);	
+					} finally {
+						if(filewriter!=null)
+							filewriter.close();
+					}
+				}
 }
