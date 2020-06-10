@@ -63,6 +63,8 @@ public class SubjectJsfControl{
 	private List<Comment> mylist ;
 	private List<Comment> allcomm ;
 	private List<Comment> pertcomm ;
+	private List<Subject> subevaluated = Collections.EMPTY_LIST ;
+	
 	
 	private long subidselected ;
 	private List<Comment> comments;
@@ -428,7 +430,47 @@ public void Rate(long subjectId) {
 	        handleException(t);
 	    }
 	}
-   }  
+   }
+
+public int maxrate(long id) {
+
+	return isubjectService.maxrate(id) ; 
+	
+	
+}
+
+public int minrate(long id) {
+	
+	return isubjectService.minrate(id) ; 
+	
+	
+}
+	
+
+public List<Subject> getSubevaluated() {
+	subevaluated = isubjectService.Subevaluated();
+	if (subevaluated.size()==0) {
+		
+		try{	
+			throw new ApplicationError("There's no comment related to this subject ! ");
+		    } catch (Throwable t){
+		        handleException(t);
+		    }
+	
+	
+}
+	return subevaluated;
+}
+
+
+public void setSubevaluated(List<Subject> subevaluated) {
+	this.subevaluated = subevaluated;
+}
+
+
+
+
+
 /*************************************comment evaluation***************************************************/
 	
 //Like : 
@@ -627,6 +669,12 @@ public String PertComm() {
 	String navigateTo = "null";
 	
 	navigateTo = "/pertinentComments.xhtml?faces-redirect=true";
+	return navigateTo;
+}
+public String ToRatings() {
+	String navigateTo = "null";
+	
+	navigateTo = "/ratings.xhtml?faces-redirect=true";
 	return navigateTo;
 }
 

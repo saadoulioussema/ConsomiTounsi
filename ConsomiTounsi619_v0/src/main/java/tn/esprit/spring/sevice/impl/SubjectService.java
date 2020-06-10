@@ -153,6 +153,31 @@ public void addrate(int value,long id) {
 	
 	
 }
+/////////////////////affichage subject rating /////////////////////	
+@Override
+public int maxrate(long id) {
+Subject s = var.findById(id).get();
+return var2.maxrate(s);
+
+
+}
+@Override
+public int minrate(long id) {
+Subject s = var.findById(id).get();
+return var2.minrate(s);
+
+
+}
+
+@Override
+public List<Subject> Subevaluated() {
+	return var2.Listsubev();
+
+
+}
+
+
+
 	
 		
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import tn.esprit.spring.entity.Subject;
+import tn.esprit.spring.entity.Subject_evaluation;
 
 public interface ISubjectService {
 	 List<Subject> myy();
@@ -18,6 +19,10 @@ public interface ISubjectService {
 	  List<Long> notcommented() ;
 	  void autodeleteSubject() ;
 	  void addrate(int value,long id);
+	  int maxrate(long id) ;
+	  int minrate(long id);
+	  List<Subject> Subevaluated();
+	  
 	  
 
 	  
