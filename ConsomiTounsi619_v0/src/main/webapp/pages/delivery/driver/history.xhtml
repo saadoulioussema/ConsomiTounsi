@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:b="http://bootsfaces.net/ui"
+	xmlns:p="http://primefaces.org/ui" template="/template/drivertemplate.xhtml" >	
+		
+		
+    <ui:param name="page_name" value="history"/>	
+	<ui:define name="history">
+	
+	
+					<!-- Breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="index1.html">Home<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="blog-single.html">History</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+
+	<!-- Shopping Cart -->
+	<div class="shopping-cart section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<!-- Shopping Summery -->
+						<h:form>
+							<b:dataTable class="table table-hover"
+								value="#{deliveryFController.deliverys}" var="delivery"
+								page-length="5" page-length-menu="5,10,20" excel="true"
+								pdf="true" columnVisibility="true">
+								<b:dataTableColumn value="#{delivery.departure}" label="Departure" />
+								<b:dataTableColumn value="#{delivery.arrival}" label="Arrival" />
+								<b:dataTableColumn value="#{delivery.date}" label="Date" />
+							</b:dataTable>
+						</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	
+		</ui:define>
+</ui:composition>

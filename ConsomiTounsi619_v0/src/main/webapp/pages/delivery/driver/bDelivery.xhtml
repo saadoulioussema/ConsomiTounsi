@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui" template="/template/drivertemplate.xhtml" >	
+		
+		
+    <ui:param name="page_name" value="Being Done"/>	
+	<ui:define name="bDelivery">
+	
+	
+					<!-- Breadcrumbs -->
+	<div class="breadcrumbs">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="bread-inner">
+						<ul class="bread-list">
+							<li><a href="index1.html">Deliveries<i class="ti-arrow-right"></i></a></li>
+							<li class="active"><a href="blog-single.html">Being Done</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Breadcrumbs -->
+			
+	<!-- Shopping Cart -->
+	<div class="shopping-cart section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<!-- Shopping Summery -->
+					<h:dataTable  class="table shopping-summery" value="#{deliveryFController.beingDoneDeliverys}" var="delivery"	>
+			
+							    <h:column>
+								<f:facet name="header">
+									<h:outputText value="DEPARTURE" />
+								</f:facet>
+								<h:outputText value="#{delivery.departure}"/>
+								</h:column>
+								
+								<h:column>
+								<f:facet name="header">
+									<h:outputText value="ARRIVAL" />
+								</f:facet>
+								<h:outputText value="#{delivery.arrival}"/>
+								</h:column>
+								
+								<h:column>
+								<f:facet name="header">
+									<h:outputText value="DATE" />
+								</f:facet>
+								<h:outputText value="#{delivery.date}"/>
+								</h:column>
+								<h:column>
+								<f:facet name="header">
+									<h:outputText value="Action" />
+								</f:facet>
+									<h:form>
+          							     <h:commandButton class="btn btn-success mr-2"    value="Mark As Finished !" action="#{driverFController.markDeliveryAsFinished(delivery.id)}" />
+									</h:form>
+							</h:column>
+								
+					<!--/ End Shopping Summery -->
+		      		</h:dataTable> 	
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	
+		</ui:define>
+</ui:composition>
