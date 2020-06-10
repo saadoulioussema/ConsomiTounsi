@@ -23,9 +23,13 @@
 <h:form>
 
 <table>
+
 <tr>
 <td><p:outputLabel value="Type"></p:outputLabel></td>
-<td><p:inputText value="#{subjectController.type}"></p:inputText></td>
+<td><p:inputText id="typevalidate" required="true" requiredMessage="vous devez insérer le type !" validatorMessage="le type doit etre compris entre 4 et 10 lettres !" value="#{subjectController.type}">
+<f:validateLength minimum="4" maximum="10" for="typevalidate" />
+</p:inputText></td>
+<h:message for="typevalidate" style="color:red"></h:message>
 </tr>
 <tr>
 <td><p:outputLabel value="Title"></p:outputLabel></td>
@@ -33,7 +37,10 @@
 </tr>
 <tr>
 <td><p:outputLabel value="Description"></p:outputLabel></td>
-<td><p:inputText value="#{subjectController.description}"></p:inputText></td>
+<td><p:inputText id="desvalidate" required="true" requiredMessage="vous devez insérer la description !" validatorMessage="la description doit etre comprise entre 4 et 255 lettres !" value="#{subjectController.description}">
+<f:validateLength minimum="4" maximum="255" for="desvalidate" />
+<h:message for="desvalidate" style="color:red"></h:message>
+</p:inputText></td>
 </tr>
 <tr>
 <td><p:outputLabel value="Creation Date"></p:outputLabel></td>
@@ -45,6 +52,7 @@
 <tr>
 <td colspan="2">
 </td>
+
 <h:commandButton value="Add Subject"
 action="#{subjectController.ajouterSubject()}"></h:commandButton>
 <h:messages style="color:red"></h:messages>
