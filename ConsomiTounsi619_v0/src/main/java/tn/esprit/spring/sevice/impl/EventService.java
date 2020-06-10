@@ -1,5 +1,6 @@
 package tn.esprit.spring.sevice.impl;
 
+import java.io.File;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,16 +46,16 @@ public class EventService implements IEventService {
 	/**********************************Admin**********************************/
 	@Override
 	public void addEvent(Event event) {
-		Event NewEvent = new Event();
-		NewEvent.setCategory(event.getCategory());
-		NewEvent.setName(event.getName());
-		NewEvent.setDescription(event.getDescription());
-		NewEvent.setPlacesNbr(event.getPlacesNbr());
-		NewEvent.setParticipantsNbr(0);
-		NewEvent.setCollAmount(0);
-		NewEvent.setDate(event.getDate());
-		NewEvent.setHour(event.getHour());
-		NewEvent.setLocation(event.getLocation());
+//		Event NewEvent = new Event();
+//		NewEvent.setCategory(event.getCategory());
+//		NewEvent.setName(event.getName());
+//		NewEvent.setDescription(event.getDescription());
+//		NewEvent.setPlacesNbr(event.getPlacesNbr());
+//		NewEvent.setParticipantsNbr(0);
+//		NewEvent.setCollAmount(0);
+//		NewEvent.setDate(event.getDate());
+//		NewEvent.setHour(event.getHour());
+//		NewEvent.setLocation(event.getLocation());
 		
 //		File file = new File(event.getPoster());
 //		String img = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -62,14 +63,14 @@ public class EventService implements IEventService {
 //				.path(event.getPoster())
 //				.toUriString();
 		
-		NewEvent.setPoster(event.getPoster());
-		NewEvent.setTicketPrice(event.getTicketPrice());
-		NewEvent.setGoal(event.getGoal());
+//		NewEvent.setPoster(event.getPoster());
+//		NewEvent.setTicketPrice(event.getTicketPrice());
+//		NewEvent.setGoal(event.getGoal());
 		Jackpot j = new Jackpot();
 		j.setSum(0);
 		JR.save(j);
-		NewEvent.setJackpot(j);
-		ER.save(NewEvent);
+		event.setJackpot(j);
+		ER.save(event);
 	}
 
 	@Override
@@ -95,7 +96,13 @@ public class EventService implements IEventService {
 
 	@Override
 	public void deleteEvent(Long id) {
+		//delete event poster
+		String post = ER.findById(id).get().getPoster();
+		String filename = post.substring(40);
+		File file = new File("./uploads\\"+filename);
+		if (file.delete()) {System.out.println("file deleted");}else {System.out.println("file not deleted");}
 		ER.deleteById(id);
+		
 	}
 
 	@Override

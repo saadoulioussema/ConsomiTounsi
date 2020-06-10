@@ -1,6 +1,7 @@
 package tn.esprit.spring.controller;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +31,7 @@ import tn.esprit.spring.entity.Participation;
 import tn.esprit.spring.repository.EventRepository;
 import tn.esprit.spring.repository.ParticipationRepository;
 import tn.esprit.spring.sevice.impl.ContributionService;
+import tn.esprit.spring.sevice.impl.EventService;
 import tn.esprit.spring.sevice.impl.FileStorageService;
 import tn.esprit.spring.sevice.impl.NotificationService;
 import tn.esprit.spring.sevice.impl.ParticipationService;
@@ -38,17 +40,13 @@ import tn.esprit.spring.sevice.interfece.IEventService;
 @RestController
 public class EventRestController {
 	@Autowired
-	IEventService ES;
-	@Autowired
-	EventRepository ER;
+	EventService ES;
 	@Autowired
 	NotificationService NS;
 	@Autowired
 	ParticipationService PS;
 	@Autowired
 	ContributionService CS;
-	@Autowired
-	ParticipationRepository PR;
 	
 	ObjectMapper objectMapper = new ObjectMapper();
 
@@ -106,11 +104,12 @@ public class EventRestController {
 //	public void updateEvent(@PathVariable Long eid) {
 //	}
 	
-	@DeleteMapping("/delete-Event/{event-id}")
+	@DeleteMapping("/delete-Event/{id}")
 	@ResponseBody
-	public void deleteEvent(@PathVariable("event-id") Long eventID) {
-		ES.refundUsers(eventID);//refund contributions & participations prices to its users
-		ES.deleteEvent(eventID);
+	public void deleteEvent(@PathVariable("id") Long id) {
+		ES.refundUsers(id);//refund contributions & participations prices to its users
+		ES.deleteEvent(id);
+		
 	}
 	
 	@GetMapping("/retrieve-all-Participations")
