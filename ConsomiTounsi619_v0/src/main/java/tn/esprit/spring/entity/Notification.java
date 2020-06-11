@@ -153,5 +153,6 @@ public class Notification implements Serializable {
 		return "Notification [id=" + id + ", body=" + body + ", date=" + date + ", status=" + status + ", user=" + user
 				+ ", event=" + event + "]";
 	}
+
 	
 }

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="template/template.xhtml">
+	<ui:define name="myNotifications">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>My notifications</title>
+</h:head>
+<h:body>
+<h1>My notifications</h1>
+<h:form> 
+	
+    <p:dataScroller value="#{EventController.getMyNotifications()}" var="notif" chunkSize="10">
+        <f:facet name="header">
+            Scroll Down to Load More Notifications
+        </f:facet>
+ 
+        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+			<p:commandLink action="/eventDetailsClient.xhtml?faces-redirect=true">
+               	<p:graphicImage value="#{notif.event.poster}" width="240" height="160" title="#{event.name}" />
+               	<f:setPropertyActionListener target="#{EventController.id}" value="#{notif.event.id}"/>
+			</p:commandLink>
+			 
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="Date: #{notif.date}" />
+                    <br />
+                    <h:outputText value="#{notif.body}" style="font-weight: bold;font-style: italic" />
+                    <br />
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+    </p:dataScroller>
+</h:form>
+<style type="text/css">
+    .logo {
+        width: 5%
+    }
+     
+    .detail {
+        width: 95%;
+        padding-left: 25px;
+    }
+     
+    .detail td {
+        font-size: 24px;
+    }
+     
+    .ui-datascroller .ui-datascroller-item {
+        border-bottom: 1px solid #A8A8A8;
+        padding: 25px 10px;
+        /* with the exported variables from Nova and Luna Themes*/
+        border-bottom-color: var(--input-border-color, #A8A8A8);
+    }
+</style>
+</h:body>
+</ui:define>
+</ui:composition>

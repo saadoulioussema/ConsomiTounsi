@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+ 	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui"
+	  template="/template/template.xhtml">
+<h:head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Participants</title>
+</h:head>
+<h:body>
+<h1>List Of Participants</h1>
+<h:form id="form">
+    <p:repeat value="#{EventController.getParticipantsOfEvent(id)}" var="participant">
+    	<h:panelGrid>     
+            <p:outputPanel>
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="First Name:" />
+                    <h:outputText value="#{participant.user.firstName}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="Last Name:" />
+                    <h:outputText value="#{participant.user.lastName}" style="font-weight: bold"/>
+ 
+                    <h:outputText value="E-mail:" />
+                    <h:outputText value="#{participant.user.email}" style="font-weight: bold"/>
+                    
+                    <h:outputText value="Date of participation:" />
+                    <h:outputText value="#{participant.participationDate}" style="font-weight: bold"/>
+                </h:panelGrid>
+            </p:outputPanel>
+        </h:panelGrid>
+        <hr />
+    </p:repeat>
+</h:form>
+</h:body>
+</html>

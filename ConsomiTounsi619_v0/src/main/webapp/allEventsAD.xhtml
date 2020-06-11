@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+		 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/backtemplate.xhtml">
+<h:head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" /><title>Insert title here</title>
+</h:head>
+<h:body>
+<center>
+<h1>EVENTS LIST</h1>
+<input type="text" id="search" class="form-control" placeholder="Search ..." style="position: absolute;left: 8px;width: 200px;height: 20px"/>
+<br />
+<br />
+<script>
+        $(document).ready(function(){
+            $('#search').keyup(function(){
+                search_table($(this).val());
+            });
+            function search_table(value){
+                $('#f\\:tableac tbody tr').each(function(){
+                    var found = 'false';
+                    $(this).each(function(){
+                        if($(this).text().toLowerCase().indexOf(value.toLowerCase()) >= 0)
+                        {
+                            found = 'true';
+                        }
+                    });
+                    if(found == 'true')
+                    {
+                        $(this).show();
+
+                    }
+                    else
+                    {
+                        $(this).hide();
+
+                    }
+                });
+            }
+        });
+    </script>
+		<h:form id="f">
+		<p:dataTable id="tableac" value="#{EventController.events}" var="event" border="1"
+					 rows="3" 
+					 paginator="true"
+					 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                 	 currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} events"
+                 	 rowsPerPageTemplate="1,2,3,4,5">
+			<p:column width="170">
+				<f:facet name="header">
+					<h:outputText value="Category" style="font-weight: bold" />				
+				</f:facet>
+				<h:outputText value="#{event.category}" style="font-weight: bold"/>
+			</p:column>
+			<p:column width="150">
+				<f:facet name="header">
+					<h:outputText value="Name" style="font-weight: bold"/>
+				</f:facet>
+				<h:outputText value="#{event.name}"/>
+			</p:column>
+			<p:column width="150">
+				<f:facet name="header">
+					<h:outputText value="Description" style="font-weight: bold"/>
+				</f:facet>
+				<h:outputText value="#{event.description}"/>
+			</p:column>
+			<p:column width="150">
+				<f:facet name="header">
+					<h:outputText value="Date" style="font-weight: bold"/>
+				</f:facet>
+				<h:outputText value="#{event.date} #{event.hour}"/>
+			</p:column>
+			<p:column width="350">
+				<f:facet name="header">
+					<h:outputText value="Poster" style="font-weight: bold"/>
+				</f:facet>
+				<center><h:graphicImage value="#{event.poster}" width="350" height="130" /></center>
+			</p:column>
+			<p:column width="150">
+				<f:facet name="header">
+					<h:outputText value="Actions" style="font-weight: bold"/>
+				</f:facet>
+				<h:commandButton action="/eventDetails.xhtml?faces-redirect=true"  value="More Details      " >
+					<f:setPropertyActionListener target="#{EventController.id}" value="#{event.id}"/>
+				</h:commandButton>
+				<h:commandButton action="/Participants.xhtml?faces-redirect=true" value="Participants List ">
+					<f:setPropertyActionListener target="#{EventController.id}" value="#{event.id}"/>
+				</h:commandButton>
+				<h:commandButton action="/Contributors.xhtml?faces-redirect=true" value="Contributors List">
+					<f:setPropertyActionListener target="#{EventController.id}" value="#{event.id}"/>				
+				</h:commandButton>
+				<h:commandButton action="#{EventController.update(event)}" value="Update" >
+					<f:setPropertyActionListener target="#{EventController.id}" value="#{event.id}"/>				
+				</h:commandButton>
+				<h:commandButton action="#{EventController.deleteEvent(event.id)}"
+								 onclick="return confirm('All contributions and ticket prices collected from this event will be refunded to their users.\nAre you sure you want delete it ?')"
+								 value="Delete ">
+				</h:commandButton>
+			</p:column>
+		</p:dataTable>
+		</h:form>
+</center>
+</h:body>
+</html>

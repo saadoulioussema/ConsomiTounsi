@@ -21,5 +21,6 @@ public interface ParticipationRepository extends CrudRepository<Participation,Lo
 	@Query("SELECT p FROM Participation p WHERE p.event=:event")
 	List<Participation> Participations(@Param ("event") Event event);
 
-
+	@Query("SELECT p FROM Participation p WHERE p.event=:event and p.user=:user")
+	List<Participation> particip(@Param ("event") Event event, @Param ("user") User user);
 }

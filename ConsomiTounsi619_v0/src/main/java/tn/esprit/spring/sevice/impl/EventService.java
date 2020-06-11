@@ -46,31 +46,12 @@ public class EventService implements IEventService {
 	/**********************************Admin**********************************/
 	@Override
 	public void addEvent(Event event) {
-//		Event NewEvent = new Event();
-//		NewEvent.setCategory(event.getCategory());
-//		NewEvent.setName(event.getName());
-//		NewEvent.setDescription(event.getDescription());
-//		NewEvent.setPlacesNbr(event.getPlacesNbr());
-//		NewEvent.setParticipantsNbr(0);
-//		NewEvent.setCollAmount(0);
-//		NewEvent.setDate(event.getDate());
-//		NewEvent.setHour(event.getHour());
-//		NewEvent.setLocation(event.getLocation());
-		
-//		File file = new File(event.getPoster());
-//		String img = ServletUriComponentsBuilder.fromCurrentContextPath()
-//				.path("/files/download/")
-//				.path(event.getPoster())
-//				.toUriString();
-		
-//		NewEvent.setPoster(event.getPoster());
-//		NewEvent.setTicketPrice(event.getTicketPrice());
-//		NewEvent.setGoal(event.getGoal());
 		Jackpot j = new Jackpot();
 		j.setSum(0);
-		JR.save(j);
 		event.setJackpot(j);
 		ER.save(event);
+		JR.save(j);
+		
 	}
 
 	@Override
@@ -79,18 +60,7 @@ public class EventService implements IEventService {
 	}
 
 	@Override
-	public void updateEvent(Long eid) {
-		Event ev = ER.findById(eid).get();
-		ev.setCategory(ev.getCategory());
-		ev.setName(ev.getName());
-		ev.setDescription(ev.getDescription());
-		ev.setPlacesNbr(ev.getPlacesNbr());
-		ev.setDate(ev.getDate());
-		ev.setHour(ev.getHour());
-		ev.setLocation(ev.getLocation());
-		ev.setPoster(ev.getPoster());
-		ev.setTicketPrice(ev.getTicketPrice());
-		ev.setGoal(ev.getGoal());
+	public void updateEvent(Event ev) {
 		ER.save(ev);
 	}
 
@@ -98,11 +68,10 @@ public class EventService implements IEventService {
 	public void deleteEvent(Long id) {
 		//delete event poster
 		String post = ER.findById(id).get().getPoster();
-		String filename = post.substring(40);
-		File file = new File("./uploads\\"+filename);
+		String filename = post.substring(30);
+		File file = new File("./src\\main\\webapp\\uploads\\"+filename);
 		if (file.delete()) {System.out.println("file deleted");}else {System.out.println("file not deleted");}
 		ER.deleteById(id);
-		
 	}
 
 	@Override
@@ -245,29 +214,55 @@ public class EventService implements IEventService {
 		List<String> list = new ArrayList<>();
 		String s = "";
 		List<Long> listId = new ArrayList<>();
-		List<Integer> listViews= new ArrayList<>();
+		List<Integer> lp= new ArrayList<>();//nbre de participants
 		List<Event> listEvent = ER.findAll();
 		
 		for (Event ev : listEvent) {
 			listId.add(ev.getId());
-			listViews.add(ev.getParticipantsNbr());
+			lp.add(ev.getParticipantsNbr());
 		}
 		
-		List<Integer> sortedList = new ArrayList<>(listViews);
+		List<Integer> sortedList = new ArrayList<>(lp);
 		Collections.sort(sortedList);
 		
 		for (int i=0; i<3; i++) {
 			int max = sortedList.get(sortedList.size()-1);// retourne le max qui a la dernière position de la liste
-			Long ind = listId.get(listViews.indexOf(max));// prend nbre de participations et retourne id d'event corresspondant
-			s = (i+1)+"- Event: "+ER.findById(ind).get().getName()+" with "+max+" participations ";
+			Long ind = listId.get(lp.indexOf(max));// prend nbre de participations et retourne id d'event corresspondant
+			s =(i+1)+" - Event: "+ER.findById(ind).get().getName()+" with "+max+" participations ";
 			list.add(s);
 			sortedList.remove(sortedList.size()-1);
-			listViews.set(listViews.indexOf(max), -1);
+			lp.set(lp.indexOf(max), -1);
 		}
 		
 		return list;
 	}
 
-	
+	@Override
+	public List<String> displayBestEventsByCollects() {
+		List<String> list = new ArrayList<>();
+		String s = "";
+		List<Long> listId = new ArrayList<>();
+		List<Integer> lc= new ArrayList<>();
+		List<Event> listEvent = ER.findAll();
+		
+		for (Event ev : listEvent) {
+			listId.add(ev.getId());
+			lc.add((int) ev.getCollAmount());
+		}
+		
+		List<Integer> sortedList = new ArrayList<>(lc);
+		Collections.sort(sortedList);
+		
+		for (int i=0; i<3; i++) {
+			int max = sortedList.get(sortedList.size()-1);// retourne le max qui a la dernière position de la liste
+			Long ind = listId.get(lc.indexOf(max));// prend le collecte et retourne id d'event corresspondant
+			s =(i+1)+" - Event: "+ER.findById(ind).get().getName()+" with "+max+"DT collected amount. ";
+			list.add(s);
+			sortedList.remove(sortedList.size()-1);
+			lc.set(lc.indexOf(max), -1);
+		}
+		
+		return list;
+	}
 
 }

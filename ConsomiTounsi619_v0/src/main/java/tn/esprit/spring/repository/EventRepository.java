@@ -20,7 +20,7 @@ public interface EventRepository extends CrudRepository<Event,Long>, JpaReposito
 	@Query("SELECT ev FROM Event ev WHERE ev.category=:category")
 	List<Event> filterByCategory(@Param ("category") EventCategory category);
 	
-	@Query("SELECT ev FROM Event ev where ev.date > current_timestamp()")
+	@Query("SELECT ev FROM Event ev where ev.date >= CURRENT_DATE() and ev.hour >= CURRENT_TIME()")
 	List<Event> upcomingEvents();
 	
 	@Query("SELECT ev FROM Event ev where ev.date < current_timestamp()")

@@ -10,7 +10,7 @@ public interface IEventService {
 	
 	public void addEvent(Event event);
 	public List<Event> eventsLists();
-	public void updateEvent(Long eid);
+	public void updateEvent(Event ev);
 	public void deleteEvent(Long id) ;
 	public Event findbyId(Long id);
 	public Event findEventByName(String name);
@@ -21,4 +21,5 @@ public interface IEventService {
 	public Map<Long, Integer> bestEventsByViews();
 	public List<String> displayBestEventsByViews();
 	public List<String> displayBestEventsByParticipations();
+	public List<String> displayBestEventsByCollects();
 }

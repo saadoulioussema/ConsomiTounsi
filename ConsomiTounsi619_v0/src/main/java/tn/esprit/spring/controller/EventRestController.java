@@ -1,7 +1,6 @@
 package tn.esprit.spring.controller;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +27,7 @@ import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.EventCategory;
 import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.Participation;
+import tn.esprit.spring.repository.ContributionRepository;
 import tn.esprit.spring.repository.EventRepository;
 import tn.esprit.spring.repository.ParticipationRepository;
 import tn.esprit.spring.sevice.impl.ContributionService;
@@ -35,18 +35,23 @@ import tn.esprit.spring.sevice.impl.EventService;
 import tn.esprit.spring.sevice.impl.FileStorageService;
 import tn.esprit.spring.sevice.impl.NotificationService;
 import tn.esprit.spring.sevice.impl.ParticipationService;
-import tn.esprit.spring.sevice.interfece.IEventService;
 
 @RestController
 public class EventRestController {
 	@Autowired
 	EventService ES;
 	@Autowired
+	EventRepository ER;
+	@Autowired
 	NotificationService NS;
 	@Autowired
 	ParticipationService PS;
 	@Autowired
 	ContributionService CS;
+	@Autowired
+	ParticipationRepository PR;
+	@Autowired
+	ContributionRepository CR;
 	
 	ObjectMapper objectMapper = new ObjectMapper();
 
@@ -67,7 +72,7 @@ public class EventRestController {
 		ev.setPoster(fileDownloadUri);
 		ES.addEvent(ev);
 		
-		NS.notifyAllUser(ev.getName(),ev.getDescription());
+		NS.notifyAllUser(ev);
 	}
 	
 	@GetMapping("/retrieve-all-Events")
@@ -104,12 +109,11 @@ public class EventRestController {
 //	public void updateEvent(@PathVariable Long eid) {
 //	}
 	
-	@DeleteMapping("/delete-Event/{id}")
+	@DeleteMapping("/delete-Event/{event-id}")
 	@ResponseBody
-	public void deleteEvent(@PathVariable("id") Long id) {
-		ES.refundUsers(id);//refund contributions & participations prices to its users
-		ES.deleteEvent(id);
-		
+	public void deleteEvent(@PathVariable("event-id") Long eventID) {
+		ES.refundUsers(eventID);//refund contributions & participations prices to its users
+		ES.deleteEvent(eventID);
 	}
 	
 	@GetMapping("/retrieve-all-Participations")
@@ -117,6 +121,15 @@ public class EventRestController {
 		return PS.participationsList();
 	}
 	
+	@GetMapping("/ParticipantsOfEvent/{eid}")
+	public List<Participation> getParticipationsOfEvent(@PathVariable Long eid){
+		return PR.Participations(ES.findbyId(eid));
+	}
+	
+	@GetMapping("/ContributorsOfEvent/{eid}")
+	public List<Contribution> getContributorsOfEvent(@PathVariable Long eid){
+		return CR.contributionOfEvent(ES.findbyId(eid));
+	}
 	/**********************************User**********************************/
 	@PostMapping("/add-Contribution/{eid}/{amount}")
 	@ResponseBody
@@ -170,4 +183,8 @@ public class EventRestController {
 		return ES.displayBestEventsByParticipations();
 		}
 	
+	@GetMapping("/retrieveBestEventsByCollects")
+	public List<String> displayBestEventsByCollects(){
+		return ES.displayBestEventsByCollects();
+		}
 }

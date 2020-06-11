@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.controller.UserController;
+import tn.esprit.spring.entity.Event;
 import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.repository.NotificationRepository;
@@ -26,7 +27,7 @@ public class NotificationService implements INotificationService{
 	/**********************************Admin**********************************/
 	//Send Notifications to all users for contribution
 	@Override
-	public void notifyAllUser(String eventName, String eventGoal) {
+	public void notifyAllUser(Event ev) {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		java.util.Date date = new java.util.Date();
@@ -35,9 +36,10 @@ public class NotificationService implements INotificationService{
 		
 		for(User u : allUsers) {
 			Notification n = new Notification();
+			n.setEvent(ev);
 			n.setUser(u);
 			n.setBody("Dear "+u.getLastName()+" "+u.getFirstName()+", we invite you to contribute by an amount of money to the event "+
-					  eventName+" for "+eventGoal+".Thank you.");
+					  ev.getName()+" for "+ev.getDescription()+".Thank you.");
 			n.setDate(dateFormat.format(date));
 			n.setStatus("Not Seen Yet");
 			NR.save(n);

@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,11 +43,12 @@ public class Event implements Serializable {
 	private float ticketPrice;
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	private String hour;
+	@Temporal(TemporalType.TIME)
+	private Date hour;
 	private String location;
 	private String poster;
 	private int views;
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinColumn(name="jackpot_id")
 	private Jackpot jackpot;
 	@OneToMany(cascade=CascadeType.ALL, mappedBy="event")
@@ -63,7 +65,7 @@ public class Event implements Serializable {
 
 	public Event(Long id, EventCategory category, String name, String description, float goal, float collAmount,
 			int placesNbr, int participantsNbr, boolean earlyBirdOpt, int nbrEarlyBirdTickets, int discountPercentage,
-			float ticketPrice, Date date, String hour, String location, String poster, int views, Jackpot jackpot,
+			float ticketPrice, Date date, Date hour, String location, String poster, int views, Jackpot jackpot,
 			List<Notification> notification, List<Participation> participation, List<Contribution> contribution) {
 		super();
 		this.id = id;
@@ -88,6 +90,43 @@ public class Event implements Serializable {
 		this.participation = participation;
 		this.contribution = contribution;
 	}
+
+	public Event(EventCategory category, String name, String description, Date date, Date hour, String poster,
+			boolean earlyBirdOpt, int nbrEarlyBirdTickets, int discountPercentage, float ticketPrice,
+			int placesNbr, String location, float goal) {
+		this.category = category;
+		this.name = name;
+		this.description = description;
+		this.goal = goal;
+		this.placesNbr = placesNbr;
+		EarlyBirdOpt = earlyBirdOpt;
+		NbrEarlyBirdTickets = nbrEarlyBirdTickets;
+		this.discountPercentage = discountPercentage;
+		this.ticketPrice = ticketPrice;
+		this.date = date;
+		this.hour = hour;
+		this.location = location;
+		this.poster = poster;
+		}
+
+	public Event(Long id, EventCategory category, String name, String description, Date date, Date hour,
+			String poster, boolean earlyBirdOpt, int nbrEarlyBirdTickets, int discountPercentage,
+			float ticketPrice, int placesNbr, String location, float goal) {
+		this.id = id;
+		this.category = category;
+		this.name = name;
+		this.description = description;
+		this.goal = goal;
+		this.placesNbr = placesNbr;
+		EarlyBirdOpt = earlyBirdOpt;
+		NbrEarlyBirdTickets = nbrEarlyBirdTickets;
+		this.discountPercentage = discountPercentage;
+		this.ticketPrice = ticketPrice;
+		this.date = date;
+		this.hour = hour;
+		this.location = location;
+		this.poster = poster;
+		}
 
 	public Long getId() {
 		return id;
@@ -193,11 +232,11 @@ public class Event implements Serializable {
 		this.date = date;
 	}
 
-	public String getHour() {
+	public Date getHour() {
 		return hour;
 	}
 
-	public void setHour(String hour) {
+	public void setHour(Date hour) {
 		this.hour = hour;
 	}
 

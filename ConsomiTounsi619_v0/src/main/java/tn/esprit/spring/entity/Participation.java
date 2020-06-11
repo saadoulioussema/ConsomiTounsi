@@ -42,6 +42,14 @@ public class Participation implements Serializable {
 		this.user = user;
 	}
 
+	public Participation(float price, String participationDate, Event event, User user) {
+		super();
+		this.price = price;
+		this.participationDate = participationDate;
+		this.event = event;
+		this.user = user;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/template/template.xhtml">
+	<ui:define name="AllEventsC">
+		<h:head>
+			<meta http-equiv="Content-Type"
+				content="text/html; charset=ISO-8859-1" />
+			<br />
+			<title>Upcoming Events</title>
+		</h:head>
+		<h:body>
+			<center>
+				<h1>Upcoming Events</h1>
+			</center>
+			<h:form id="form">
+				<br />
+				<p:repeat value="#{EventController.events}" var="event">
+					<center>
+						<p:outputPanel columns="2" style="width:100%">
+							<p:commandLink
+								action="/eventDetailsClient.xhtml?faces-redirect=true">
+								<p:graphicImage value="#{event.poster}" width="900" height="210"
+									title="#{event.name}" />
+								<f:setPropertyActionListener target="#{EventController.id}"
+									value="#{event.id}" />
+							</p:commandLink>
+						</p:outputPanel>
+						<h:outputLabel value="Category: #{event.category} - #{event.name}" />
+						<br />
+						<h:outputLabel value="Ticket Price: " />
+						<h:outputLabel value="#{event.ticketPrice}DT" style="Color: red" />
+						<hr width="1050" />
+					</center>
+				</p:repeat>
+			</h:form>
+		</h:body>
+	</ui:define>
+</ui:composition>
