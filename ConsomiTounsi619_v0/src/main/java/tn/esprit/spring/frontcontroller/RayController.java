@@ -99,6 +99,7 @@ public class RayController {
     private  Part file;
     private String filename;
     private MultipartFile  file1; 
+    private int quantity;
 	    
 	    
 	         
@@ -112,7 +113,7 @@ public class RayController {
 				tab[i]=ray2.getId();
 		 		i++;}     
 			return navigateTo;
-		}      
+		}         
 	public String idrays2(){             
 		String navigateTo = "/datedate.xhtml?faces-redirect=true";
 		List<Ray> rayss = rayInfoService.getAllRays();
@@ -121,10 +122,10 @@ public class RayController {
 		for(int index = 0; index < rayss.size(); index++){
 				Ray ray2=rayss.get(index);
 				tab[i]=ray2.getId();
-				i++;}
+				i++;}  
 			return navigateTo;
 		}   
-	public String dologin() {  
+	public String dologin() {   
 	String navigateTo = "null";          
 	User user=userservice.getUserByUsernameAndPassword(username, password);
 	if (user != null  && user.getRole().equals("ray chief") ) {       
@@ -278,13 +279,13 @@ public class RayController {
 					 			//ajouter un produit dans un rayon
 						   	    public void addProducttt(){
 					 		    	ProductCategory category5= new ProductCategory(id5,name5);
-							    	Product product = new Product(barCode,  name,  price,exprdate5,category5);
-							    	
+							    	Product product = new Product(barCode,  name,  price,exprdate5,category5,quantity);
+				  			    	
 						  	    	if (!iProductService.existsById(product.getBarCode())) {
 										Category categoryproduct = Category.valueOf( product.getCategory().getName());
 					  					List<Ray> rays =  rayInfoService.getRayByCat(categoryproduct);
 							  			Ray ray=rays.get(0);
-					    					if(rayInfoService.countProductsInRays(ray.getId())<ray.getCapacity())
+					      					if(rayInfoService.countProductsInRays(ray.getId())<ray.getCapacity())
 										{
 											rayInfoService.addProductAndAssignToRay(product, ray.getId());
 										}
@@ -665,6 +666,12 @@ public class RayController {
 
 	public void setEmployeIdToBeUpdated(Long employeIdToBeUpdated) {
 		this.employeIdToBeUpdated = employeIdToBeUpdated;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 	

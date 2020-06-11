@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://xmlns.jcp.org/jsf/html"
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 xmlns:f="http://xmlns.jcp.org/jsf/core"
-xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
-
-<ui:param name="page_name" value="Consomi TN !"/>
-
-<ui:define name="welcome">
+xmlns:p="http://primefaces.org/ui">
 <f:view>
 <h:head>
 <meta charset="utf-8" />
@@ -61,6 +57,18 @@ xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
 </div>
 </td>
 </tr>
+
+<tr>
+<td colspan="1"><p:outputLabel value="Quantity" styleClass="p-col-fixed" style="width:100px" /></td>
+<td>
+<div class="p-col">
+            <p:inputText value="#{rayController.quantity}" />
+ </div>
+</td>
+</tr>
+
+
+
 <tr>
 <td colspan="1"><p:outputLabel value="Category_id" styleClass="p-col-fixed" style="width:100px" /></td>
 <td>
@@ -78,7 +86,7 @@ xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
 </td>
 </tr>
 <tr>
-<td colspan="1"><p:commandButton value="OK" action="#{rayController.addProducttt()}" style="font-weight: bold;color:red"/></td>
+<td colspan="1"><p:commandButton value="OK" action="#{rayController.addProducttt()}"/></td>
 <td>
 <p:outputLabel value="#{rayController.getMsg()}" styleClass="p-col-fixed" style="width:100px" />
 </td>
@@ -100,6 +108,4 @@ xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
 
 </h:body>
 </f:view>
-</ui:define>
-
-</ui:composition>
+</html>

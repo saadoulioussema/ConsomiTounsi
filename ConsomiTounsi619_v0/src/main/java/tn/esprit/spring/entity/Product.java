@@ -37,7 +37,7 @@ public class Product implements Serializable{
 	
 	@Temporal(TemporalType.DATE)
     private Date exprdate;
-	
+	private int quantity;
 	@ManyToOne
 	private ProductCategory category;
 	
@@ -57,10 +57,10 @@ public class Product implements Serializable{
 	  @JsonIgnore 
 	  @OneToOne(mappedBy="product"/*,cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.EAGER*/)
 	    private Notif notif;
+	    
 	
 	
-	
-	
+	  
 	
 	public Long getBarCode() {
 		return barCode;
@@ -133,6 +133,12 @@ public class Product implements Serializable{
 	
 	
 	
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 	public Notif getNotif() {
 		return notif;
 	}
@@ -144,23 +150,25 @@ public class Product implements Serializable{
 		return "Product [barCode=" + barCode + ", name=" + name + ", price=" + price + ", exprdate=" + exprdate + "]";
 	}
 	public Product(Long barCode, @NotNull(message = "product name is null") String name,
-			@NotNull @Positive(message = "The price should be positive number ") float price, ProductCategory category, Date exprdate) {
+			@NotNull @Positive(message = "The price should be positive number ") float price, ProductCategory category, Date exprdate,int quantity) {
 		super();
 		this.barCode = barCode;
 		this.name = name;
 		this.price = price;
 		this.category = category;
 		this.exprdate = exprdate;
+		this.quantity=quantity;
 		
 	}
 	public Product(Long barCode, @NotNull(message = "product name is null") String name,
-			@NotNull @Positive(message = "The price should be positive number ") float price, Date exprdate, ProductCategory category) {
+			@NotNull @Positive(message = "The price should be positive number ") float price, Date exprdate, ProductCategory category,int quantity) {
 		super();
 		this.barCode = barCode;
 		this.name = name;
 		this.price = price;
 		this.exprdate = exprdate;
 		this.category = category;
+		this.quantity=quantity;
 		
 	}
 	

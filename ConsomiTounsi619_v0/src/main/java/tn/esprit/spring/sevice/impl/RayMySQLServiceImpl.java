@@ -18,6 +18,7 @@ import tn.esprit.spring.entity.Notification;
 import tn.esprit.spring.entity.Product;
 import tn.esprit.spring.entity.Ray;
 import tn.esprit.spring.entity.User;
+import tn.esprit.spring.frontcontroller.RayController;
 import tn.esprit.spring.repository.NotifRepository;
 import tn.esprit.spring.repository.NotificationRepository;
 import tn.esprit.spring.repository.ProductRepository;
@@ -201,7 +202,7 @@ public class RayMySQLServiceImpl implements IRayInfoService{
 
 	@Override
 	public List<Notif> myNotifications() {
-		List<Notif> list = NR.myNotifications(UserController.USERCONNECTED);
+		List<Notif> list = NR.myNotifications(RayController.USERCONNECTED);
 		return list;
 	}
 

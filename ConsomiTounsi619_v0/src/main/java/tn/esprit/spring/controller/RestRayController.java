@@ -255,13 +255,13 @@ public class RestRayController {
 						
 					//Category categoryproduct= (Category)Enum.Parse(typeof(Category), product.getCategory().getName());  
 					//Category categoryproduct=product.getCategory().getName();
-					//Enum to String using Enum.valueOf()
+			  		//Enum to String using Enum.valueOf()
 					//	Category categoryproduct = Category.valueOf(Category.class,  product.getCategory().getName());
 				       
 				        //Enum to String using Currency.valueOf()
 						Category categoryproduct = Category.valueOf( product.getCategory().getName());
 						List<Ray> rays =  rayInfoService.getRayByCat(categoryproduct);
-						Ray ray=rays.get(0);
+				 		Ray ray=rays.get(0);
 						if(rayInfoService.countProductsInRays(ray.getId())<ray.getCapacity())
 						{
 							rayInfoService.addProductAndAssignToRay(product, ray.getId());
@@ -317,7 +317,7 @@ public class RestRayController {
 						throw new IllegalArgumentException("pas de produit de date expirée");}
 						else {
 							return new ResponseEntity<>(notif, HttpStatus.OK);
-						}	
+						}	  
 				}
 				
 				//creation de notif dans la base 
@@ -342,7 +342,7 @@ public class RestRayController {
 					convertFile.createNewFile();
 					FileOutputStream fout = new FileOutputStream(convertFile);
 					
-					
+					 
 					
 					fout.write(file.getBytes());
 					fout.close();
