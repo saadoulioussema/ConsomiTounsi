@@ -8,8 +8,11 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import tn.esprit.spring.entity.Subject;
@@ -38,8 +41,7 @@ private Subject_evaluationRepository var2;
 
 
 
-
-
+private static final Logger logger = LogManager.getLogger(SubjectService.class);
 @Override	
 public Subject addSubject(Subject subject){
 		var.save(subject) ;
@@ -153,6 +155,31 @@ public void addrate(int value,long id) {
 	
 	
 }
+/////////////////////affichage subject rating /////////////////////	
+@Override
+public int maxrate(long id) {
+Subject s = var.findById(id).get();
+return var2.maxrate(s);
+
+
+}
+@Override
+public int minrate(long id) {
+Subject s = var.findById(id).get();
+return var2.minrate(s);
+
+
+}
+
+@Override
+public List<Subject> Subevaluated() {
+	return var2.Listsubev();
+
+
+}
+
+
+
 	
 		
 }
