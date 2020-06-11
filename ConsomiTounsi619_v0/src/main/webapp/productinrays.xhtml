@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+<ui:param name="page_name" value="Consomi TN !"/>
+
+<ui:define name="welcome">
+<f:view>
+<h:head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>test</title>
+</h:head>
+<h:body>
+
+<b style="font-weight: bold;color:red;height:120px">Number of products in rays : </b>
+<h:panelGroup>
+<h:form>
+<h:outputText value="insert the ray id please!" />
+<h:selectOneMenu value="#{rayController.idray}" required="true">
+<f:selectItems value="#{rayController.tab}" />
+</h:selectOneMenu>
+
+<h:commandButton value="OK" action="#{rayController.countProductsInRays(rayController.idray)}" />
+<h:outputText value="#{rayController.getCh1()}" />
+
+</h:form>
+</h:panelGroup>
+
+
+
+<h:panelGroup>
+<h:form>
+<b style="font-weight: bold;color:red;height:120px">Display empty rays </b>
+
+
+<h:dataTable value="#{rayController.getAllRaysvide()}" var="ray" border="1"  >
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Capacity" />
+</f:facet>
+<h:outputText value="#{ray.capacity}" />
+</h:column>
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Type" />
+</f:facet>
+<h:outputText value="#{ray.typeray}" />
+</h:column>
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Category" />
+</f:facet>
+<h:outputText value=" #{ray.categoryray}" />
+</h:column>
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Username" />
+</f:facet>
+<h:outputText value="#{ray.user.username}" />
+</h:column>
+</h:dataTable>
+
+</h:form>
+</h:panelGroup>
+
+<h:panelGroup>
+<h:form>
+<b style="font-weight: bold;color:red;height:120px">Display full rays </b>
+
+
+<h:dataTable value="#{rayController.getAllRaysplein()}" var="ray" border="1"  >
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Capacity" />
+</f:facet>
+<h:outputText value="#{ray.capacity}" />
+</h:column>
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Type" />
+</f:facet>
+<h:outputText value="#{ray.typeray}" />
+</h:column>
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Category" />
+</f:facet>
+<h:outputText value=" #{ray.categoryray}" />
+</h:column>
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Username" />
+</f:facet>
+<h:outputText value="#{ray.user.username}" />
+</h:column>
+</h:dataTable>
+
+</h:form>
+</h:panelGroup>
+
+</h:body>
+</f:view>
+</ui:define>
+
+</ui:composition>

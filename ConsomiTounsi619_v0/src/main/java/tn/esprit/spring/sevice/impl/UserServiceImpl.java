@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 
 
 import tn.esprit.spring.repository.UserRepository;
+import tn.esprit.spring.sevice.interfece.IUserService;
 import tn.esprit.spring.entity.User;
 import tn.esprit.spring.entity.UserDTO;
 
 @Service
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserDetailsService,IUserService {
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -78,6 +79,19 @@ public class UserServiceImpl implements UserDetailsService {
 		User u = userRepo.findByUsernameAndPassword(username, password);
 		return u;
 	}
+
+	@Override
+	public User addUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public User getUserByUsernameAndPassword(String username, String password) {
+		return userRepo.getUserByUsernameAndPassword(username, password);
+		
+	}
+	
 
 //	@Override
 //	public User authenticate(String username, String email) {

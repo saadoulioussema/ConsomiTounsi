@@ -53,6 +53,12 @@ public class ProductCategory implements Serializable{
 		this.name = name;
 		this.products = products;
 	}
+	public ProductCategory(Long id , String name) {
+		super();
+		this.id  =id ;
+		this.name = name;
+	
+	}
 	
 	public ProductCategory() {
 		super();

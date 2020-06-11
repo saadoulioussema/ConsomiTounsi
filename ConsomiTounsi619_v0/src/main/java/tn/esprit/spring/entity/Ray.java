@@ -119,6 +119,12 @@ public class Ray {
 		this.categoryray = categoryray;
 		this.capacity = capacity;
 	}
+	public Ray( Type typeray, Category categoryray, int capacity) {
+		super();
+		this.typeray = typeray;
+		this.categoryray = categoryray;
+		this.capacity = capacity;
+	}
 	public Ray(Long id) {
 		this.id = id;
 	}

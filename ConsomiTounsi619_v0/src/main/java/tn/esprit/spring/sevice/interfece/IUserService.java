@@ -13,4 +13,7 @@ public interface IUserService {
 	void deleteUser(long id) ;
 	User authenticate(String username , String email);
 	User findUserByUsername(String username);
+	
+	public User getUserByUsernameAndPassword(String username, String password) ;
+	public User authenticatejsf(String username, String password);
 }

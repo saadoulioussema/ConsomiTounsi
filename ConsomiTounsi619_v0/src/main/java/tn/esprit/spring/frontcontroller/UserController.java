@@ -23,7 +23,6 @@ import tn.esprit.spring.sevice.interfece.IUserService;
 @Scope(value = "session")
 @Controller(value = "userFController")
 @ELBeanName(value = "userFController")
-@Join(path = "/", to = "/login.jsf")
 public class UserController {
 	
 

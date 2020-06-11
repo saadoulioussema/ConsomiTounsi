@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui">
+<f:view>
+<h:head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<title>test</title>
+</h:head>
+<h:body>
+<h3>upload video :</h3>
+
+<h:form enctype="multipart/form-data" methode="post">
+    <h:inputFile value="#{rayController.file}"/>
+		
+    <h:commandButton  action="#{rayController.uploadFile()}" />
+</h:form>
+
+
+
+
+
+<h:panelGroup>
+<h:form enctype="multipart/form-data">
+<h:inputText value="#{rayController.filename}" />
+
+
+<p:commandButton value="download" action="#{rayController.downloadFile3(rayController.filename)}"  style="color: red;" icon="pi pi-home"/>
+
+
+
+
+ 
+<p:lightBox  id="lighbox3" >
+    <h:outputLink value="aa/#{rayController.filename}" title="our store">
+        <h:outputText value="show video" />
+    </h:outputLink>
+</p:lightBox>
+   
+
+ 
+    
+       
+ 
+
+
+</h:form>
+</h:panelGroup>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</h:body>
+</f:view>
+</html>

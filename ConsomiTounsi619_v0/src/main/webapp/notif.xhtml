@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+<ui:param name="page_name" value="Consomi TN !"/>
+
+<ui:define name="welcome">
+<f:view>
+<h:head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>test</title>
+</h:head>
+<h:body>
+
+
+<h:panelGroup columns="2">
+<h:form>
+<h:dataTable value="#{rayController.affnotif()}" var="ray" border="1" id="aaa" >
+
+<h:column>
+<f:facet name="header">
+<h:outputText value="Body" />
+</f:facet>
+<h:outputText value="#{ray.body}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="Date" />
+</f:facet>
+<h:outputText value="#{ray.date}" />
+</h:column>
+<h:column>
+<f:facet name="header">
+<h:outputText value="Status" />
+</f:facet>
+<h:outputText value="#{ray.status}" />
+</h:column>
+
+
+
+</h:dataTable>  
+<h:outputText value="#{rayController.getDateproduit()}" />
+</h:form>
+</h:panelGroup>
+
+<h:panelGroup columns="2">
+<h:form>
+  <p:commandButton  action="#{rayController.createnotif()}"
+value="Update notifications"/>
+
+</h:form>
+</h:panelGroup>
+
+
+
+
+
+</h:body>
+</f:view>
+</ui:define>
+
+</ui:composition>

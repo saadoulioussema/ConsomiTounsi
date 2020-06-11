@@ -153,6 +153,16 @@ public class Product implements Serializable{
 		this.exprdate = exprdate;
 		
 	}
+	public Product(Long barCode, @NotNull(message = "product name is null") String name,
+			@NotNull @Positive(message = "The price should be positive number ") float price, Date exprdate, ProductCategory category) {
+		super();
+		this.barCode = barCode;
+		this.name = name;
+		this.price = price;
+		this.exprdate = exprdate;
+		this.category = category;
+		
+	}
 	
 	@Override
 	public int hashCode() {

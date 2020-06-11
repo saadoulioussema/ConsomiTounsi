@@ -2,7 +2,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
 
 		
 		<!-- Header -->
@@ -146,19 +147,23 @@
 										<div class="nav-inner">	
 											<ul class="nav main-menu menu navbar-nav">
 													<li class="active"><a href="/welcome.jsf">Home</a></li>
-													<li><a href="/menu.jsf">Product</a></li>												
+													<li><a href="#">Product</a></li>												
 													<li><a href="#">Service</a></li>
 													<li><a href="#">Forum<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
-															<li><h:commandLink value="Subjects" style="font-weight: bold;color:red;height:80px"
-                           								action="#{subjectController.ToSub()}"  /></li>
+															<li><a href="/pages/forum/client/welcomec.jsf">Subject</a></li>
 															<li><a href="/pages/forum/client/welcomec.jsf">Chat</a></li>
 														</ul>
 													</li>
 													<li><a href="#">Pages</a></li>									
-													<li><a href="#">Blog<i class="ti-angle-down"></i></a>
+													<li><a href="#">ray manage<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
-															<li><a href="blog-single-sidebar.html">Blog Single Sidebar</a></li>
+														<li> <a  href="/managebycategory.jsf" >Rays Manage by category</a></li>
+														<li> <a  href="/assign.jsf" >Assign product</a></li>
+														<li> <a  href="/notif.jsf" >Notifications</a></li>
+														<li> <a  href="/video.jsf" >Virtual market tour</a></li>
+															<li> <a  href="/menu.jsf" >Others...</a></li>
+														
 														</ul>
 													</li>
 													<li><a href="/user/Claim/addClaim.jsf">Contact Us</a></li>

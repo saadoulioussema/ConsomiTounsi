@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://xmlns.jcp.org/jsf/html"
+xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
+
+<ui:param name="page_name" value="Consomi TN !"/>
+
+<ui:define name="welcome">
+<f:view>
+<h:head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Menu</title>
+</h:head>
+<h:body>
+
+<b>Display number of rays by category : </b>
+
+<h:panelGroup>
+<h:form>
+<h:outputText value="Insert the ray category !" />
+
+<h:selectOneMenu value="#{rayController.categoryray2}" required="true">
+<f:selectItems value="#{data.categories}" />
+</h:selectOneMenu>
+
+<h:commandButton value="OK" action="#{rayController.countRaybycategory(rayController.categoryray2)}" />
+<h:outputText value="#{rayController.getCh()}" />
+</h:form>
+</h:panelGroup>
+
+
+<b>Display rays by category : </b>
+
+<h:panelGroup>
+<h:form>
+<h:outputText value="Insert the ray category !" />
+
+<h:selectOneMenu value="#{rayController.categoryrayyy}" required="true">
+<f:selectItems value="#{data.categories}" />
+</h:selectOneMenu>
+
+<h:commandButton value="OK" action="#{rayController.getAllRayscat(rayController.categoryrayyy)}"/>
+</h:form>
+</h:panelGroup>
+
+<h:panelGroup columns="2"   >
+<h:form >
+<h:dataTable value="#{rayController.getAllRayscat(rayController.categoryrayyy)}" var="ray" border="1" id="aaa"    >
+
+<h:column>
+
+<h:outputText value="#{ray.capacity}" />
+</h:column>
+
+<h:column>
+
+<h:outputText value="#{ray.typeray}" />
+</h:column>
+
+<h:column>
+
+<h:outputText value=" #{ray.categoryray}" />
+</h:column>
+
+<h:column>
+
+<h:outputText value="#{ray.user.username}" />
+</h:column>
+
+<h:column>
+
+
+
+<p:commandButton action="#{rayController.deleteray(ray.id)}" value="Delete" update="aaa" >
+</p:commandButton>
+</h:column>
+
+ <h:column style="width:32px;text-align: center" >
+             <p:commandButton  action="#{rayController.recup(ray)}" onclick="PF('carDialog').show()" icon="pi pi-search" title="View" value="View"   >
+                <f:setPropertyActionListener  value="#{ray}" target="#{rayController.selectedRay}"   action="#{rayController.recup(ray)}" />
+            </p:commandButton>
+        </h:column>
+</h:dataTable> 
+ 
+
+<p:dialog header="Ray Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel  id="rayDetail" style="text-align:center;">
+            <p:panelGrid  columns="2"   columnClasses="label,value">
+               
+                 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{rayController.getSelectedRay().id}" />
+ 
+                <h:outputText value="Capacity" />
+                <h:outputText value="#{rayController.getSelectedRay().capacity}" />
+                
+                <h:outputText value="Category" />
+                <h:outputText value="#{rayController.getSelectedRay().categoryray}" />
+                
+                 <h:outputText value="Type" />
+                <h:outputText value="#{rayController.getSelectedRay().typeray}" />
+                
+                   <h:outputText value="UserName" />
+                <h:outputText value="#{rayController.getSelectedRay().user.username}" />
+ 
+               
+            </p:panelGrid>
+           <h:link value="OK"  outcome="/managebycategory" />
+        </p:outputPanel>
+    </p:dialog>
+    
+    
+</h:form>
+</h:panelGroup>
+
+
+</h:body>
+</f:view>
+</ui:define>
+
+</ui:composition>

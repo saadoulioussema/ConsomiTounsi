@@ -22,11 +22,10 @@ xmlns:p="http://primefaces.org/ui" template="/template/template.xhtml">
  <p:toolbar>
    <f:facet name="left">
     
-      <p:button  value="Rays Manage by category" />
-     
-        <p:button  value="assign product"  />
-         <p:button  value="Notifications"/>
-          <p:button  value="virtual market tour"/>
+ 
+        <h:commandButton  action="#{rayController.doo()}"  value="Rays crud" class="btn btn-primary mr-2"/>
+         <h:commandButton action="#{rayController.idrays()}" value="Product in rays"  class="btn btn-primary mr-2"/>
+     <h:commandButton action="#{rayController.idrays2()}" value="Product with expired date"  class="btn btn-primary mr-2" />
    </f:facet>
  </p:toolbar>
 </div>
