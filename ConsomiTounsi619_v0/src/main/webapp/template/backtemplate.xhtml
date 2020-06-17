@@ -71,7 +71,7 @@
                   <i class="mdi mdi-magnify"></i>
                 </span>
               </div>
-              <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search"/>
+              <input type="text" id="search" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search"/>
             </div>
           </li>
         </ul>
@@ -128,13 +128,14 @@
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <i class="mdi mdi-circle-outline menu-icon"></i>
-              <span class="menu-title">UI Elements</span>
+              <span class="menu-title">Events Management</span>
               <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
-                <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+              	<li class="nav-item"> <a class="nav-link" href="event.jsf">Add Event</a></li>         
+                <li class="nav-item"> <a class="nav-link" href="allEventsAD.jsf">All Events</a></li>
+                <li class="nav-item"> <a class="nav-link" href="bestOf.jsf">Best Of</a></li>
               </ul>
             </div>
           </li>
@@ -223,7 +224,8 @@
           <div class="row">
          
          <ui:insert name="hello"></ui:insert>	
-
+         <ui:insert name="allEventsAD"></ui:insert>	
+         <ui:insert name="bestOf"></ui:insert>	
         </div>
        </div>
              <ui:insert name="map"></ui:insert>	

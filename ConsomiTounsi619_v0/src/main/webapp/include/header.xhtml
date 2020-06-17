@@ -35,7 +35,7 @@
 								<li><i class="ti-power-off"></i><a href="/login.jsf">SignIn</a></li>
 					    </c:when>
 					    <c:otherwise>
-					     		<li><i class="ti-power-off"></i><a href="/welcome.jsf">SignOut</a></li>
+					     		<li><i class="ti-power-off"></i><a href="/login.jsf">SignOut</a></li>
 					    </c:otherwise>
 					</c:choose>
 							</ul>
@@ -155,12 +155,18 @@
 															<li><a href="/principal/chat.jsf">Chat</a></li>
 														</ul>
 													</li>
+													
 													<li><a href="#">Pages</a></li>									
-													<li><a href="#">Blog<i class="ti-angle-down"></i></a>
+													<li><a href="#">Events<i class="ti-angle-down"></i></a>
 														<ul class="dropdown">
-															<li><a href="blog-single-sidebar.html">Blog Single Sidebar</a></li>
-														</ul>
-													</li>
+															<li><a href="/AllEventsC.jsf">Upcoming Events</a></li>
+															<li><a href="/myNotifications.jsf">My
+																	Notifications</a></li>
+															<li><a href="/myParticipations.jsf">My
+																	Participations</a></li>
+															<li><a href="/myContributions.jsf">My
+																	Contributions</a></li>
+														</ul></li>
 													<li><a href="/user/Claim/addClaim.jsf">Contact Us</a></li>
 												</ul>
 										</div>

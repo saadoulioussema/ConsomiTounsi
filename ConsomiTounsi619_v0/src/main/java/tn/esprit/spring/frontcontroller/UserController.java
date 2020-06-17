@@ -29,7 +29,7 @@ import tn.esprit.spring.sevice.interfece.IUserService;
 public class UserController {
 	
 
-	
+	public static User USERCONNECTED ;
 
 	//@Autowired
 	//private AuthenticationManager authenticationManager;
@@ -63,12 +63,15 @@ public class UserController {
 		authenticatedUser = userServiceImpl.authenticatejsf(username,password);
 	 
 		if (authenticatedUser != null && authenticatedUser.getRole().equals("admin")  ) {
+			USERCONNECTED = authenticatedUser;
+			System.out.println(USERCONNECTED.getFirstName());
 			navigateTo = "/welcomeadmin.xhtml?faces-redirect=true";
 			loggedIn = true;
 		}
 		
 		else if(authenticatedUser != null && authenticatedUser.getRole().equals("client")) {
-			
+			USERCONNECTED = authenticatedUser;
+			System.out.println(USERCONNECTED.getFirstName());
 			navigateTo = "/welcomeclient.xhtml?faces-redirect=true";
 			loggedIn = true;
 			
@@ -167,6 +170,16 @@ public class UserController {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+
+	public static User getUSERCONNECTED() {
+		return USERCONNECTED;
+	}
+
+
+	public static void setUSERCONNECTED(User uSERCONNECTED) {
+		USERCONNECTED = uSERCONNECTED;
 	}
 	
 	
