@@ -11,7 +11,8 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Participation implements Serializable {
+public class Contribution implements Serializable {
+
 	/**
 	 * 
 	 */
@@ -19,51 +20,35 @@ public class Participation implements Serializable {
 	@Id
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
 	private Long id;
-	private float price;
-	private String participationDate;
 	@ManyToOne
 	@JsonIgnore
 	private Event event;
 	@ManyToOne
 	@JsonIgnore
 	private User user;
+	private String contributionDate;
+	private float amount;
 	
-	public Participation() {
+	public Contribution() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Participation(Long id, float price, String participationDate, Event event, User user) {
+	public Contribution(Long id, Event event, User user, String contributionDate, float amount) {
 		super();
 		this.id = id;
-		this.price = price;
-		this.participationDate = participationDate;
 		this.event = event;
 		this.user = user;
+		this.contributionDate = contributionDate;
+		this.amount = amount;
 	}
-
+	
 	public Long getId() {
 		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public float getPrice() {
-		return price;
-	}
-
-	public void setPrice(float price) {
-		this.price = price;
-	}
-
-	public String getParticipationDate() {
-		return participationDate;
-	}
-
-	public void setParticipationDate(String participationDate) {
-		this.participationDate = participationDate;
 	}
 
 	public Event getEvent() {
@@ -82,14 +67,30 @@ public class Participation implements Serializable {
 		this.user = user;
 	}
 
+	public String getContributionDate() {
+		return contributionDate;
+	}
+
+	public void setContributionDate(String contributionDate) {
+		this.contributionDate = contributionDate;
+	}
+
+	public float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(float amount) {
+		this.amount = amount;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + Float.floatToIntBits(amount);
+		result = prime * result + ((contributionDate == null) ? 0 : contributionDate.hashCode());
 		result = prime * result + ((event == null) ? 0 : event.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((participationDate == null) ? 0 : participationDate.hashCode());
-		result = prime * result + Float.floatToIntBits(price);
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -102,7 +103,14 @@ public class Participation implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Participation other = (Participation) obj;
+		Contribution other = (Contribution) obj;
+		if (Float.floatToIntBits(amount) != Float.floatToIntBits(other.amount))
+			return false;
+		if (contributionDate == null) {
+			if (other.contributionDate != null)
+				return false;
+		} else if (!contributionDate.equals(other.contributionDate))
+			return false;
 		if (event == null) {
 			if (other.event != null)
 				return false;
@@ -112,13 +120,6 @@ public class Participation implements Serializable {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (participationDate == null) {
-			if (other.participationDate != null)
-				return false;
-		} else if (!participationDate.equals(other.participationDate))
-			return false;
-		if (Float.floatToIntBits(price) != Float.floatToIntBits(other.price))
 			return false;
 		if (user == null) {
 			if (other.user != null)
@@ -130,9 +131,8 @@ public class Participation implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Participation [id=" + id + ", price=" + price + ", participationDate=" + participationDate + ", event="
-				+ event + ", user=" + user + "]";
+		return "Contribution [id=" + id + ", event=" + event + ", user=" + user + ", contributionDate="
+				+ contributionDate + ", amount=" + amount + "]";
 	}
-	
-	
+		
 }

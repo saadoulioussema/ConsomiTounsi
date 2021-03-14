@@ -9,5 +9,4 @@ public interface IParticipationService {
 	String addParticipation(Long eid);
 	List<Participation> participationsList();
 	List<Participation> myParticipations();
-	
 }

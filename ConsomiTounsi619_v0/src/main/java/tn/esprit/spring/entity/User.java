@@ -30,7 +30,8 @@ public class User implements Serializable{
 	    private String firstName;
 	    private String lastName;
 	    private String email;
-	    private String role;	    
+	    private String role;	
+	    private float accBalance;
 		@OneToMany(mappedBy="user")
 		private List <UserProductViews> UserProductsViews;
 		@OneToMany(mappedBy="user")
@@ -39,6 +40,8 @@ public class User implements Serializable{
 		private List<Participation> participation;
 		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
 		private List<Notification> notification;
+		@OneToMany(cascade=CascadeType.ALL, mappedBy="user")
+		private List<Contribution> contribution;
 	  
 		//@JsonBackReference
 		@OneToMany(mappedBy="user" , cascade=CascadeType.REMOVE)
@@ -200,6 +203,22 @@ public class User implements Serializable{
 			this.notification = notification;
 		}
 
+		public float getAccBalance() {
+			return accBalance;
+		}
+
+		public void setAccBalance(float accBalance) {
+			this.accBalance = accBalance;
+		}
+
+		public List<Contribution> getContribution() {
+			return contribution;
+		}
+
+		public void setContribution(List<Contribution> contribution) {
+			this.contribution = contribution;
+		}
+
 		public User(){}
 
 		public User(String username, String password) {
@@ -251,12 +270,37 @@ public class User implements Serializable{
 			this.comments = comments;
 		}
 
+		public User(Long id, String username, String password, String firstName, String lastName, String email,
+				String role, float accBalance, List<UserProductViews> userProductsViews,
+				List<UserProductCategoryViews> userProductCategoriesViews, List<Participation> participation,
+				List<Notification> notification, List<Contribution> contribution, List<Recherche> recherches,
+				List<Comment> comments) {
+			super();
+			this.id = id;
+			this.username = username;
+			this.password = password;
+			this.firstName = firstName;
+			this.lastName = lastName;
+			this.email = email;
+			this.role = role;
+			this.accBalance = accBalance;
+			UserProductsViews = userProductsViews;
+			this.userProductCategoriesViews = userProductCategoriesViews;
+			this.participation = participation;
+			this.notification = notification;
+			this.contribution = contribution;
+			this.recherches = recherches;
+			this.comments = comments;
+		}
+
 		@Override
 		public int hashCode() {
 			final int prime = 31;
 			int result = 1;
 			result = prime * result + ((UserProductsViews == null) ? 0 : UserProductsViews.hashCode());
+			result = prime * result + Float.floatToIntBits(accBalance);
 			result = prime * result + ((comments == null) ? 0 : comments.hashCode());
+			result = prime * result + ((contribution == null) ? 0 : contribution.hashCode());
 			result = prime * result + ((email == null) ? 0 : email.hashCode());
 			result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 			result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -286,10 +330,17 @@ public class User implements Serializable{
 					return false;
 			} else if (!UserProductsViews.equals(other.UserProductsViews))
 				return false;
+			if (Float.floatToIntBits(accBalance) != Float.floatToIntBits(other.accBalance))
+				return false;
 			if (comments == null) {
 				if (other.comments != null)
 					return false;
 			} else if (!comments.equals(other.comments))
+				return false;
+			if (contribution == null) {
+				if (other.contribution != null)
+					return false;
+			} else if (!contribution.equals(other.contribution))
 				return false;
 			if (email == null) {
 				if (other.email != null)
@@ -352,10 +403,13 @@ public class User implements Serializable{
 		@Override
 		public String toString() {
 			return "User [id=" + id + ", username=" + username + ", password=" + password + ", firstName=" + firstName
-					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", UserProductsViews="
-					+ UserProductsViews + ", userProductCategoriesViews=" + userProductCategoriesViews
-					+ ", participation=" + participation + ", notification=" + notification + ", recherches="
-					+ recherches + ", comments=" + comments + "]";
+					+ ", lastName=" + lastName + ", email=" + email + ", role=" + role + ", accBalance=" + accBalance
+					+ ", UserProductsViews=" + UserProductsViews + ", userProductCategoriesViews="
+					+ userProductCategoriesViews + ", participation=" + participation + ", notification=" + notification
+					+ ", contribution=" + contribution + ", recherches=" + recherches + ", comments=" + comments + "]";
 		}
+		
+
+		
 	
 }
